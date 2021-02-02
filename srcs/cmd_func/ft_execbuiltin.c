@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/02 18:38:00 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 20:24:25 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,47 @@
 
 // TODO get absolute path a raccourcir
 
-void	ft_getabsolutepath(char **cmd, t_env *st)
-{
-	char	*path = strdup(ft_getenv(st->env, "PATH"));
-	char	*bin = NULL;
-	char	**path_split = NULL;
-	int		i;
+// void	ft_getabsolutepath(char **cmd, t_env *st)
+// {
+// 	char	*path = ft_strdup(ft_getenv(st->env, "PATH"));
+// 	char	*bin = NULL;
+// 	char	**path_split = NULL;
+// 	int		i;
+// 	int 	id;
 
-	i = 0;
-	if (path == NULL)
-		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
-	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
-	{
-		path_split = ft_splits(path, ":");
-		free(path);
-		path = NULL;
-		while (path_split[i])
-		{
-			bin = (char *)calloc(sizeof(char), (ft_strlen(path_split[i]) + 1 + ft_strlen(cmd[0]) + 1));
-			if (bin == NULL)
-				break ;
-			ft_strcat(bin, path_split[i]);
-			ft_strcat(bin, "/");
-			ft_strcat(bin, cmd[0]);
-			if (access(bin, F_OK) == 0)
-				break ;
-			free(bin);
-			bin = NULL;
-			i++;
-		}
-		ft_freetab(path_split);
-		free(cmd[0]);
-		cmd[0] = bin;
-	}
-	else
-	{
-		free(path);
-		path = NULL;
-	}
-}
+// 	i = 0;
+// 	if (path == NULL)
+// 		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
+// 	if (cmd[0][0] != '/' && ft_strncmp(cmd[0], "./", 2) != 0)
+// 	{
+// 		path_split = ft_split(path, ":");
+// 		free(path);
+// 		path = NULL;
+// 		while (path_split[i])
+// 		{
+// 			bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + 1 + ft_strlen(cmd[0]) + 1));
+// 			if (bin == NULL)
+// 				break ;
+// 			ft_strcat(bin, path_split[i]);
+// 			ft_strcat(bin, "/");
+// 			ft_strcat(bin, cmd[0]);
+// 			id = open(bin, O_RDONLY);
+// 				if (id > 0)
+// 					break ;
+// 			free(bin);
+// 			bin = NULL;
+// 			i++;
+// 		}
+// 		ft_freetab(path_split);
+// 		free(cmd[0]);
+// 		cmd[0] = bin;
+// 	}
+// 	else
+// 	{
+// 		free(path);
+// 		path = NULL;
+// 	}
+// }
 
 void	ft_execcmd(char **cmd)
 {

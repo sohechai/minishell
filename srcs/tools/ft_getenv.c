@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:59:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/01 15:59:19 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 23:15:26 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,12 @@ char	*ft_getenv(char **envp, char *var)
 	}
 	return (NULL);
 }
+
+// int main(int ac, char **av, char **envp)
+// {
+// 	if (ac < 1)
+// 		printf("ac < 1");
+// 	(void)av;
+// 	printf("env = %s\n", ft_getenv(envp, "HOME"));
+// 	return (0);
+// }

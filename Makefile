@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/02 18:14:29 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/02 18:53:38 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ CC				=		gcc
 
 CFLAGS 			= 		-Wall -Wextra -Werror
 
-SRC			=		./srcs/main.c \
+SRC			=		./get_next_line.c \
+					./get_next_line_utils.c \
+					./srcs/main.c \
 					./srcs/cmd_func/ft_execbuiltin.c \
 					./srcs/cmd_func/ft_builtincd.c \
 					./srcs/cmd_func/ft_builtinpwd.c \

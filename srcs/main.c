@@ -6,11 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/02 17:41:30 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 23:16:18 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// TODO reparer ft_getenv
 
 static void		ft_exit()
 {
@@ -26,10 +28,10 @@ static void		ft_exit()
 
 int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
 {
-	buffer = (char *)calloc(sizeof(char), buf_size);
+	buffer = (char *)malloc(sizeof(char) * buf_size);
 	if (buffer == NULL)
 	{
-		perror("Malloc failure"); // TODO fonction non autorisée à modifier / recoder perror avec errno
+		ft_printf("malloc failure"); // TODO fonction non autorisée à modifier / recoder perror avec errno
 		return (EXIT_FAILURE);
 	}
 	ft_printf("\033[0;34mMinishell$> \e[00m");
@@ -40,19 +42,23 @@ int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
 
 int				ft_simplecmd(t_env *st, char **envp)
 {
-	char	**cmd = NULL;
+	char	**cmd;
 	char    *buffer = NULL;
 	size_t  buf_size = 2048;
 	char	cwd[PATH_MAX];
+
+	cmd = NULL;
+	st->env = envp;
 	ft_allocbuffer(buffer, cwd, st, buf_size);
-	while (getline(&buffer, &buf_size, stdin) > 0)
+	while (get_next_line(0, &buffer))
 	{
+
 		cmd = ft_splits(buffer, " \n\t");
 		if (cmd[0] == NULL)
 			ft_printf("");
 		else if (ft_is_built_in(cmd[0]) == false)
 		{
-			ft_getabsolutepath(cmd, st);
+			//ft_getabsolutepath(cmd, st);
 			ft_execcmd(cmd);
 		}
 		else if (!ft_strcmp(cmd[0], "exit"))
@@ -60,10 +66,10 @@ int				ft_simplecmd(t_env *st, char **envp)
 		else
 			ft_exec_built_in(cmd, st, envp);
 		ft_printf("\033[0;34mMinishell$> \e[00m");
-		ft_freetab(cmd);
+		//ft_freetab(cmd);
 	}
 	ft_printf("exit\n");
-	free(buffer);
+	//free(buffer);
 	return (EXIT_SUCCESS);
 }
 
