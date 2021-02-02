@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/01 15:56:09 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 22:24:42 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int		ft_is_built_in(char *cmd)
 	i = 0;
 	while (built_in[i])
 	{
-		if (!ft_strcmp(built_in[i], cmd))
+		if (!ft_strcmp((char*)built_in[i], cmd))
 			return (1);
 		i++;
 	}
@@ -156,7 +156,7 @@ void	ft_exec_built_in(char **built_in, t_env *st)
 		if (ft_strcmp(built_in[1], "~") == 0)
 			built_in[1] = ft_strdup(ft_getenv(st->env, "HOME"));
 		else if (ft_strcmp(built_in[1], "-") == 0)
-		{	
+		{
 			ft_printf("%s\n", st->oldpwd);
 			built_in[1] = ft_strdup(st->oldpwd);
 		}

@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/01 16:59:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 23:35:59 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void		ft_exit(char **cmd, t_env *st)
+static void		ft_exit()
 {
-	pid_t pid;
+	// pid_t pid;
 	ft_printf("exit\n");
-	ft_freetab(cmd);
-	ft_freestruct(st);
-	pid = getpid();
-	kill(pid, SIGQUIT);
+	// ft_freetab(cmd);
+	// ft_freestruct(st);
+	// pid = getpid();
+	// kill(pid, SIGQUIT);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
 	exit(EXIT_SUCCESS);
 }
 
-static int		ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
+int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
 {
 	buffer = (char *)calloc(sizeof(char), buf_size);
 	if (buffer == NULL)
@@ -56,7 +56,7 @@ int				ft_simplecmd(t_env *st)
 			ft_execcmd(cmd);
 		}
 		else if (!ft_strcmp(cmd[0], "exit"))
-			ft_exit(cmd, st);
+			ft_exit();
 		else
 			ft_exec_built_in(cmd, st);
 		ft_printf("\033[0;34mMinishell$> \e[00m");

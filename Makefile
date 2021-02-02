@@ -3,57 +3,55 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/01 16:54:46 by sohechai         ###   ########lyon.fr    #
+#    Updated: 2021/02/02 11:35:16 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	=	minishell
+NAME			=		minishell
 
-HEADER 	=	./includes/minishell.h
+INCLUDE			=		includes
 
-SRC 	=	./srcs/main.c \
-			./srcs/cmd_func/ft_execbuiltin.c \
-			./srcs/tools/ft_getenv.c \
-			./srcs/tools/ft_initstruct.c \
-			./srcs/tools/ft_splits.c \
+HEADERS			=		includes/minishell.h
 
-FLAGS 	=	-Wall -Wextra -Werror
+CC				=		gcc
 
-OBJ		= 	$(SRC:.c=.o)
+CFLAGS 			= 		-Wall -Wextra -Werror
 
-RM		=	rm -rf
+SRC			=		./srcs/main.c \
+					./srcs/cmd_func/ft_execbuiltin.c \
+					./srcs/tools/ft_getenv.c \
+					./srcs/tools/ft_initstruct.c \
+					./srcs/tools/ft_splits.c \
 
-CC		=	gcc
-all: 		$(NAME)
+OBJS			= 		$(SRC:.c=.o)
 
-$(NAME): 	$(OBJ)
-			@$(MAKE)  -C ./libft
-			@$(MAKE)  -C ./ft_printf
-	 		@$(CC) $(FLAGS) -I includes -o $@ $^ ft_printf/libftprintf.a libft/libft.a -I $(HEADER) -L
-	@echo " \033[2K\r\033[95m\n\n\n\n\n\n.\n.\n..\n...\n....\n....\n...\n..\n.\n.\033[0m"
-	@echo " \033[2K\r\033[95m.\n.\n..\n...\n....\n....\n...\n..\n.\n.\033[0m"
-	@echo "	\033[2K\r\033[95m\n$(NAME) is ready to be executed :)\n\033[0m"
-	@echo "	\033[2K\r\033[95m\nTo start the game please type : ./cub3d and add a map file ending by '.cub' :\n\033[0m"
+LIB 			= 		libft/libft.a
 
+all				: 		$(NAME)
 
-%.o: %.c 	@includes/minishell.h
-	 		@$(CC) -I includes -o $@ -c $< $(FLAGS)
+$(NAME)		: $(OBJS)
+		@make -C libft
+		@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) $(LIBPRINTF) -o $(NAME)
 
-clean:
-			@$(MAKE) clean -C libft
-			@$(MAKE)  clean -C ./ft_printf
-			@$(RM) $(OBJ)
-	@echo " \033[2K\r\033[0;38;5;121m\n\n\n\n\n\n.\n.\n..\n...\n....\n....\n...\n..\n.\n.\033[0m"
-	@echo " \033[2K\r\033[0;38;5;121m.\n.\n..\n...\n....\n....\n...\n..\n.\n.\033[0m"
-	@echo "\033[2K\033[0;38;5;121m\n./$(NAME), *.o and *.a have been deleted\n\nFiles of $(NAME) are now clean :)\n"
+%.o: %.c $(HEADERS)
+		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE)
 
-fclean: 	clean
-			@$(RM) $(NAME)
-			@$(RM) libft/*.a
+		@echo "\033[34m$(NAME): Loading... \033[0m"
 
-re: 		fclean all
+bonus		:		$(NAME)
+
+clean		:
+		@/bin/rm -f $(OBJS)
+		@make clean -C libft
+		@echo "\033[91m$(NAME):\033[31m Deleting *.o...\033[0m"
+		@echo "\033[91m\n$(NAME)\033[31m is now clean\033[0m"
+fclean		:		clean
+		@/bin/rm -f $(NAME)
+		@make fclean -C libft
+
+re			:		fclean all
 
 .PHONY: 	re fclean clean all
