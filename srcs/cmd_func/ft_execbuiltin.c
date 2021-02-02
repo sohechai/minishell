@@ -6,45 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/01 22:24:42 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 18:38:00 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-** TODO exit cd pwd
-** a ajouter au master : struct t_env avec char **env qui recupere toutes les
-** variables d'environnement, fichier ft_getenv.c, ft_initstruct.c
-** make -C lib/libft && gcc -Wall -Wextra -Werror -L lib/libft -lft
-** srcs/cmd_func/ft_execbuiltin.c && ./a.out
-** clean = make fclean lib/libft && rm ./a.out
-*/
-
-void		ft_freestruct(t_env *st)
-{
-	if (st->env)
-		free(st->env);
-	if (st->oldpwd)
-		free(st->oldpwd);
-	if (st)
-		free(st);
-}
-
-void	ft_freetab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
+// TODO get absolute path a raccourcir
 
 void	ft_getabsolutepath(char **cmd, t_env *st)
 {
@@ -86,27 +54,6 @@ void	ft_getabsolutepath(char **cmd, t_env *st)
 	}
 }
 
-void		ft_builtinpwd(void)
-{
-	char cwd[PATH_MAX];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
-		ft_printf("%s\n", cwd);
-	}
-	else
-	{
-		perror("getcwd()"); // TODO fonction non autorisée à modifier
-	}
-}
-
-void		ft_builtincd(char *path)
-{
-	if (chdir(path) == -1)
-	{
-		ft_printf("cd: %s: No such file or directory\n", path);
-	}
-}
-
 void	ft_execcmd(char **cmd)
 {
 	pid_t	pid = 0;
@@ -131,7 +78,7 @@ void	ft_execcmd(char **cmd)
 int		ft_is_built_in(char *cmd)
 {
 	int         i;
-	const char	*built_in[] = {"pwd", "cd", "exit", NULL};
+	const char	*built_in[] = {"pwd", "cd", "exit", "env", NULL};
 
 	i = 0;
 	while (built_in[i])
@@ -143,7 +90,7 @@ int		ft_is_built_in(char *cmd)
 	return (0);
 }
 
-void	ft_exec_built_in(char **built_in, t_env *st)
+void	ft_exec_built_in(char **built_in, t_env *st, char **envp)
 {
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd();
@@ -153,13 +100,16 @@ void	ft_exec_built_in(char **built_in, t_env *st)
 	}
 	else if (!ft_strcmp(built_in[0], "cd"))
 	{
+
 		if (ft_strcmp(built_in[1], "~") == 0)
 			built_in[1] = ft_strdup(ft_getenv(st->env, "HOME"));
 		else if (ft_strcmp(built_in[1], "-") == 0)
 		{
-			ft_printf("%s\n", st->oldpwd);
-			built_in[1] = ft_strdup(st->oldpwd);
+			ft_printf("%s\n", ft_getenv(st->env, "OLDPWD"));
+			built_in[1] = ft_getenv(st->env, "OLDPWD"); // TODO faire env etc pour recuperer le old pwd
 		}
 		ft_builtincd(built_in[1]);
 	}
+	else if (!ft_strcmp(built_in[0], "env"))
+		ft_env(envp);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/01 23:35:59 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 17:41:30 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
 	return (0);
 }
 
-int				ft_simplecmd(t_env *st)
+int				ft_simplecmd(t_env *st, char **envp)
 {
 	char	**cmd = NULL;
 	char    *buffer = NULL;
@@ -58,7 +58,7 @@ int				ft_simplecmd(t_env *st)
 		else if (!ft_strcmp(cmd[0], "exit"))
 			ft_exit();
 		else
-			ft_exec_built_in(cmd, st);
+			ft_exec_built_in(cmd, st, envp);
 		ft_printf("\033[0;34mMinishell$> \e[00m");
 		ft_freetab(cmd);
 	}
@@ -80,5 +80,5 @@ int     	main(int argc, char **argv, char **envp)
 	(void)argv;
 	st->env = envp;
 	// ft_parsing == 1 -> pipe ok ft_cmdwithpipe 0 -> no pipe ft_simplecmd(st);
-	ft_simplecmd(st);
+	ft_simplecmd(st, envp);
 }
