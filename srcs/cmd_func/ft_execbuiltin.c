@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/03 20:49:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 20:55:51 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_exec_built_in(char **built_in, t_struct *st)
 			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "HOME"));
 		else if (ft_strcmp(built_in[1], "-") == 0)
 		{
-			if (!ft_getenv(st->copyenvp, "OLDPWD")))
+			if (!ft_getenv(st->copyenvp, "OLDPWD"))
 				ft_printf("cd: « OLDPWD » non défini");
 			else
 			{
