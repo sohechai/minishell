@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   get_next_line_utils.c                            .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: sohechai <sohechai@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/04 17:42:54 by sohechai     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/18 15:58:45 by sohechai    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 17:42:54 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/03 20:00:29 by sofiahechai      ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "get_next_line.h"
 
@@ -98,6 +98,6 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		dest[k++] = s2[j++];
 	dest[k] = '\0';
-	free((char*)s1);
+	//free((char*)s1);
 	return (dest);
 }

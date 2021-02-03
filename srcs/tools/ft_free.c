@@ -6,18 +6,16 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/02 17:45:00 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 18:53:39 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		ft_freestruct(t_env *st)
+void		ft_freestruct(t_struct *st)
 {
-	if (st->env)
-		free(st->env);
-	if (st->oldpwd)
-		free(st->oldpwd);
+	if (st->copyenvp)
+		free(st->copyenvp);
 	if (st)
 		free(st);
 }

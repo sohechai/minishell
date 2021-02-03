@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initstruct.c                                    :+:      :+:    :+:   */
+/*   ft_copyenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/03 20:14:03 by sofiahechai      ###   ########lyon.fr   */
+/*   Created: 2021/02/03 14:38:31 by sofiahechai       #+#    #+#             */
+/*   Updated: 2021/02/03 17:29:42 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_struct		*ft_initstruct(void)
+char	**ft_copyenv(char **envp)
 {
-	t_struct *st;
+	char	**tmp;
+	size_t	i;
 
-	if (!(st = malloc(sizeof(t_struct) * 1)))
-		return (NULL);
-	st->copyenvp = NULL;
-	st->oldpwd = NULL;
-	return (st);
+	i = 0;
+	while (envp[i] != NULL)
+		i++;
+	tmp = (char **)malloc(sizeof(char *) * (i + 1)); // TODO <- free
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		tmp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
 }
-

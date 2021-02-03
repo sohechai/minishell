@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/02 18:53:38 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/03 20:38:27 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ SRC			=		./get_next_line.c \
 					./srcs/cmd_func/ft_env.c \
 					./srcs/tools/ft_getenv.c \
 					./srcs/tools/ft_initstruct.c \
-					./srcs/tools/ft_splits.c \
 					./srcs/tools/ft_free.c \
+					./srcs/tools/ft_copyenv.c \
 
 OBJS			= 		$(SRC:.c=.o)
 
@@ -40,7 +40,7 @@ all				: 		$(NAME)
 
 $(NAME)		: $(OBJS)
 		@make -C libft
-		@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) $(LIBPRINTF) -o $(NAME)
+		@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) -o $(NAME)
 
 %.o: %.c $(HEADERS)
 		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE)
@@ -53,12 +53,12 @@ submodule	:
 bonus		:		$(NAME)
 
 clean		:
-		@/bin/rm -f $(OBJS)
+		@rm -f *.o srcs/*.o srcs/cmd_func/*.o srcs/tools/*.o
 		@make clean -C libft
 		@echo "\033[91m$(NAME):\033[31m Deleting *.o...\033[0m"
 		@echo "\033[91m\n$(NAME)\033[31m is now clean\033[0m"
 fclean		:		clean
-		@/bin/rm -f $(NAME)
+		@rm -f $(NAME)
 		@make fclean -C libft
 
 re			:		fclean all

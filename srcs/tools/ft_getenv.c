@@ -6,11 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:59:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/02 23:15:26 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 19:47:25 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// gcc -Wall -Wextra -Werror -L libft/ -lft srcs/tools/ft_getenv.c && ./a.out
 
 int		ft_strlenequal(char *str)
 {

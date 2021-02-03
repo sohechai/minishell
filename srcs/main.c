@@ -6,13 +6,16 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/02 23:16:18 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 20:48:42 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// TODO reparer ft_getenv
+// TODO list :
+// echo a ajouter car ne gere pas les commentaires #
+// dprintf a ajouter et remplacer tous les printf pas des dprintf
+// unset et export => une fois done cd - fonctionnera
 
 static void		ft_exit()
 {
@@ -26,9 +29,9 @@ static void		ft_exit()
 	exit(EXIT_SUCCESS);
 }
 
-int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
+int			ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size)
 {
-	buffer = (char *)malloc(sizeof(char) * buf_size);
+	buffer = (char *)ft_calloc(sizeof(char), buf_size);
 	if (buffer == NULL)
 	{
 		ft_printf("malloc failure"); // TODO fonction non autorisée à modifier / recoder perror avec errno
@@ -40,42 +43,41 @@ int			ft_allocbuffer(char *buffer, char *cwd, t_env *st, size_t buf_size)
 	return (0);
 }
 
-int				ft_simplecmd(t_env *st, char **envp)
+int				ft_simplecmd(t_struct *st)
 {
 	char	**cmd;
 	char    *buffer = NULL;
-	size_t  buf_size = 2048;
+	size_t  buf_size = 5;
 	char	cwd[PATH_MAX];
 
 	cmd = NULL;
-	st->env = envp;
 	ft_allocbuffer(buffer, cwd, st, buf_size);
 	while (get_next_line(0, &buffer))
 	{
-
-		cmd = ft_splits(buffer, " \n\t");
+		cmd = ft_strtok(buffer, " \n\t");
 		if (cmd[0] == NULL)
 			ft_printf("");
 		else if (ft_is_built_in(cmd[0]) == false)
 		{
-			//ft_getabsolutepath(cmd, st);
+			ft_getabsolutepath(cmd, st);
 			ft_execcmd(cmd);
 		}
 		else if (!ft_strcmp(cmd[0], "exit"))
 			ft_exit();
 		else
-			ft_exec_built_in(cmd, st, envp);
+			ft_exec_built_in(cmd, st);
 		ft_printf("\033[0;34mMinishell$> \e[00m");
-		//ft_freetab(cmd);
+		ft_freetab(cmd);
 	}
 	ft_printf("exit\n");
-	//free(buffer);
+	free(buffer);
 	return (EXIT_SUCCESS);
 }
 
 int     	main(int argc, char **argv, char **envp)
 {
-	t_env	*st;
+	t_struct	*st;
+
 	if (!(st = ft_initstruct()))
 	{
 		printf("failed allocate memory to structure\n");
@@ -84,7 +86,7 @@ int     	main(int argc, char **argv, char **envp)
 	if (argc < 1)
 		return (-1);
 	(void)argv;
-	st->env = envp;
-	// ft_parsing == 1 -> pipe ok ft_cmdwithpipe 0 -> no pipe ft_simplecmd(st);
-	ft_simplecmd(st, envp);
+	st->copyenvp = ft_copyenv(envp);
+	// if (parsing == pipe ft_parsing == 1 -> pipe ok ft_cmdwithpipe 0 -> no pipe ft_simplecmd(st);
+	ft_simplecmd(st);
 }
