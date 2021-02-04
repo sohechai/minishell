@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/03 20:38:27 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/04 13:27:35 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC			=		./get_next_line.c \
 					./srcs/tools/ft_initstruct.c \
 					./srcs/tools/ft_free.c \
 					./srcs/tools/ft_copyenv.c \
+					./srcs/tools/ft_strtokk.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

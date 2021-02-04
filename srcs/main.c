@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/03 20:48:42 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 13:26:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				ft_simplecmd(t_struct *st)
 	ft_allocbuffer(buffer, cwd, st, buf_size);
 	while (get_next_line(0, &buffer))
 	{
-		cmd = ft_strtok(buffer, " \n\t");
+		cmd = ft_strtokk(buffer, " \n\t");
 		if (cmd[0] == NULL)
 			ft_printf("");
 		else if (ft_is_built_in(cmd[0]) == false)

@@ -7,8 +7,10 @@
 # include <stdbool.h>
 # include <string.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <limits.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef struct			s_struct
 {
@@ -33,6 +35,7 @@ int				ft_simplecmd(t_struct *st); // boucle pour les commandes sans pipe
 char			**ft_copyenv(char **envp); // copie de l'environnement en tab[][] pour unset et export
 void			ft_env(char **envp); // printf l'env
 void			ft_getoldpwd(t_struct *st); // save le oldpwd
+char			**ft_strtokk(char *str, char *sep);
 int     		main(int argc, char **argv, char **envp);
 
 #endif
