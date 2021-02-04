@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/04 18:18:36 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/04 20:18:24 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,4 +73,7 @@ fclean		:		clean
 
 re			:		fclean all
 
-.PHONY: 	re fclean clean all
+run		:	${NAME}
+			@./${NAME}
+
+.PHONY: 	re fclean clean all run
