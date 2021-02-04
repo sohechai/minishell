@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/03 20:55:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 15:31:08 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_execcmd(char **cmd)
 int		ft_is_built_in(char *cmd)
 {
 	int         i;
-	const char	*built_in[] = {"pwd", "cd", "exit", "env", NULL};
+	const char	*built_in[] = {"pwd", "cd", "exit", "env", "echo", NULL};
 
 	i = 0;
 	while (built_in[i])
@@ -102,7 +102,7 @@ int		ft_is_built_in(char *cmd)
 // 	st->oldpwd = cwd;
 // }
 
-void	ft_exec_built_in(char **built_in, t_struct *st)
+void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 {
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd();
@@ -126,4 +126,6 @@ void	ft_exec_built_in(char **built_in, t_struct *st)
 	}
 	else if (!ft_strcmp(built_in[0], "env"))
 		ft_env(st->copyenvp);
+	else if (!ft_strcmp(built_in[0], "echo"))
+		ft_echo(mi, n);
 }
