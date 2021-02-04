@@ -72,4 +72,7 @@ fclean		:		clean
 
 re			:		fclean all
 
-.PHONY: 	re fclean clean all
+run		:	${NAME}
+			@./${NAME}
+
+.PHONY: 	re fclean clean all run
