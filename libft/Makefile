@@ -34,7 +34,7 @@ SRCS_STR		=	$(addprefix str/, ft_split.c ft_strchr.c ft_strcpy.c\
 					ft_strfjoin.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c\
 					ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnlen.c\
 					ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_strcat.c\
-					ft_strlcopy.c ft_strtok.c ft_strcmp)
+					ft_strlcopy.c ft_strtok.c ft_strcmp.c ft_strncpy.c)
 
 SRCS_READ		=	$(addprefix read/, get_next_line.c)
 
