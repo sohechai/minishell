@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/04 15:41:58 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/04 18:18:36 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC			=		./srcs/main.c \
 					./srcs/tools/ft_copyenv.c \
 					./srcs/tools/ft_echoutils.c \
 					./srcs/tools/ft_strtokk.c \
+					./srcs/tools/ft_sortenv.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

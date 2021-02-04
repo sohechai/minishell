@@ -33,32 +33,33 @@ typedef struct	s_mini
 	size_t 		semi; // compter le nb de ; et |
 }				t_mini;
 
-t_struct		*ft_initstruct(void);
-t_mini			*ft_initmini(void);
+t_struct			*ft_initstruct(void);
+t_mini				*ft_initmini(void);
 
-char			*ft_getenv(char **envp, char *var); // permet d'obtenir le resultat d'une var
-void			ft_freestruct(t_struct *st); // free structure
-void			ft_freetab(char **tab); // free le tableau alloué dans get absolute path
-void			ft_getabsolutepath(char **cmd, t_struct *st); // permet d'avoir le chemin absolu pour ls ls -la etc
-void			ft_builtinpwd(void); // exec pwd
-void			ft_builtincd(char *path); // exec cd
-void			ft_execcmd(char **cmd); // exec cmd != builtin
-int				ft_is_built_in(char *cmd); // check si c'est un builtin ou non
-void			ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n); // execute builtin
-// static void		ft_exit(); // permet d'exit
-int				ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); // alloue memoire pour le buffer et norme de ftsimplecmd
-int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n); // boucle pour les commandes sans pipe
-char			**ft_copyenv(char **envp); // copie de l'environnement en tab[][] pour unset et export
-void			ft_env(char **envp); // printf l'env
-void			ft_getoldpwd(t_struct *st); // save le oldpwd
-char			**ft_strtokk(char *str, char *sep);
-int     		main(int argc, char **argv, char **envp);
+char				*ft_getenv(char **envp, char *var); // permet d'obtenir le resultat d'une var
+void				ft_freestruct(t_struct *st); // free structure
+void				ft_freetab(char **tab); // free le tableau alloué dans get absolute path
+void				ft_getabsolutepath(char **cmd, t_struct *st); // permet d'avoir le chemin absolu pour ls ls -la etc
+
+int					ft_is_built_in(char *cmd); // check si c'est un builtin ou non
+void				ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n); // execute builtin
+int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); // alloue memoire pour le buffer et norme de ftsimplecmd
+int					ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n); // boucle pour les commandes sans pipe
+char				**ft_copyenv(char **envp); // copie de l'environnement en tab[][] pour unset et export
+void				ft_getoldpwd(t_struct *st); // save le oldpwd
+char				**ft_strtokk(char *str, char *sep);
+int     			main(int argc, char **argv, char **envp);
+void				ft_printsortenv(t_struct *st);
 
 /*
  ** CMD FILE
  */
 
 int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
+void				ft_builtinpwd(void); // exec pwd
+void				ft_builtincd(char *path); // exec cd
+void				ft_env(char **envp); // printf l'env
+void				ft_execcmd(char **cmd); // exec cmd != builtin
 
 /*
  ** PARSING FILE

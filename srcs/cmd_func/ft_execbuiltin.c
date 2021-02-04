@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/04 15:31:08 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 18:30:04 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_execcmd(char **cmd)
 int		ft_is_built_in(char *cmd)
 {
 	int         i;
-	const char	*built_in[] = {"pwd", "cd", "exit", "env", "echo", NULL};
+	const char	*built_in[] = {"pwd", "cd", "exit", "env", "echo", "export", NULL};
 
 	i = 0;
 	while (built_in[i])
@@ -124,8 +124,15 @@ void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 		}
 		ft_builtincd(built_in[1]);
 	}
-	else if (!ft_strcmp(built_in[0], "env"))
-		ft_env(st->copyenvp);
 	else if (!ft_strcmp(built_in[0], "echo"))
 		ft_echo(mi, n);
+	else if (!ft_strcmp(built_in[0], "env"))
+		ft_env(st->copyenvp);
+	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
+		ft_printsortenv(st);
+	else if (!ft_strcmp(built_in[0], "export"))
+	{
+		if (built_in[1] != NULL)
+			ft_printf("%s\n", built_in[1]);
+	}
 }
