@@ -1,0 +1,25 @@
+BOUCLE PARSING AVEC GNL
+{
+	IF(T ARG && TPIPE == 0)
+		FT_SIMPLECMD(T->ARG[I], ST);
+	ELSE
+		FONCTION DES COMMANDES AVEC PIPE;
+}
+
+FT_SIMPLECMD(CHAR **CMD, CHAR *LINE, T_STRUCT *ST)
+{
+	cmd = ft_strtokk(line, " \n\t");
+	if (cmd[0] == NULL)
+		ft_printf("");
+	else if (ft_is_built_in(cmd[0]) == false)
+	{
+		ft_getabsolutepath(cmd, st);
+		ft_execcmd(cmd);
+	}
+	else if (!ft_strcmp(cmd[0], "exit"))
+		ft_exit();
+	else
+		ft_exec_built_in(cmd, st);
+	ft_printf("\033[0;34mMinishell$> \e[00m");
+	ft_freetab(cmd);
+}
