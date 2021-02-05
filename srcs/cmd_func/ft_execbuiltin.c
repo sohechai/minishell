@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/04 18:30:04 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 16:11:35 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int		ft_is_built_in(char *cmd)
 
 void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 {
+	st->i = 1;
+	st->len = ft_countenv(st->copyenvp);
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd();
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
@@ -133,6 +135,6 @@ void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 	else if (!ft_strcmp(built_in[0], "export"))
 	{
 		if (built_in[1] != NULL)
-			ft_printf("%s\n", built_in[1]);
+			ft_exportenv(built_in[st->i], st);
 	}
 }

@@ -3,102 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exportenv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 14:47:24 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/03 21:13:21 by sofiahechai      ###   ########lyon.fr   */
+/*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/05 16:12:03 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_deleteenv(t_struct *st)
+char			*ft_getvar(char *var)
 {
-	size_t	i;
-
-	i = 0;
-	while ((st->copyenvp)[i] != NULL)
-		ft_freetab(st->copyenvp[i++]);
-	(st->copyenvp)[i] = NULL;
-}
-
-void	ft_freetab(char **tab)
-{
-	if (tab != NULL)
-	{
-		free(*tab);
-		*tab = NULL;
-	}
-}
-
-static int		ft_getindex(t_struct *st, const char *name)
-{
-	int i;
-	int j;
+	int		i;
+	int		j;
+	int		len;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
-	if (st->copyenvp == NULL)
-		ft_printf("No environment :\n");
+	len = ft_strlen(var);
+	while (var[i])
+	{
+		if (var[i] == '=')
+			break ;
+		i++;
+	}
+	tmp = ft_substr(var, 0, i + 1);
+	return (tmp);
+}
+
+int				ft_checkvarismissing(char *var, t_struct *st)
+{
+	int		i;
+	int		len;
+	char	*lessvar;
+
+	lessvar = ft_getvar(var);
+	i = 0;
+	len = ft_strlen(lessvar);
 	while (st->copyenvp[i] != NULL)
 	{
-		while (st->copyenvp[i][j] && name[j] && st->copyenvp[i][j] == name[j])
+		if (ft_strnstr(st->copyenvp[i], lessvar, len))
 		{
-			if (st->copyenvp[i][j + 1] == '=')
-				return (i);
-			j++;
+			return (i);
 		}
 		i++;
 	}
-	return (-1);
+	return (i);
 }
 
-static char		**ft_addenv(t_struct *st, char *value)
+int			ft_exportenv(char *var, t_struct *st)
 {
-	char	**copy;
-	size_t	i;
+	int		index;
 
-	i = 0;
-	while (st->copyenvp[i] != NULL)
-		i++;
-	copy = (char **)malloc(sizeof(char *) * (i + 2));
-	i = -1;
-	while (st->copyenvp[++i] != NULL)
-		copy[i] = ft_strdup(st->copyenvp[i]);
-	copy[i++] = ft_strdup(value);
-	copy[i] = NULL;
-	ft_deleteenv(&st->copyenvp);
-	return (copy);
-}
-
-int				ft_exportenv(t_struct *st, const char *name, const char *value, int overwrite)
-{
-	int		iex;
-	char	*temp;
-	char	*hold;
-	// int		i;
-
-	// i = 0;
-	if (!*name || !*value)
-		return (0);
-	iex = ft_getindex(st->copyenvp, name);
-	temp = ft_strdup(name);
-	hold = temp;
-	temp = ft_strjoin(hold, "=");
-	if (hold != NULL)
-		ft_freetab(&hold);
-	else
-		return (0);
-	hold = temp;
-	temp = ft_strjoin(temp, value);
-	if (hold != NULL)
-		ft_freetab(&hold);
-	else
-		return (0);
-	if (iex == -1 && overwrite == 0)
-		st->copyenvp = ft_addenv(st->copyenvp, temp);
-	else
-		(st->copyenvp)[iex] = ft_strdup(temp);
-	ft_freetab(&temp);
-	return (1);
+	index = ft_checkvarismissing(var, st);
+	st->copyenvp[index] = ft_strdup(var);
+	return (0);
 }

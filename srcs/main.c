@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/04 15:29:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 16:03:09 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,18 @@
 // dprintf a ajouter et remplacer tous les printf pas des dprintf
 // unset et export => une fois done cd - fonctionnera
 
-int			ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size)
-{
-	buffer = (char *)ft_calloc(sizeof(char), buf_size);
-	if (buffer == NULL)
-	{
-		ft_printf("malloc failure"); // TODO fonction non autorisée à modifier / recoder perror avec errno
-		return (EXIT_FAILURE);
-	}
-	ft_printf("\033[0;34mMinishell$> \e[00m");
-	getcwd(cwd, sizeof(cwd));
-	st->oldpwd = cwd;
-	return (0);
-}
+// int			ft_allocbuffer(char *buffer, char *cwd, size_t buf_size)
+// {
+// 	buffer = (char *)ft_calloc(sizeof(char), buf_size);
+// 	if (buffer == NULL)
+// 	{
+// 		ft_printf("malloc failure");
+// 		return (EXIT_FAILURE);
+// 	}
+// 	ft_printf("\033[0;34mMinishell$> \e[00m");
+// 	getcwd(cwd, sizeof(cwd));
+// 	return (0);
+// }
 
 int			parseloop(t_mini *mi)
 {
@@ -75,6 +74,7 @@ int     	main(int argc, char **argv, char **envp)
 	if (argc < 1)
 		return (-1);
 	(void)argv;
+	st->len = ft_countenv(envp);
 	st->copyenvp = envp;
 	ft_printf("\033[0;34mMinishell$> \033[0m");
 	while (get_next_line(1, &mi->line) > 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
+#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/04 20:18:24 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/05 15:43:49 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC			=		./srcs/main.c \
 					./srcs/cmd_func/ft_env.c \
 					./srcs/cmd_func/ft_echo.c \
 					./srcs/cmd_func/ft_simplecmd.c \
+					./srcs/cmd_func/ft_exportenv.c \
 					./srcs/parsing/ft_check_character.c \
 					./srcs/parsing/ft_check_pipe.c \
 					./srcs/parsing/ft_parsing.c \
@@ -71,7 +72,8 @@ fclean		:		clean
 		@rm -f $(NAME)
 		@make fclean -C libft
 
-re			:		fclean all
+re			:		fclean all 
+					@./${NAME}
 
 run		:	${NAME}
 			@./${NAME}

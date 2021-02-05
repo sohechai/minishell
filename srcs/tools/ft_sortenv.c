@@ -3,34 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sortenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 18:30:06 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 14:59:47 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		ft_countenv(char **env)
+int			ft_countenv(char **env)
 {
 	int		count;
 	int		i;
 
 	count = 0;
 	i = 0;
-	while(env[i] != NULL)
-	{
+	while (env[i] != NULL)
 		i++;
-	}
 	return (i);
 }
 
 // TODO malloc ? free ? v
 
-char **ft_sortenv(char **envp)
+char		**ft_sortenv(char **envp)
 {
-	int size;
+	int		size;
 	int		i;
 	char	*tmp;
 	char	**sortenv;
@@ -60,6 +58,6 @@ void		ft_printsortenv(t_struct *st)
 
 	printsortenv = ft_sortenv(st->copyenvp);
 	i = 0;
-	while (printsortenv[i])
+	while (printsortenv[i] != NULL)
 		ft_printf("declare -x %s\n", printsortenv[i++]);
 }

@@ -15,7 +15,9 @@
 typedef struct			s_struct
 {
 	char		**copyenvp;
-	char		*oldpwd;
+	char		**envbis;
+	int			i;
+	int			len;
 }						t_struct;
 
 typedef struct	s_mini
@@ -40,7 +42,7 @@ char				*ft_getenv(char **envp, char *var); // permet d'obtenir le resultat d'un
 void				ft_freestruct(t_struct *st); // free structure
 void				ft_freetab(char **tab); // free le tableau alloué dans get absolute path
 void				ft_getabsolutepath(char **cmd, t_struct *st); // permet d'avoir le chemin absolu pour ls ls -la etc
-
+int					ft_countenv(char **env);
 int					ft_is_built_in(char *cmd); // check si c'est un builtin ou non
 void				ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n); // execute builtin
 int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); // alloue memoire pour le buffer et norme de ftsimplecmd
@@ -60,7 +62,7 @@ void				ft_builtinpwd(void); // exec pwd
 void				ft_builtincd(char *path); // exec cd
 void				ft_env(char **envp); // printf l'env
 void				ft_execcmd(char **cmd); // exec cmd != builtin
-
+int					ft_exportenv(char *var, t_struct *st);
 /*
  ** PARSING FILE
  */
