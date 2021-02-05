@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/03 18:53:39 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/06 00:12:23 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,7 @@ void	ft_freetab(char **tab)
 	int		i;
 
 	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
+	while (tab[i] != NULL)
+		free(tab[i++]);
 	free(tab);
-	tab = NULL;
 }

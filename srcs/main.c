@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/05 16:03:09 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/06 00:19:03 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // TODO list :
-// echo a ajouter car ne gere pas les commentaires #
-// dprintf a ajouter et remplacer tous les printf pas des dprintf
-// unset et export => une fois done cd - fonctionnera
+// - Export ok
+// - cd ok
+// - pwd ok
+// - env ok
+// - ; ok
+// - ' et " "
+// - clean le fichier ft_execbuiltin
+// - Echo : gestion des commentaires #, et $ avec ft_getenv
+// - Remplacer tous les printf pas des dprintf
+// - ft_exit : probleme la cmd doit etre executé 2 fois avant de quitter ..
+// - mise a jour header de aurelien
+// - <, > et “>>”
+// - Pipes |
+// - $?
+// - ctrl-C, ctrl-D et ctrl-\
+
 
 // int			ft_allocbuffer(char *buffer, char *cwd, size_t buf_size)
 // {
@@ -62,20 +75,36 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 	}
 }
 
+void			ft_copyenvp(char **envp, t_struct *st)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = ft_countenv(envp);
+	if(!(st->copyenvp = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (envp[i])
+	{
+		st->copyenvp[i] = strdup(envp[i]);
+		i++;
+	}
+	st->copyenvp[i] = NULL;
+}
+
 int     	main(int argc, char **argv, char **envp)
 {
 	t_struct	*st;
 	t_mini		*mi;
 	if (!(st = ft_initstruct()) || !(mi = ft_initmini()))
 	{
-		printf("failed allocate memory to structure\n");
+		ft_printf("failed allocate memory to structure\n");
 		return (0);
 	}
 	if (argc < 1)
 		return (-1);
 	(void)argv;
-	st->len = ft_countenv(envp);
-	st->copyenvp = envp;
+	ft_copyenvp(envp, st);
 	ft_printf("\033[0;34mMinishell$> \033[0m");
 	while (get_next_line(1, &mi->line) > 0)
 	{

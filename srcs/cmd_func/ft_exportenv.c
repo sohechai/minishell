@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exportenv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/05 16:12:03 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 23:14:35 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,26 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 		}
 		i++;
 	}
-	return (i);
+	return (-1);
 }
 
 int			ft_exportenv(char *var, t_struct *st)
 {
+	int		i;
 	int		index;
+	int		len;
 
+	i = 0;
 	index = ft_checkvarismissing(var, st);
-	st->copyenvp[index] = ft_strdup(var);
+	len = ft_countenv(st->copyenvp);
+	if (index != -1)
+		st->copyenvp[index] = ft_strdup(var);
+	else
+	{
+		while (st->copyenvp[i] != NULL)
+			i++;
+		st->copyenvp[i] = ft_strdup(var);
+		st->copyenvp[i + 1] = NULL;
+	}
 	return (0);
 }

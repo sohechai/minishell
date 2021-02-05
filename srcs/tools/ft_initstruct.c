@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/05 15:39:56 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 23:51:08 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ t_struct		*ft_initstruct(void)
 	if (!(st = malloc(sizeof(t_struct) * 1)))
 		return (NULL);
 	st->copyenvp = NULL;
-	st->envbis = NULL;
 	st->i = 0;
-	st->len = 0;
+	st->oldpwd = NULL;
 	return (st);
 }
 

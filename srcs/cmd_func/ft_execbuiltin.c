@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/05 16:11:35 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/06 00:11:50 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 
 void	ft_execcmd(char **cmd)
 {
-	pid_t	pid = 0;
-	int		status = 0;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
+	status = 0;
 	if (pid == -1)
 		ft_printf("fork");
 	else if (pid > 0)
@@ -80,7 +81,7 @@ void	ft_execcmd(char **cmd)
 int		ft_is_built_in(char *cmd)
 {
 	int         i;
-	const char	*built_in[] = {"pwd", "cd", "exit", "env", "echo", "export", NULL};
+	const char	*built_in[] = {"pwd", "cd", "env", "echo", "export", NULL};
 
 	i = 0;
 	while (built_in[i])
@@ -92,28 +93,43 @@ int		ft_is_built_in(char *cmd)
 	return (0);
 }
 
-// fonction temporaire pour avoir le oldcwd mais on pourra l'avoir grace a \
-// ft_getenv quand j'aurais fait export et unset
-// void	ft_getoldpwd(t_struct *st)
-// {
-// 	char	cwd[PATH_MAX];
+void		ft_saveoldpwd(t_struct *st)
+{
+	char	cwd[PATH_MAX];
+	char	*oldpwd;
 
-// 	getcwd(cwd, sizeof(cwd));
-// 	st->oldpwd = cwd;
-// }
+	getcwd(cwd, sizeof(cwd));
+	oldpwd = ft_strjoin("OLDPWD=", cwd);
+	ft_exportenv(oldpwd, st);
+}
+
+void		ft_savepwd(t_struct *st)
+{
+	char	cwd[PATH_MAX];
+	char	*pwd;
+	getcwd(cwd, sizeof(cwd));
+	pwd = ft_strjoin("PWD=", cwd);
+	printf("%s\n", pwd);
+	ft_exportenv(pwd, st);
+}
 
 void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 {
 	st->i = 1;
-	st->len = ft_countenv(st->copyenvp);
 	if (!ft_strcmp(built_in[0], "pwd"))
-		ft_builtinpwd();
+		ft_builtinpwd(st);
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
-		ft_builtincd(ft_getenv(st->copyenvp, "HOME"));
+	{
+		ft_saveoldpwd(st);
+		ft_builtincd(ft_getenv(st->copyenvp, "HOME"), st);
+	}
 	else if (!ft_strcmp(built_in[0], "cd"))
 	{
 		if (ft_strcmp(built_in[1], "~") == 0)
+		{
+			ft_saveoldpwd(st);
 			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "HOME"));
+		}
 		else if (ft_strcmp(built_in[1], "-") == 0)
 		{
 			if (!ft_getenv(st->copyenvp, "OLDPWD"))
@@ -124,7 +140,8 @@ void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 				built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "OLDPWD"));
 			}
 		}
-		ft_builtincd(built_in[1]);
+		ft_saveoldpwd(st);
+		ft_builtincd(built_in[1], st);
 	}
 	else if (!ft_strcmp(built_in[0], "echo"))
 		ft_echo(mi, n);
@@ -134,7 +151,10 @@ void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 		ft_printsortenv(st);
 	else if (!ft_strcmp(built_in[0], "export"))
 	{
-		if (built_in[1] != NULL)
+		while (built_in[st->i] != NULL)
+		{
 			ft_exportenv(built_in[st->i], st);
+			st->i++;
+		}
 	}
 }
