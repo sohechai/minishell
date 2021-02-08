@@ -6,13 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/08 17:16:16 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 22:29:19 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		ft_exit(void)
+int		ft_exit(void)
 {
 	// pid_t pid;
 	ft_printf("exit\n");
@@ -20,7 +20,8 @@ void		ft_exit(void)
 	// ft_freestruct(st);
 	// kill(pid, SIGQUIT);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
-	exit(EXIT_SUCCESS);
+	exit(0);
+	return (EXIT_SUCCESS);
 }
 
 int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)

@@ -49,14 +49,18 @@ void				ft_freetab(char **tab); // free le tableau alloué dans get absolute pat
 void				ft_getabsolutepath(char **cmd, t_struct *st); // permet d'avoir le chemin absolu pour ls ls -la etc
 int					ft_countenv(char **env);
 int					ft_is_built_in(char *cmd); // check si c'est un builtin ou non
-void				ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n); // execute builtin
+int					ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n); // execute builtin
 int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); // alloue memoire pour le buffer et norme de ftsimplecmd
 int					ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n); // boucle pour les commandes sans pipe
-char				**ft_copyenv(char **envp); // copie de l'environnement en tab[][] pour unset et export
 char				**ft_strtokk(char *str, char *sep);
-void				ft_exit(void);
+int					ft_exit(void);
 void				ft_printsortenv(t_struct *st);
 void				ft_execcmd(char **cmd); // exec cmd != builtin
+void				ft_cdwithargs(char **built_in, t_struct *st);
+void				ft_saveoldpwd(t_struct *st);
+void				ft_savepwd(t_struct *st);
+void				ft_exportloop(char **built_in, t_struct *st);
+void				ft_unsetloop(char **built_in, t_struct *st);
 int     			main(int argc, char **argv, char **envp);
 
 /*

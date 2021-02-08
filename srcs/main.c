@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/08 17:28:50 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 23:05:31 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@
 // - pwd ok
 // - env ok
 // - ; ok
+// - exit ok
+// - ctrl-D ok
+// - ctrl-C ok
 // - ' et " " ?
-// - clean le fichier ft_execbuiltin
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
+// - $?
 // - Remplacer tous les printf pas des dprintf
-// - ft_exit : probleme la cmd doit etre executé 2 fois avant de quitter ..
 // - mise a jour header de aurelien
 // - <, > et “>>”
 // - Pipes |
-// - $?
-// - ctrl-C, ctrl-D et ctrl-\
+// - ctrl-\ -> ne quitte pas mais affiche un caractere
 
 
 // int			ft_allocbuffer(char *buffer, char *cwd, size_t buf_size)
@@ -57,6 +58,8 @@ int			parseloop(t_mini *mi)
 	return (1);
 }
 
+
+
 void		execloop(t_mini *mi, t_struct *st, char **envp)
 {
 	size_t		n;
@@ -75,6 +78,8 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 //		}
 	}
 }
+
+//TODO check si j'utilise st->sortenv
 
 void			ft_copysortenvp(char **envp, t_struct *st)
 {
@@ -111,6 +116,18 @@ void			ft_copyenvp(char **envp, t_struct *st)
 	i = 0;
 }
 
+void ft_sigint()
+{
+	ft_printf("\n");
+	ft_printf("\033[0;34mMinishell$> \033[0m");
+}
+
+void ft_sigquit()
+{
+	//ft_printf(" ");
+	(void) signal(SIGQUIT, SIG_IGN);
+}
+
 int     	main(int argc, char **argv, char **envp)
 {
 	t_struct	*st;
@@ -118,13 +135,15 @@ int     	main(int argc, char **argv, char **envp)
 	if (!(st = ft_initstruct()) || !(mi = ft_initmini()))
 	{
 		ft_printf("failed allocate memory to structure\n");
-		return (0);
+		return (EXIT_FAILURE);
 	}
 	if (argc < 1)
 		return (-1);
 	(void)argv;
 	ft_copyenvp(envp, st);
 	ft_printf("\033[0;34mMinishell$> \033[0m");
+	(void) signal(SIGINT, ft_sigint);
+	(void) signal(SIGQUIT, ft_sigquit);
 	while (get_next_line(1, &mi->line) > 0)
 	{
 		if (parseloop(mi))
@@ -132,4 +151,6 @@ int     	main(int argc, char **argv, char **envp)
 		ft_reset_mi(mi);
 		ft_printf("\033[0;34mMinishell$> \033[0m");
 	}
+	ft_printf("exit\n");
+	return (0);
 }

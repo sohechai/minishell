@@ -6,11 +6,20 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/08 13:49:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 20:57:31 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void			ft_exportloop(char **built_in, t_struct *st)
+{
+	while (built_in[st->i] != NULL)
+	{
+		ft_exportenv(built_in[st->i], st);
+		st->i++;
+	}
+}
 
 char			*ft_getvar(char *var)
 {

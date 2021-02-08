@@ -6,11 +6,21 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/08 17:16:16 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 21:01:22 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void		ft_unsetloop(char **built_in, t_struct *st)
+{
+	st->i = 1;
+	while (built_in[st->i] != NULL)
+	{
+		ft_unsetenv(built_in[st->i], st);
+		st->i++;
+	}
+}
 
 int			ft_checkifok(char *str, char *var)
 {
@@ -86,17 +96,3 @@ char		**ft_unsetenv(char *var, t_struct *st)
 	}
 	return (st->copyenvp);
 }
-
-// int		main(int ac, char **av, char **envp)
-// {
-// 	int		i = 0;
-// 	if (ac < 1)
-// 		printf("dkj");
-// 	(void)av;
-// 	char **newone = ft_unsetenv("dksfj", envp);
-// 	while (newone[i])
-// 	{
-// 		printf("%s\n", newone[i++]);
-// 	}
-// 	return(0);
-// }
