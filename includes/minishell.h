@@ -15,6 +15,7 @@
 typedef struct			s_struct
 {
 	char		**copyenvp;
+	char		**sortenv;
 	int			i;
 	char		*oldpwd;
 }						t_struct;
@@ -66,7 +67,8 @@ int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
 void				ft_builtinpwd(t_struct *st); // exec pwd
 void				ft_builtincd(char *path, t_struct *st); // exec cd
 void				ft_env(char **envp); // printf l'env
-int					ft_exportenv(char *var, t_struct *st);
+void				ft_exportenv(char *var, t_struct *st);
+char				**ft_unsetenv(char *var, t_struct *st);
 /*
  ** PARSING FILES
  */

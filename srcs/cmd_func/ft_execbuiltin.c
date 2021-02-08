@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/06 00:11:50 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 17:29:03 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	ft_getabsolutepath(char **cmd, t_struct *st)
 {
-	char	*path = strdup(ft_getenv(st->copyenvp, "PATH"));
+	char	*path = ft_strdup(ft_getenv(st->copyenvp, "PATH"));
 	char	*bin = NULL;
 	char	**path_split = NULL;
 	int		i;
@@ -81,7 +81,7 @@ void	ft_execcmd(char **cmd)
 int		ft_is_built_in(char *cmd)
 {
 	int         i;
-	const char	*built_in[] = {"pwd", "cd", "env", "echo", "export", NULL};
+	const char	*built_in[] = {"pwd", "cd", "env", "echo", "export", "unset", NULL};
 
 	i = 0;
 	while (built_in[i])
@@ -109,9 +109,10 @@ void		ft_savepwd(t_struct *st)
 	char	*pwd;
 	getcwd(cwd, sizeof(cwd));
 	pwd = ft_strjoin("PWD=", cwd);
-	printf("%s\n", pwd);
 	ft_exportenv(pwd, st);
 }
+
+// TODO execbuiltin a raccourcir
 
 void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 {
@@ -154,6 +155,15 @@ void	ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 		while (built_in[st->i] != NULL)
 		{
 			ft_exportenv(built_in[st->i], st);
+			st->i++;
+		}
+	}
+	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
+	{
+		st->i = 0;
+		while (built_in[st->i] != NULL)
+		{
+			ft_unsetenv(built_in[st->i], st);
 			st->i++;
 		}
 	}

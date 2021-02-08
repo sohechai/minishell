@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/05 23:14:35 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 13:49:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	return (-1);
 }
 
-int			ft_exportenv(char *var, t_struct *st)
+void			ft_exportenv(char *var, t_struct *st)
 {
 	int		i;
 	int		index;
@@ -70,5 +70,4 @@ int			ft_exportenv(char *var, t_struct *st)
 		st->copyenvp[i] = ft_strdup(var);
 		st->copyenvp[i + 1] = NULL;
 	}
-	return (0);
 }

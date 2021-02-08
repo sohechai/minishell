@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sortenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/05 14:59:47 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 17:27:14 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int			ft_countenv(char **env)
 		i++;
 	return (i);
 }
-
-// TODO malloc ? free ? v
 
 char		**ft_sortenv(char **envp)
 {
@@ -51,13 +49,64 @@ char		**ft_sortenv(char **envp)
 	return (sortenv);
 }
 
-void		ft_printsortenv(t_struct *st)
+void		ft_addquote(char *str)
 {
-	char	**printsortenv;
 	int		i;
 
-	printsortenv = ft_sortenv(st->copyenvp);
 	i = 0;
-	while (printsortenv[i] != NULL)
-		ft_printf("declare -x %s\n", printsortenv[i++]);
+	ft_printf("declare -x ");
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			ft_printf("=\"");
+			i++;
+		}
+		ft_printf("%c", str[i]);
+		i++;
+	}
+	ft_printf("\"\n");
+}
+
+char		**ft_saveenv(t_struct *st)
+{
+	int		i;
+	int		len;
+	char	**sortenv;
+
+	i = 0;
+	len = ft_countenv(st->copyenvp);
+	if(!(sortenv = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (st->copyenvp[i])
+	{
+		sortenv[i] = ft_strdup(st->copyenvp[i]);
+		i++;
+	}
+	sortenv[i] = NULL;
+	return(sortenv);
+}
+
+void		ft_printsortenv(t_struct *st)
+{
+	char	**sortquoteenv;
+	char	**sortenv;
+	int		i;
+
+	sortenv = ft_saveenv(st);
+	sortquoteenv = ft_sortenv(sortenv);
+	i = 0;
+	while (sortquoteenv[i])
+	{
+		if (ft_strchr(sortquoteenv[i], '=') != NULL)
+		{
+			ft_addquote(sortquoteenv[i]);
+			i++;
+		}
+		else
+		{
+			ft_printf("declare -x %s\n", sortquoteenv[i]);
+			i++;
+		}
+	}
 }

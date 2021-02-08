@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/05 15:43:49 by sohechai         ###   ########lyon.fr    #
+#    Updated: 2021/02/08 16:23:49 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC			=		./srcs/main.c \
 					./srcs/cmd_func/ft_env.c \
 					./srcs/cmd_func/ft_echo.c \
 					./srcs/cmd_func/ft_simplecmd.c \
+					./srcs/cmd_func/ft_unsetenv.c \
 					./srcs/cmd_func/ft_exportenv.c \
 					./srcs/parsing/ft_check_character.c \
 					./srcs/parsing/ft_check_pipe.c \

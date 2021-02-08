@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/06 00:19:03 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 17:28:50 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 // TODO list :
 // - Export ok
+// - Unset ok
 // - cd ok
 // - pwd ok
 // - env ok
 // - ; ok
-// - ' et " "
+// - ' et " " ?
 // - clean le fichier ft_execbuiltin
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
 // - Remplacer tous les printf pas des dprintf
@@ -75,6 +76,23 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 	}
 }
 
+void			ft_copysortenvp(char **envp, t_struct *st)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = ft_countenv(envp);
+	if(!(st->sortenv = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (envp[i])
+	{
+		st->sortenv[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	st->sortenv[i] = NULL;
+}
+
 void			ft_copyenvp(char **envp, t_struct *st)
 {
 	int		i;
@@ -86,10 +104,11 @@ void			ft_copyenvp(char **envp, t_struct *st)
 		ft_printf("failed allocate memory to envp\n");
 	while (envp[i])
 	{
-		st->copyenvp[i] = strdup(envp[i]);
+		st->copyenvp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	st->copyenvp[i] = NULL;
+	i = 0;
 }
 
 int     	main(int argc, char **argv, char **envp)
