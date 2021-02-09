@@ -6,14 +6,17 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/08 20:50:04 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 12:35:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// TODO free le trim
+
 void		ft_cdwithargs(char **built_in, t_struct *st)
 {
+	built_in[1] = ft_strtrim(built_in[1], "\"'");
 	if (ft_strcmp(built_in[1], "~") == 0)
 	{
 		ft_saveoldpwd(st);
@@ -29,6 +32,8 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "OLDPWD"));
 		}
 	}
+	else if (ft_strchr(built_in[1], '$'))
+		built_in[1] = ft_strdup(ft_getenv(st->copyenvp, (ft_strtrim(built_in[1], "$"))));
 	ft_saveoldpwd(st);
 	ft_builtincd(built_in[1], st);
 }

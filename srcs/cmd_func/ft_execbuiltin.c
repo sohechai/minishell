@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/08 23:04:20 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 15:28:46 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 	}
 }
 
-void	ft_execcmd(char **cmd)
+void	ft_execcmd(char *command, char **cmd)
 {
 	pid_t	pid;
 	int		status;
@@ -76,7 +76,7 @@ void	ft_execcmd(char **cmd)
 	else
 	{
 		if (execve(cmd[0], cmd, NULL) == -1)
-			ft_printf("command not found\n");
+			ft_printf("%s : commande introuvable\n", command);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -110,8 +110,10 @@ int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 		ft_cdwithargs(built_in, st);
 	else if (!ft_strcmp(built_in[0], "echo"))
 		ft_echo(mi, n);
-	else if (!ft_strcmp(built_in[0], "env"))
+	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
 		ft_env(st->copyenvp);
+	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
+		ft_printf("%s : No such file or directory\n", built_in[1]);
 	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
 		ft_printsortenv(st);
 	else if (!ft_strcmp(built_in[0], "export"))

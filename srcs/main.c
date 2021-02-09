@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/08 23:05:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 17:20:23 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 // - exit ok
 // - ctrl-D ok
 // - ctrl-C ok
-// - ' et " " ?
+// - ' et " " ok
+// - export $var ok
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
 // - $?
 // - Remplacer tous les printf pas des dprintf
