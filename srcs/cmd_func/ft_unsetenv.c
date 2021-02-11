@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/08 21:01:22 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 17:48:37 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,15 @@ char		**ft_unsetenv(char *var, t_struct *st)
 
 	index = ft_checkifenvexist(var, st->copyenvp);
 	if(ft_strchr(var, '='))
-		ft_printf("unset: « %s » : identifiant non valable\n", var);
+	{
+		ft_printf("unset: « %s » : not a valid identifier\n", var);
+		st->exitstatus = EXIT_FAILURE;
+		return (NULL);
+	}
 	else if (ft_checkifenvexist(var, st->copyenvp) != -1)
 	{
 		st->copyenvp = ft_deleteenv(index, st->copyenvp);
 	}
+	st->exitstatus = EXIT_SUCCESS;
 	return (st->copyenvp);
 }

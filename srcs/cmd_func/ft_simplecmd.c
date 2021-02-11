@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/09 16:23:34 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 18:04:43 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		ft_exit(void)
 	ft_printf("exit\n");
 	//ft_freetab(st->copyenvp);
 	// ft_freestruct(st);
-	// kill(pid, SIGQUIT);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
 	exit(0);
 	return (EXIT_SUCCESS);
@@ -66,10 +65,13 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	{
 		st->printerror = ft_strdup(cmd[0]);
 		ft_getabsolutepath(cmd, st);
-		ft_execcmd(st->printerror, cmd);
+		ft_execcmd(st, st->printerror, cmd);
 		free(st->printerror);
 	}
 	else
+	{
 		ft_exec_built_in(mi, cmd, st, n);
+	}
+	printf("exit status = %d\n", st->exitstatus);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/09 15:28:46 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 18:03:37 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 	}
 }
 
-void	ft_execcmd(char *command, char **cmd)
+void	ft_execcmd(t_struct *st, char *command, char **cmd)
 {
 	pid_t	pid;
 	int		status;
@@ -71,13 +71,15 @@ void	ft_execcmd(char *command, char **cmd)
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+        	st->exitstatus = WEXITSTATUS(status);
 		kill(pid, SIGTERM);
 	}
 	else
 	{
 		if (execve(cmd[0], cmd, NULL) == -1)
-			ft_printf("%s : commande introuvable\n", command);
-		exit(EXIT_FAILURE);
+			ft_printf("%s : command not found\n", command);
+		exit (127);
 	}
 }
 
@@ -108,17 +110,20 @@ int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 	}
 	else if (!ft_strcmp(built_in[0], "cd"))
 		ft_cdwithargs(built_in, st);
-	else if (!ft_strcmp(built_in[0], "echo"))
-		ft_echo(mi, n);
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
 		ft_env(st->copyenvp);
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
-		ft_printf("%s : No such file or directory\n", built_in[1]);
+	{
+		ft_printf("env: %s : No such file or directory\n", built_in[1]);
+		return (st->exitstatus = 127);
+	}
 	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
 		ft_printsortenv(st);
 	else if (!ft_strcmp(built_in[0], "export"))
 		ft_exportloop(built_in, st);
 	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
 		ft_unsetloop(built_in, st);
+	else if (!ft_strcmp(built_in[0], "echo"))
+		ft_echo(mi, n);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/09 17:20:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 20:01:38 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 // - ctrl-C ok
 // - ' et " " ok
 // - export $var ok
+// - rajouter return (130) pour
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
-// - $?
+// - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
 // - Remplacer tous les printf pas des dprintf
 // - mise a jour header de aurelien
 // - <, > et “>>”

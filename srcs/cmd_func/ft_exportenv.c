@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/09 17:17:07 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 17:40:38 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ int		ft_sortvar(char *var, t_struct *st)
 		st->copyenvp[i + 1] = NULL;
 	}
 	else
-		ft_printf("export: « %s » : identifiant non valable\n", var);
+	{
+		ft_printf("export: « %s » : not a valid identifier\n", var);
+		return (st->exitstatus = EXIT_FAILURE);
+	}
 	return (1);
 }
 

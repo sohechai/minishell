@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/09 12:35:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 17:35:10 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 	ft_builtincd(built_in[1], st);
 }
 
-void		ft_builtincd(char *path, t_struct *st)
+int		ft_builtincd(char *path, t_struct *st)
 {
 	if (chdir(path) == -1)
+	{
 		ft_printf("cd: %s: No such file or directory\n", path);
+		return (st->exitstatus = EXIT_FAILURE);
+	}
 	ft_savepwd(st);
+	return (st->exitstatus = EXIT_SUCCESS);
 }

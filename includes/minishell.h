@@ -11,6 +11,7 @@
 # include <limits.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <errno.h>
 
 typedef struct			s_struct
 {
@@ -19,6 +20,7 @@ typedef struct			s_struct
 	int			i;
 	char		*oldpwd;
 	char		*printerror;
+	int			exitstatus;
 }						t_struct;
 
 typedef struct	s_mini
@@ -55,8 +57,8 @@ int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); 
 int					ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n); // boucle pour les commandes sans pipe
 char				**ft_strtokk(char *str, char *sep);
 int					ft_exit(void);
-void				ft_printsortenv(t_struct *st);
-void				ft_execcmd(char *command, char **cmd); // exec cmd != builtin
+int					ft_printsortenv(t_struct *st);
+void				ft_execcmd(t_struct *st, char *command, char **cmd); // exec cmd != builtin
 void				ft_cdwithargs(char **built_in, t_struct *st);
 void				ft_saveoldpwd(t_struct *st);
 void				ft_savepwd(t_struct *st);
@@ -72,8 +74,8 @@ int     			main(int argc, char **argv, char **envp);
 */
 
 int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
-void				ft_builtinpwd(t_struct *st); // exec pwd
-void				ft_builtincd(char *path, t_struct *st); // exec cd
+int					ft_builtinpwd(t_struct *st); // exec pwd
+int					ft_builtincd(char *path, t_struct *st); // exec cd
 void				ft_env(char **envp); // printf l'env
 int					ft_exportenv(char *var, t_struct *st);
 char				**ft_unsetenv(char *var, t_struct *st);

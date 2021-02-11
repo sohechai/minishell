@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/09 14:28:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 17:25:42 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_struct		*ft_initstruct(void)
 	st->i = 0;
 	st->oldpwd = NULL;
 	st->printerror = NULL;
+	st->exitstatus = 0;
 	return (st);
 }
 

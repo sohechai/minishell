@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/09 12:06:29 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 17:39:40 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char		**ft_saveenv(t_struct *st)
 	return(sortenv);
 }
 
-void		ft_printsortenv(t_struct *st)
+int			ft_printsortenv(t_struct *st)
 {
 	char	**sortquoteenv;
 	char	**sortenv;
@@ -109,4 +109,5 @@ void		ft_printsortenv(t_struct *st)
 			i++;
 		}
 	}
+	return (st->exitstatus = EXIT_SUCCESS);
 }
