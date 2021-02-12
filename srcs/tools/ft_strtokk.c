@@ -3,34 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtokk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 13:26:28 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 13:30:19 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 11:44:03 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char	*ft_strncpy(char *dest, char *src, unsigned int n)
-// {
-// 	unsigned int	i;
-
-// 	i = 0;
-// 	while (src[i] != '\0' && i < n)
-// 	{
-// 		dest[i] = src[i];
-// 		++i;
-// 	}
-// 	while (i < n)
-// 	{
-// 		dest[i] = '\0';
-// 		i++;
-// 	}
-// 	return (dest);
-// }
-
-static int	ft_issep(char c, char *sep)
+static int		ft_issep(char c, char *sep)
 {
 	while (*sep)
 	{
@@ -41,7 +23,7 @@ static int	ft_issep(char c, char *sep)
 	return (0);
 }
 
-static int	ft_countoken(char *str, char *sep)
+static int		ft_countoken(char *str, char *sep)
 {
 	int		i;
 	int		flag;
@@ -65,7 +47,7 @@ static int	ft_countoken(char *str, char *sep)
 	return (count);
 }
 
-static int	ft_toklen(char *str, char *sep)
+static int		ft_toklen(char *str, char *sep)
 {
 	int		i;
 
@@ -75,7 +57,7 @@ static int	ft_toklen(char *str, char *sep)
 	return (i);
 }
 
-char		**ft_strtokk(char *str, char *sep)
+char			**ft_strtokk(char *str, char *sep)
 {
 	int		i;
 	int		k;

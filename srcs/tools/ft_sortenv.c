@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sortenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 17:39:40 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 11:43:31 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char		**ft_saveenv(t_struct *st)
 
 	i = 0;
 	len = ft_countenv(st->copyenvp);
-	if(!(sortenv = ft_calloc(sizeof(char*), (len + 1))))
+	if (!(sortenv = ft_calloc(sizeof(char*), (len + 1))))
 		ft_printf("failed allocate memory to envp\n");
 	while (st->copyenvp[i])
 	{
@@ -84,7 +84,7 @@ char		**ft_saveenv(t_struct *st)
 		i++;
 	}
 	sortenv[i] = NULL;
-	return(sortenv);
+	return (sortenv);
 }
 
 int			ft_printsortenv(t_struct *st)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/11 20:01:38 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 14:26:35 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // - ctrl-C ok
 // - ' et " " ok
 // - export $var ok
-// - rajouter return (130) pour
+// - rajouter return (130) pour ctrl c
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
 // - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
 // - Remplacer tous les printf pas des dprintf
@@ -83,23 +83,6 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 
 //TODO check si j'utilise st->sortenv
 
-void			ft_copysortenvp(char **envp, t_struct *st)
-{
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ft_countenv(envp);
-	if(!(st->sortenv = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
-	while (envp[i])
-	{
-		st->sortenv[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	st->sortenv[i] = NULL;
-}
-
 void			ft_copyenvp(char **envp, t_struct *st)
 {
 	int		i;
@@ -118,16 +101,25 @@ void			ft_copyenvp(char **envp, t_struct *st)
 	i = 0;
 }
 
-void ft_sigint()
+void ft_sigint(int signum)
 {
-	ft_printf("\n");
-	ft_printf("\033[0;34mMinishell$> \033[0m");
+	pid_t pid;
+
+	pid = signum;
+	if (kill(pid, signum) < 0)
+	{
+		ft_printf("\n");
+		ft_printf("\033[0;34mMinishell$> \033[0m");
+	}
 }
 
-void ft_sigquit()
+void ft_sigquit(int signum)
 {
-	//ft_printf(" ");
-	(void) signal(SIGQUIT, SIG_IGN);
+	pid_t pid;
+
+	pid = signum;
+	if (kill(pid, signum) == 0)
+		ft_printf("Quit: 3\n");
 }
 
 int     	main(int argc, char **argv, char **envp)
@@ -144,8 +136,8 @@ int     	main(int argc, char **argv, char **envp)
 	(void)argv;
 	ft_copyenvp(envp, st);
 	ft_printf("\033[0;34mMinishell$> \033[0m");
-	(void) signal(SIGINT, ft_sigint);
-	(void) signal(SIGQUIT, ft_sigquit);
+	(void)signal(SIGINT, ft_sigint);
+	(void)signal(SIGQUIT, ft_sigquit);
 	while (get_next_line(1, &mi->line) > 0)
 	{
 		if (parseloop(mi))

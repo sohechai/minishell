@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplecmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 18:04:43 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 14:09:38 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		ft_exit(void)
+int				ft_exit(void)
 {
 	// pid_t pid;
 	ft_printf("exit\n");
@@ -72,6 +72,6 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	{
 		ft_exec_built_in(mi, cmd, st, n);
 	}
-	printf("exit status = %d\n", st->exitstatus);
+	//printf("exit status = %d\n", st->exitstatus);
 	return (EXIT_SUCCESS);
 }

@@ -16,7 +16,6 @@
 typedef struct			s_struct
 {
 	char		**copyenvp;
-	char		**sortenv;
 	int			i;
 	char		*oldpwd;
 	char		*printerror;

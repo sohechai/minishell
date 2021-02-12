@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:59:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/09 16:37:28 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 11:42:54 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // gcc -Wall -Wextra -Werror -L libft/ -lft srcs/tools/ft_getenv.c && ./a.out
 
-int		ft_strlenequal(char *str)
+int			ft_strlenequal(char *str)
 {
 	int		i;
 
@@ -28,7 +28,7 @@ int		ft_strlenequal(char *str)
 	return (i);
 }
 
-char	*ft_getenv(char **envp, char *var)
+char		*ft_getenv(char **envp, char *var)
 {
 	int		i;
 	int		varlen;
