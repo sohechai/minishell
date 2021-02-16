@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/11 20:01:38 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:23:37 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			parseloop(t_mini *mi)
 	{
 		return (0);
 	}
-	else if (ft_parsing(mi))
+	else if (ft_parsing(mi, 0))
 	{
 		return (1);
 	}

@@ -6,34 +6,34 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:15:53 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:07:55 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static size_t		ft_search(char *cmd, char *s)
+static size_t		ft_search(char *cmd, size_t i)
 {
-	size_t		i;
-
-	i = 0;
 	while (cmd[i])
 	{
-		if (ft_strchr(s, cmd[i]))
+		if (cmd[i] == '"' || cmd[i] == '\'')
+			i = advance(cmd, i + 1, cmd[i]);
+		else if (cmd[i] == '|' || cmd[i] == ';')
 			return (i);
-		i++;
+		else
+			i++;
+		if (i >= ft_strlen(cmd))
+			break ;
 	}
 	return (i);
 }
 
-static char			**clean_spaces(t_mini *mi)
+static char			**clean_spaces(t_mini *mi, size_t n)
 {
-	size_t		n;
 	size_t		st;
 	size_t		end;
 	char		**tab;
 
-	n = 0;
 	if (!(tab = (char**)malloc(sizeof(char*) * (mi->semi + 1))))
 		return (NULL);
 	while (n < mi->semi && mi->tab_arg[n][0] != '\0')
@@ -75,28 +75,28 @@ static void			ft_separate_cmd(t_mini *mi, size_t i, size_t n)
 	mi->tab_arg = (char **)malloc(sizeof(char *) * (mi->semi + 1));
 	while (n < mi->semi)
 	{
-		i += ft_search(mi->line + i, ";|\0");
-		mi->tab_arg[n] = ft_strndup(mi->line + tmp, i - tmp);
+		i = ft_search(mi->line, i);
+		mi->tab_arg[n] = ft_strndup(mi->line + tmp, i);
 		ft_fill_tab(mi->line[i], mi->tab_pipe, n, mi->semi);
 		n++;
-		if (mi->line[i] == '\0')
-			break ;
 		i++;
+		if (i >= ft_strlen(mi->line))
+			break ;
 		while (mi->line[i] == ' ')
 			i++;
 		tmp = i;
 	}
 	mi->tab_arg[n] = NULL;
-	mi->tab_arg = clean_spaces(mi);
+	change_real_char(mi, 0, 0);
+	mi->tab_arg = clean_spaces(mi, 0);
 }
 
-int					ft_parsing(t_mini *mi)
+int					ft_parsing(t_mini *mi, size_t i)
 {
-	size_t		i;
-
-	i = 0;
 	while (mi->line[i])
 	{
+		if (mi->line[i] == '"' || mi->line[i] == '\'')
+			i = advance(mi->line, i + 1, mi->line[i]);
 		if (mi->line[i] == '|' || mi->line[i] == ';')
 		{
 			if (mi->line[i] == ';' && endline(mi->line, i + 1))
@@ -105,16 +105,17 @@ int					ft_parsing(t_mini *mi)
 				if (!print_prompt_waiting(mi, NULL, 0))
 					return (0);
 			if (mi->line[i] == ';' && mi->line[i + 1] == ';')
-			{
-				ft_error(';', 1);
-				return (0);
-			}
+				return (ft_error(';', 1));
 			mi->semi++;
 		}
+		if (i > ft_strlen(mi->line))
+			break ;
 		i++;
 	}
 	mi->semi++;
 	ft_separate_cmd(mi, 0, 0);
+	if (!change_char_in_dquote(mi, 0, 0))
+		return (0);
 	ft_recover_cmd(mi);
 	return (1);
 }

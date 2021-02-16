@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:09:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:09:25 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:09:54 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,7 @@ static char			*remove_spaces(t_mini *mi, char *str, size_t n, size_t tmp, size_t
 	return (str);
 }
 
-static size_t		advance(char *str, size_t i, char c)
-{
-	while (str[i] && str[i] != c)
-	{
-		if (str[i] == '\0')
-			return (0);
-		i++;
-	}
-	return (i);
-}
-
-static char			*remove_quote(t_mini *mi, size_t i, size_t j, size_t n)
+char			*remove_quote(t_mini *mi, size_t i, size_t j, size_t n)
 {
 	char	*str;
 
@@ -49,7 +38,7 @@ static char			*remove_quote(t_mini *mi, size_t i, size_t j, size_t n)
 	i = 0;
 	while (mi->tab_arg[n][i])
 	{
-		if (!ft_strchr("\'\"", mi->tab_arg[n][i]))
+		if (!ft_strchr("\"", mi->tab_arg[n][i]))
 		{
 			str[j] = mi->tab_arg[n][i];
 			j++;
@@ -61,6 +50,33 @@ static char			*remove_quote(t_mini *mi, size_t i, size_t j, size_t n)
 	return (str);
 }
 
+size_t				print_dquote(t_mini *mi, size_t i, size_t n, char c)
+{
+	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != c)
+	{
+		write(mi->fd, &mi->tab_arg[n][i], 1);
+		i++;
+		if (mi->tab_arg[n][i] == c)
+			return (i + 1);
+	}
+	return (i + 1);
+}
+
+size_t				print_quote(t_mini *mi, char *str, size_t i)
+{
+	mi->fd = 1;
+	while (str[i] && str[i] != 39)
+	{
+		write(mi->fd, &str[i], 1);
+		i++;
+		if (str[i] == '\0')
+		{
+			break ;
+		}
+	}
+	return (i + 1);
+}
+
 void				clean_spaces_bet(t_mini *mi, size_t n, size_t i)
 {
 	char		*str;
@@ -68,21 +84,12 @@ void				clean_spaces_bet(t_mini *mi, size_t n, size_t i)
 	str = NULL;
 	while (mi->tab_arg[n][i])
 	{
-		if (mi->tab_arg[n][i] == '"' || mi->tab_arg[n][i] == 39)
-			i += advance(mi->tab_arg[n], i + 1, mi->tab_arg[n][i]);
+		if (mi->tab_arg[n][i] == '"')
+			i = advance(mi->tab_arg[n], i + 1, '"');
 		if (i >= ft_strlen(mi->tab_arg[n]))
 			break ;
 		if (ft_strchr(" \t\n\r\v\f", mi->tab_arg[n][i]))
 			mi->tab_arg[n] = remove_spaces(mi, str, n, i, i);
 		i++;
 	}
-	i = 0;
-	while (mi->tab_arg[n][i])
-	{
-		if (ft_strchr("\'\"", mi->tab_arg[n][i]))
-			mi->nquote++;
-		i++;
-	}
-	if (mi->nquote)
-		mi->tab_arg[n] = remove_quote(mi, 0, 0, n);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 18:04:43 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:29:17 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	char	**cmd;
 
 	st->copyenvp = envp;
+	// en dessous je fais le tri pour savoir comment couper la commande en fonction des quotes etc
+	// je pensais que c'etait du a ca que par ex : echo "\"salut\"" donnait \salut\ au lieu de "salut"
+	// mais non puisque j'ai remis comme c'etait avant et le resultat de la commande reste le mm 
 	if ((ft_strchr(mi->tab_arg[n], '"') || ft_strchr(mi->tab_arg[n], '\'')) &&
 		ft_checkquote(mi->tab_arg[n]) == 1)
 		cmd = ft_strtokk(mi->tab_arg[n], "\"'");
@@ -72,6 +75,6 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	{
 		ft_exec_built_in(mi, cmd, st, n);
 	}
-	printf("exit status = %d\n", st->exitstatus);
+	// printf("exit status = %d\n", st->exitstatus);
 	return (EXIT_SUCCESS);
 }

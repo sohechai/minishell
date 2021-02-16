@@ -6,106 +6,98 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:12:00 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:07:26 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
- * Fonction pour changer les caracteres en caratere inexistant
- */
-
-void			ft_change_char(char c, t_mini *mi, size_t i)
+size_t				ft_change_char(char c, t_mini *mi, size_t i, size_t n)
 {
-	if (c == ';')
-		mi->line[i] = -2;
-	else if (c == '|')
-		mi->line[i] = -3;
-	else if (c == '>')
-		mi->line[i] = -4;
-	else if (c == '<')
-		mi->line[i] = -5;
-}
-
-/*
- * Ici on va regarder tous les carateres se trouvant entre " et ' et les remplacer
- * par des caractere non existant pour les differencier
- */
-
-size_t			ft_check_quote(t_mini *mi, size_t i, char c)
-{
-	mi->quote = 1;
-	while (mi->line[i] && mi->line[i] != c)
+	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != c)
 	{
-		if (mi->line[i] == 34 && c == 39)
-			mi->line[i] = -6;
-		if (mi->line[i] == 39 && c == 34)
-			mi->line[i] = -7;
-		if (mi->line[i] == c)
-			mi->quote = 0;
-		if (ft_strchr(";|<>\\", mi->line[i]))
-			ft_change_char(mi->line[i], mi, i);
+		if (mi->tab_arg[n][i] == ';')
+			mi->tab_arg[n][i] = -2;
+		else if (mi->tab_arg[n][i] == '|')
+			mi->tab_arg[n][i] = -3;
+		else if (mi->tab_arg[n][i] == '>')
+			mi->tab_arg[n][i] = -4;
+		else if (mi->tab_arg[n][i] == '<')
+			mi->tab_arg[n][i] = -5;
 		i++;
 	}
 	return (i);
 }
 
-/*
- * Si un caractere utilise comme condition (ex: '";|) et que celui-ci est précédé
- * d'un \ alors ce caratère devient un caratère imprimable.
- * Ici on le remplace par un caractere non existant pour le differencier
- */
-
-void			ft_check_backslash(t_mini *mi, size_t i)
+int					check_nquote(char *str, size_t i)
 {
-	while (mi->line[i])
+	int		dquote;
+	int		squote;
+
+	dquote = 0;
+	squote = 0;
+	while (str[i])
 	{
-		if (mi->line[i] == '"' || mi->line[i] == '\'')
-			i = ft_check_quote(mi, i + 1, mi->line[i]);
-		if (mi->line[i] == '\\')
-		{
-			if (mi->line[i + 1] == '\\')
-				str_remove_index(i, mi, -1);
-			else if (mi->line[i + 1] == ';')
-				str_remove_index(i, mi, -2);
-			else if (mi->line[i + 1] == '|')
-				str_remove_index(i, mi, -3);
-			else if (mi->line[i + 1] == '>')
-				str_remove_index(i, mi, -4);
-			else if (mi->line[i + 1] == '<')
-				str_remove_index(i, mi, -5);
-			else if (mi->line[i + 1] == '\"')
-				str_remove_index(i, mi, -6);
-			else if (mi->line[i + 1] == '\'')
-				str_remove_index(i, mi, -7);
-		}
-		if (mi->line[i] == '\0')
-			break ;
+		if (str[i] == '"')
+			dquote++;
+		else if (str[i] == '\'')
+			squote++;
 		i++;
 	}
-}
-
-/*
- * si \ est le premier caractere de la commande un multiligne
- * va se mettre pour recevoir une commande comme dans bash
- */
-
-int				backslash(t_mini *mi)
-{
-	ft_putstr("> ");
-	ft_delete(&mi->line);
-	get_next_line(1, &mi->line);
-	if (mi->line[0] == '\0')
-		return (0);
+	if (squote % 2 != 0)
+		return (ft_error('\'', 1));
+	else if (dquote % 2 != 0)
+		return (ft_error('"', 1));
 	return (1);
 }
 
-/*
- * va checker les premieres pouvant être détecter
- */
+size_t				replace(t_mini *mi, size_t n, size_t i)
+{
+	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != '\"')
+	{
+		if (mi->tab_arg[n][i] == '$')
+		{
+			if ((i = re_env(mi, mi->tab_arg[n] + (i + 1), i, n)) == 0)
+				return (0);
+		}
+		i++;
+	}
+	if (mi->tab_arg[n][i] == '"')
+		i++;
+	return (i);
+}
 
-int				ft_check_character(t_mini *mi)
+int					change_char_in_dquote(t_mini *mi, size_t i, size_t n)
+{
+	while (mi->tab_arg[n])
+	{
+		i = 0;
+		while (mi->tab_arg[n][i])
+		{
+			if (mi->tab_arg[n][i] == '"')
+			{
+				if ((i = replace(mi, n, i + 1)) == 0)
+					return (ft_error('"', 1));
+			}
+			else if (mi->tab_arg[n][i] == '\'')
+			{
+				if ((i = advance(mi->tab_arg[n], i + 1, '\'')) == 0)
+					return (ft_error('\'', 1));
+			}
+			else if (mi->tab_arg[n][i] == '$')
+			{
+				if ((i = re_env(mi, mi->tab_arg[n] + (i + 1), i, n)) == 0)
+					return (0);
+			}
+			else
+				i++;
+		}
+		n++;
+	}
+	return (1);
+}
+
+int					ft_check_character(t_mini *mi)
 {
 	size_t i;
 
@@ -115,10 +107,8 @@ int				ft_check_character(t_mini *mi)
 		ft_error(mi->line[0], 0);
 		return (0);
 	}
-	if (mi->line[0] == '\\' && mi->line[1] == '\0')
-		if (!backslash(mi))
-			return (0);
-	ft_check_backslash(mi, i);
+	if (!check_nquote(mi->line, 0))
+		return (0);
 	while (mi->line[i])
 	{
 		if (mi->line[i] == ';' && mi->line[i + 1] == '|')

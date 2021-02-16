@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/09 17:17:53 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/16 12:13:07 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			=		./srcs/main.c \
 					./srcs/parsing/ft_utils.c \
 					./srcs/parsing/print_prompt_waiting.c \
 					./srcs/parsing/tools_parsing.c \
+					./srcs/parsing/reco_env.c \
 					./srcs/tools/ft_getenv.c \
 					./srcs/tools/ft_initstruct.c \
 					./srcs/tools/ft_free.c \
@@ -43,6 +44,7 @@ SRC			=		./srcs/main.c \
 					./srcs/tools/ft_echoutils.c \
 					./srcs/tools/ft_strtokk.c \
 					./srcs/tools/ft_sortenv.c \
+					./srcs/tools/option.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

@@ -27,6 +27,7 @@ typedef struct	s_mini
 {
 	char		*line; // stock toute la commande entrée
 	char 		**tab_arg; // stock la cmd separe par rapport au ; et |
+	char 		**tab_red;
 	char		**cmd; // stock seul la cmd
 	char		**echo; // va etre utilise dans la fonction echo
 	char		error; // caratere d'erreur a afficher
@@ -35,7 +36,9 @@ typedef struct	s_mini
 	int			nquote;
 	int			islast;
 	int 		op; // pour detecter l'option -n pour echo
+	int 		fd;
 	size_t 		semi; // compter le nb de ; et |
+	char		**envp;
 }				t_mini;
 
 t_struct			*ft_initstruct(void);
@@ -69,21 +72,32 @@ int					ft_checkvarismissing(char *var, t_struct *st);
 char				*ft_getvar(char *var);
 int     			main(int argc, char **argv, char **envp);
 
+
+int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
+int 				is_env(t_mini *mi, char *str, size_t i, size_t n);
+char				*new_str(char *tmp, char *src, size_t i);
+char				*remove_quote(t_mini *mi, size_t i, size_t j, size_t n);
+size_t				print_quote(t_mini *mi, char *str, size_t i);
+int					re_env(t_mini *mi, char *str, size_t i, size_t n);
+size_t				print_dquote(t_mini *mi, size_t i, size_t n, char c);
+void				option(t_mini *mi, size_t i, size_t n);
+
 /*
  ** CMD FILES
 */
 
-int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
+// int					ft_echo(t_mini *mi, size_t n); // fonction pour echo
 int					ft_builtinpwd(t_struct *st); // exec pwd
 int					ft_builtincd(char *path, t_struct *st); // exec cd
 void				ft_env(char **envp); // printf l'env
 int					ft_exportenv(char *var, t_struct *st);
 char				**ft_unsetenv(char *var, t_struct *st);
+
 /*
  ** PARSING FILES
  */
 
-int					ft_parsing(t_mini *mi);
+int					ft_parsing(t_mini *mi, size_t i);
 int					ft_recover_cmd(t_mini *mi); // recupere la cmd ex: echo
 int					ft_check_character(t_mini *mi); // check tout la ligne pour analiser les vrais des faux characters
 void				str_remove_index(int i, t_mini *mi, char c); // supprime un caractere quand celui-ci est inutile
@@ -92,9 +106,14 @@ int					endline(char *str, size_t i); // check si le character est le dernier de
 int 				ft_error(char c, int i); // affiche des messages d'erreur
 int					check_pipe(t_mini *mi); // check si les pipes donnes sont bons
 int					check_semi(t_mini *mi); // check si les semilicons donnes sont bons
-int 				check_redirect(t_mini *mi, size_t i); // check les redirections
+int 				check_redirect(t_mini *mi, size_t n); // check les redirections
 void 				ft_reset_mi(t_mini *mi);
 void				ft_free_mi(t_mini *mi);
 void				clean_spaces_bet(t_mini *mi, size_t n, size_t i);
+int					check_nquote(char *str, size_t i);
+int					change_char_in_dquote(t_mini *mi, size_t i, size_t n);
+size_t				advance(char *str, size_t i, char c);
+void				change_real_char(t_mini *mi, size_t n, size_t i);
+size_t				ft_change_char(char c, t_mini *mi, size_t i, size_t n);
 
 #endif

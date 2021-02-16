@@ -6,29 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:10:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:10:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:01:37 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void		op(t_mini *mi, size_t i, size_t n)
-{
-//	printf("mi->line = [%s]\n", mi->line);
-	while (mi->tab_arg[n][i])
-	{
-		if (!ft_strchr("- ", mi->tab_arg[n][i]))
-			break ;
-		if (mi->tab_arg[n][i] == '-' && mi->tab_arg[n][i + 1] == 'n')
-		{
-			mi->op = i + 2;
-			break ;
-		}
-		i++;
-	}
-}
-
-static char		*clean_bef_aft(char *str, size_t i, size_t st, size_t end)
+static char			*clean_bef_aft(char *str, size_t i, size_t st, size_t end)
 {
 	char	*tmp;
 
@@ -77,18 +61,36 @@ static void			rechange_character(t_mini *mi, size_t i, size_t n)
 	}
 }
 
+static void			echo_loop(t_mini *mi, size_t i, size_t n)
+{
+	while (mi->tab_arg[n][i])
+	{
+		if (mi->tab_arg[n][i] == '"')
+			i = print_dquote(mi, i + 1, n, '"');
+		else if (mi->tab_arg[n][i] == 39)
+			i = print_quote(mi, mi->tab_arg[n], i + 1);
+		else
+		{
+			ft_putchar_fd(mi->tab_arg[n][i], mi->fd);
+			i++;
+		}
+		if (i >= ft_strlen(mi->tab_arg[n]))
+			break ;
+	}
+}
+
 int					ft_echo(t_mini *mi, size_t n)
 {
 	size_t		i;
+	char		*tmp;
 
 	i = 0;
-//	dprintf(1, "{%s}\n", mi->tab_arg[0]);
-	op(mi, 4, n);
-//	printf("[%s]\n", mi->tab_arg[n]);
+	tmp = NULL;
+	option(mi, 4, n);
 	if (!recover_print(mi, mi->op ? mi->op : 4, n))
 		return (0);
 	rechange_character(mi, 0, n);
-	ft_printf("%s", mi->tab_arg[n]);
+	echo_loop(mi, i, n);
 	if (!mi->op)
 		ft_putchar('\n');
 	mi->nquote = 0;

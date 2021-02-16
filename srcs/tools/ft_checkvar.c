@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/09 17:18:53 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:05:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	lessvar = ft_getvar(var);
 	i = 0;
 	len = ft_strlen(lessvar);
+	if (st->copyenvp == NULL)
+		ft_printf("No environment :\n");
 	while (st->copyenvp[i] != NULL)
 	{
 		if (ft_strnstr(st->copyenvp[i], lessvar, len))
