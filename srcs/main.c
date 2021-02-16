@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/16 12:31:59 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 22:08:36 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 // - ctrl-C ok
 // - ' et " " ok
 // - export $var ok
+// - faire redirection pour built in
+// - rajouter dans parsing ls >>>> text.txt -> erreur de syntaxe près du symbole inattendu « >> » (anglais)
 // - rajouter return (130) pour ctrl c
 // - Echo : gestion des commentaires #, et $ avec ft_getenv
 // - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
@@ -71,13 +73,21 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 	{
 		if (mi->tab_pipe[n] == 0)
 		{
-			ft_simplecmd(st, mi, envp, n);
+			ft_redirection(mi->tab_arg[n], st);
+			if (st->redirection == 0)
+				ft_simplecmd(st, mi, envp, n);
+			else
+			{
+				mi->tab_arg[n] = ft_substr(mi->tab_arg[n], 0, ft_strlenuntilredir(mi->tab_arg[n]));
+				ft_simplecmd(st, mi, envp, n);
+			}
 			n++;
 		}
-//		else if (mi->tab_pipe[n] == 1)
-//		{
-//			n = pipecmd(st, mi, envp, n);
-//		}
+		// else if (mi->tab_pipe[n] == 1)
+		// {
+		// 	printf("on est dans tab pipe == 1");
+		// 	n++;
+		// }
 	}
 }
 

@@ -1,5 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define SIMPLERED 1
+# define DOUBLERED 2
 # include "../libft/include/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -19,7 +21,9 @@ typedef struct			s_struct
 	int			i;
 	char		*oldpwd;
 	char		*printerror;
+	char		*newfd;
 	int			exitstatus;
+	int			redirection;
 }						t_struct;
 
 typedef struct	s_mini
@@ -69,6 +73,9 @@ void				ft_unsetloop(char **built_in, t_struct *st);
 int					ft_checkvarisok(char *var);
 int					ft_checkvarismissing(char *var, t_struct *st);
 char				*ft_getvar(char *var);
+int					ft_indexuntilfile(char *str, t_struct *st);
+int					ft_redirection(char *cmd, t_struct *st);
+int					ft_strlenuntilredir(char *str);
 int     			main(int argc, char **argv, char **envp);
 
 

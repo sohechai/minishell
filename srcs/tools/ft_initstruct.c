@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/12 11:45:35 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 16:29:11 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ t_struct		*ft_initstruct(void)
 	st->copyenvp = NULL;
 	st->i = 0;
 	st->oldpwd = NULL;
+	st->newfd = NULL;
 	st->printerror = NULL;
 	st->exitstatus = 0;
+	st->redirection = 0;
 	return (st);
 }

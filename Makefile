@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/16 12:13:07 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/16 21:12:15 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC			=		./srcs/main.c \
 					./srcs/tools/ft_strtokk.c \
 					./srcs/tools/ft_sortenv.c \
 					./srcs/tools/option.c \
+					./srcs/tools/ft_checkredirection.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

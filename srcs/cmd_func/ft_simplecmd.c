@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:31:59 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 22:09:53 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int				ft_exit(void)
 {
 	// pid_t pid;
+	// TODO revoir ft_exit
 	ft_printf("exit\n");
+	// kill(0, SIGINT);
+	// kill(0, SIGKILL);
 	//ft_freetab(st->copyenvp);
 	// ft_freestruct(st);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
@@ -49,9 +52,8 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	char	**cmd;
 
 	st->copyenvp = envp;
-	// en dessous je fais le tri pour savoir comment couper la commande en fonction des quotes etc
-	// je pensais que c'etait du a ca que par ex : echo "\"salut\"" donnait \salut\ au lieu de "salut"
-	// mais non puisque j'ai remis comme c'etait avant et le resultat de la commande reste le mm 
+	// if (ft_redirection(mi->tab_arg[n], st) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
 	if ((ft_strchr(mi->tab_arg[n], '"') || ft_strchr(mi->tab_arg[n], '\'')) &&
 		ft_checkquote(mi->tab_arg[n]) == 1)
 		cmd = ft_strtokk(mi->tab_arg[n], "\"'");
@@ -68,13 +70,14 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	{
 		st->printerror = ft_strdup(cmd[0]);
 		ft_getabsolutepath(cmd, st);
-		ft_execcmd(st, st->printerror, cmd);
+		if (st->redirection == 0)
+			ft_execcmd(st, st->printerror, cmd);
+		else
+			ft_execcmd(st, st->printerror, cmd);
 		free(st->printerror);
 	}
 	else
-	{
 		ft_exec_built_in(mi, cmd, st, n);
-	}
 	// printf("exit status = %d\n", st->exitstatus);
 	return (EXIT_SUCCESS);
 }

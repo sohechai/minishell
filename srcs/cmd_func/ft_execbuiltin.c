@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/12 14:11:27 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 21:34:25 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 {
 	pid_t	pid;
 	int		status;
+	int		fd;
 
 	pid = fork();
 	status = 0;
@@ -84,8 +85,32 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	}
 	else
 	{
-		if (execve(cmd[0], cmd, NULL) == -1)
-			ft_printf("%s : command not found\n", command);
+		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
+		{
+			if (st->redirection == DOUBLERED)
+				fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
+			else
+				fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+					S_IRGRP | S_IWGRP | S_IWUSR);
+			if (execve(cmd[0], cmd, NULL) == -1)
+			{
+				close(fd);
+				ft_printf("%s : command not found\n", command);
+			}
+			else
+        	{
+				dup2(fd, STDOUT_FILENO);
+        		dup2(fd, STDERR_FILENO);
+			}
+		}
+		if (st->redirection == 0)
+		{
+			if (execve(cmd[0], cmd, NULL) == -1)
+			{
+				close(fd);
+				ft_printf("%s : command not found\n", command);
+			}
+		}
 		exit(127);
 	}
 }
