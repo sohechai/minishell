@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtincd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 17:35:10 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 12:15:04 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "OLDPWD"));
 		}
 	}
-	else if (ft_strchr(built_in[1], '$'))
-		built_in[1] = ft_strdup(ft_getenv(st->copyenvp, (ft_strtrim(built_in[1], "$"))));
+	// else if (ft_strchr(built_in[1], '$'))
+	// 	built_in[1] = ft_strdup(ft_getenv(st->copyenvp, (ft_strtrim(built_in[1], "$"))));
 	ft_saveoldpwd(st);
 	ft_builtincd(built_in[1], st);
 }

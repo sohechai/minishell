@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtinpwd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 17:28:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 11:40:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		ft_savepwd(t_struct *st)
 {
 	char	cwd[PATH_MAX];
 	char	*pwd;
+
 	getcwd(cwd, sizeof(cwd));
 	pwd = ft_strjoin("PWD=", cwd);
 	ft_exportenv(pwd, st);
@@ -34,6 +35,7 @@ void		ft_savepwd(t_struct *st)
 int			ft_builtinpwd(t_struct *st)
 {
 	char cwd[PATH_MAX];
+
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		ft_exportenv(ft_strjoin("PWD=", cwd), st);

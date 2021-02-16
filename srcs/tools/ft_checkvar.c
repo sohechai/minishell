@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:05:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:31:59 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	return (-1);
 }
 
-int			ft_checkvarisok(char *var)
+int				ft_checkvarisok(char *var)
 {
 	int		i;
 

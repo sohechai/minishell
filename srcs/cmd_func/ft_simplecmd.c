@@ -6,13 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:29:17 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:31:59 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		ft_exit(void)
+int				ft_exit(void)
 {
 	// pid_t pid;
 	ft_printf("exit\n");

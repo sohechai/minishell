@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/11 18:03:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/12 14:11:27 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin, int i)
+void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 {
 	int		id;
+	int		i;
+
 	path_split = ft_split(path, ':');
 	free(path);
 	path = NULL;
+	i = 0;
 	while (path_split[i])
 	{
-		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + 1 + ft_strlen(cmd[0]) + 1));
+		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + \
+		ft_strlen(cmd[0]) + 2));
 		if (bin == NULL)
 			break ;
 		ft_strcat(bin, path_split[i]);
@@ -40,17 +44,20 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin, int i)
 
 void	ft_getabsolutepath(char **cmd, t_struct *st)
 {
-	char	*path = ft_strdup(ft_getenv(st->copyenvp, "PATH"));
-	char	*bin = NULL;
-	char	**path_split = NULL;
+	char	*path;
+	char	*bin;
+	char	**path_split;
 	int		i;
 
+	path = ft_strdup(ft_getenv(st->copyenvp, "PATH"));
+	bin = NULL;
+	path_split = NULL;
 	i = 0;
 	if (path == NULL)
 		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
 	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
 	{
-		ft_pathsplit(cmd, path_split, path, bin, i);
+		ft_pathsplit(cmd, path_split, path, bin);
 	}
 	else
 	{
@@ -72,20 +79,20 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-        	st->exitstatus = WEXITSTATUS(status);
+			st->exitstatus = WEXITSTATUS(status);
 		kill(pid, SIGTERM);
 	}
 	else
 	{
 		if (execve(cmd[0], cmd, NULL) == -1)
 			ft_printf("%s : command not found\n", command);
-		exit (127);
+		exit(127);
 	}
 }
 
 int		ft_is_built_in(char *cmd)
 {
-	int         i;
+	int			i;
 	const char	*built_in[] = {"pwd", "cd", "env", "echo", "export", "unset", NULL};
 
 	i = 0;
@@ -100,7 +107,6 @@ int		ft_is_built_in(char *cmd)
 
 int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 {
-	st->i = 1;
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd(st);
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
