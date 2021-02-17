@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unsetenv.c                                      :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/11 17:48:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:16:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void		ft_unsetloop(char **built_in, t_struct *st)
 {
 	st->i = 1;
+	ft_redirectbuiltin(st);
 	while (built_in[st->i] != NULL)
 	{
 		ft_unsetenv(built_in[st->i], st);
 		st->i++;
 	}
+	ft_comebacktostdout(st);
 }
 
 int			ft_checkifok(char *str, char *var)

@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:41:08 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/12 11:41:17 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 21:24:09 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		ft_env(char **envp)
+void		ft_env(char **envp, t_struct *st)
 {
 	int i;
 
 	i = 0;
+	ft_redirectbuiltin(st);
 	while (envp[i] != NULL)
 	{
 		if (ft_strchr(envp[i], '=') != NULL)
 			ft_printf("%s\n", envp[i]);
 		i++;
 	}
+	ft_comebacktostdout(st);
 }

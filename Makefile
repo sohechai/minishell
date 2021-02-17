@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/16 21:12:15 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/17 23:17:01 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ CFLAGS 			= 		-Wall -Wextra -Werror
 
 SRC			=		./srcs/main.c \
 					./srcs/cmd_func/ft_execbuiltin.c \
-					./srcs/cmd_func/ft_builtincd.c \
-					./srcs/cmd_func/ft_builtinpwd.c \
+					./srcs/cmd_func/ft_cd.c \
+					./srcs/cmd_func/ft_pwd.c \
 					./srcs/cmd_func/ft_env.c \
 					./srcs/cmd_func/ft_echo.c \
 					./srcs/cmd_func/ft_simplecmd.c \
-					./srcs/cmd_func/ft_unsetenv.c \
-					./srcs/cmd_func/ft_exportenv.c \
+					./srcs/cmd_func/ft_unset.c \
+					./srcs/cmd_func/ft_export.c \
 					./srcs/parsing/ft_check_character.c \
 					./srcs/parsing/ft_check_pipe.c \
 					./srcs/parsing/ft_parsing.c \

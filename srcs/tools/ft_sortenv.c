@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sortenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/12 11:43:31 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 21:25:23 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			ft_printsortenv(t_struct *st)
 	sortenv = ft_saveenv(st);
 	sortquoteenv = ft_sortenv(sortenv);
 	i = 0;
+	ft_redirectbuiltin(st);
 	while (sortquoteenv[i])
 	{
 		if (ft_strchr(sortquoteenv[i], '=') != NULL)
@@ -109,5 +110,6 @@ int			ft_printsortenv(t_struct *st)
 			i++;
 		}
 	}
+	ft_comebacktostdout(st);
 	return (st->exitstatus = EXIT_SUCCESS);
 }

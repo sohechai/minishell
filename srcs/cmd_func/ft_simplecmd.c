@@ -6,23 +6,55 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 22:09:53 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:19:41 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int				ft_exit(void)
+int				ft_lenuntilspace(int i, char *str)
 {
-	// pid_t pid;
-	// TODO revoir ft_exit
+	int count;
+
+	count = 0;
+	while(str[i] != '\0')
+	{
+		i++;
+		count++;
+		if (str[i] == ' ')
+			return (count);
+	}
+	return (count);
+}
+
+int				ft_exit(char *cmd, t_struct *st)
+{
+	int		i;
+	int		fd;
+
+	i = 0;
 	ft_printf("exit\n");
-	// kill(0, SIGINT);
-	// kill(0, SIGKILL);
+	if (st->redirection == DOUBLERED || st->redirection == SIMPLERED)
+		fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
+	while (cmd[i])
+	{
+		if (cmd[i] == ' ')
+		{
+			while (cmd[i] == ' ')
+				i++;
+			if (ft_isalpha(cmd[i]) != 0)
+			{
+				ft_printf("exit: %s : argument numérique nécessaire\n",
+						ft_substr(cmd, i, ft_lenuntilspace(i, cmd)));
+				break ;
+			}
+		}
+		i++;
+	}
 	//ft_freetab(st->copyenvp);
-	// ft_freestruct(st);
+	ft_freestruct(st);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
-	exit(0);
+	exit(st->exitstatus);
 	return (EXIT_SUCCESS);
 }
 
@@ -52,8 +84,6 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	char	**cmd;
 
 	st->copyenvp = envp;
-	// if (ft_redirection(mi->tab_arg[n], st) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
 	if ((ft_strchr(mi->tab_arg[n], '"') || ft_strchr(mi->tab_arg[n], '\'')) &&
 		ft_checkquote(mi->tab_arg[n]) == 1)
 		cmd = ft_strtokk(mi->tab_arg[n], "\"'");
@@ -64,20 +94,16 @@ int				ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 		cmd = ft_strtokk(mi->tab_arg[n], " \n\t");
 	if (cmd[0] == NULL)
 		ft_printf("");
-	if (!ft_strcmp(cmd[0], "exit"))
-		ft_exit();
+	else if (!ft_strcmp(cmd[0], "exit"))
+		ft_exit(mi->tab_arg[n], st);
 	else if (ft_is_built_in(cmd[0]) == false)
 	{
 		st->printerror = ft_strdup(cmd[0]);
 		ft_getabsolutepath(cmd, st);
-		if (st->redirection == 0)
-			ft_execcmd(st, st->printerror, cmd);
-		else
-			ft_execcmd(st, st->printerror, cmd);
-		free(st->printerror);
+		ft_execcmd(st, st->printerror, cmd);
+		//free(st->printerror); TODO <- free
 	}
 	else
 		ft_exec_built_in(mi, cmd, st, n);
-	// printf("exit status = %d\n", st->exitstatus);
 	return (EXIT_SUCCESS);
 }

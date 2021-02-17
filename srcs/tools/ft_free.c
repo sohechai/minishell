@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/12 11:42:47 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:21:17 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void		ft_freestruct(t_struct *st)
 {
-	if (st->copyenvp)
-		free(st->copyenvp);
+	// if (st->copyenvp)
+	// 	ft_freetab(st->copyenvp);
+	// if(st->oldpwd)
+	// 	free(st->oldpwd);
+	// if(st->printerror)
+	// 	free(st->printerror);
+	// if (st->newfd)
+	// 	free(st->newfd);
 	if (st)
 		free(st);
 }

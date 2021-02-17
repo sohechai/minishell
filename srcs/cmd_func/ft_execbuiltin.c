@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/16 21:34:25 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 21:37:07 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,29 +85,26 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	}
 	else
 	{
-		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
+		if ((st->redirection == SIMPLERED || st->redirection == DOUBLERED))
 		{
 			if (st->redirection == DOUBLERED)
 				fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 			else
 				fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
 					S_IRGRP | S_IWGRP | S_IWUSR);
+			close(1);
+			dup(fd);
+			close(fd);
 			if (execve(cmd[0], cmd, NULL) == -1)
 			{
-				close(fd);
+				dup2(2, 1);
 				ft_printf("%s : command not found\n", command);
 			}
-			else
-        	{
-				dup2(fd, STDOUT_FILENO);
-        		dup2(fd, STDERR_FILENO);
-			}
 		}
-		if (st->redirection == 0)
+		else if (st->redirection == 0)
 		{
 			if (execve(cmd[0], cmd, NULL) == -1)
 			{
-				close(fd);
 				ft_printf("%s : command not found\n", command);
 			}
 		}
@@ -142,7 +139,7 @@ int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 	else if (!ft_strcmp(built_in[0], "cd"))
 		ft_cdwithargs(built_in, st);
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
-		ft_env(st->copyenvp);
+		ft_env(st->copyenvp, st);
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
 	{
 		ft_printf("env: %s : No such file or directory\n", built_in[1]);
@@ -155,6 +152,6 @@ int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
 		ft_unsetloop(built_in, st);
 	else if (!ft_strcmp(built_in[0], "echo"))
-		ft_echo(mi, n);
+		ft_echo(mi, n, st);
 	return (EXIT_SUCCESS);
 }

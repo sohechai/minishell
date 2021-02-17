@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exportenv.c                                     :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/12 11:41:48 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:16:15 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void			ft_exportloop(char **built_in, t_struct *st)
 {
 	st->i = 1;
 	built_in[st->i] = ft_strtrim(built_in[st->i], "\"'");
+	ft_redirectbuiltin(st);
 	while (built_in[st->i] != NULL)
 	{
 		ft_exportenv(built_in[st->i], st);
 		st->i++;
 	}
+	ft_comebacktostdout(st);
 }
 
 char			*ft_getvar(char *var)

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:10:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:01:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 21:30:06 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,14 @@ static void			echo_loop(t_mini *mi, size_t i, size_t n)
 	}
 }
 
-int					ft_echo(t_mini *mi, size_t n)
+int					ft_echo(t_mini *mi, size_t n, t_struct *st)
 {
 	size_t		i;
 	char		*tmp;
 
 	i = 0;
 	tmp = NULL;
+	ft_redirectbuiltin(st);
 	option(mi, 4, n);
 	if (!recover_print(mi, mi->op ? mi->op : 4, n))
 		return (0);
@@ -95,5 +96,6 @@ int					ft_echo(t_mini *mi, size_t n)
 		ft_putchar('\n');
 	mi->nquote = 0;
 	mi->op = 0;
+	ft_comebacktostdout(st);
 	return (1);
 }

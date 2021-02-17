@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/16 22:08:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:12:36 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@
 // - ctrl-C ok
 // - ' et " " ok
 // - export $var ok
-// - faire redirection pour built in
+// - > et >> ok
+// - revoir $ -> segfault
+// - finir ft_exit exit aaa aaa -> exit: aaa : argument numérique nécessaire || \
+// - exit 444 444 -> exit: trop d'arguments
 // - rajouter dans parsing ls >>>> text.txt -> erreur de syntaxe près du symbole inattendu « >> » (anglais)
 // - rajouter return (130) pour ctrl c
-// - Echo : gestion des commentaires #, et $ avec ft_getenv
 // - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
 // - Remplacer tous les printf pas des dprintf
 // - mise a jour header de aurelien
-// - <, > et “>>”
+// - “>>”
 // - Pipes |
-// - ctrl-\ -> ne quitte pas mais affiche un caractere
 
 
 // int			ft_allocbuffer(char *buffer, char *cwd, size_t buf_size)

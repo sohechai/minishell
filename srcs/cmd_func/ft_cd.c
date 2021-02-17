@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_builtincd.c                                     :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/12 12:15:04 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/17 23:13:52 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 			ft_printf("cd: « OLDPWD » non défini");
 		else
 		{
+			ft_redirectbuiltin(st);
 			ft_printf("%s\n", ft_strdup(ft_getenv(st->copyenvp, "OLDPWD")));
 			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "OLDPWD"));
+			ft_comebacktostdout(st);
 		}
 	}
 	// else if (ft_strchr(built_in[1], '$'))
@@ -40,11 +42,13 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 
 int		ft_builtincd(char *path, t_struct *st)
 {
+	ft_redirectbuiltin(st);
 	if (chdir(path) == -1)
 	{
 		ft_printf("cd: %s: No such file or directory\n", path);
 		return (st->exitstatus = EXIT_FAILURE);
 	}
+	ft_comebacktostdout(st);
 	ft_savepwd(st);
 	return (st->exitstatus = EXIT_SUCCESS);
 }
