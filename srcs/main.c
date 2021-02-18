@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/18 23:17:12 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 23:25:58 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // - ctrl-C ok
 // - ' et " " ok
 // - export $var ok
-// - > et >> ok
+// - <, > et >> ok
 // - revoir $ -> segfault
 // - finir ft_exit exit aaa aaa -> exit: aaa : argument numérique nécessaire || \
 // - exit 444 444 -> exit: trop d'arguments
