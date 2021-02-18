@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/17 23:12:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 23:17:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 				ft_simplecmd(st, mi, envp, n);
 			else
 			{
-				mi->tab_arg[n] = ft_substr(mi->tab_arg[n], 0, ft_strlenuntilredir(mi->tab_arg[n]));
-				ft_simplecmd(st, mi, envp, n);
+				if(st->stop == 0)
+				{
+					mi->tab_arg[n] = ft_substr(mi->tab_arg[n], 0, ft_strlenuntilredir(mi->tab_arg[n]));
+					ft_simplecmd(st, mi, envp, n);
+				}
 			}
 			n++;
 		}

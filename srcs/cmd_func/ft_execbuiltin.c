@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/17 21:37:07 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 23:03:03 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	}
 	else
 	{
-		if ((st->redirection == SIMPLERED || st->redirection == DOUBLERED))
+		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 		{
 			if (st->redirection == DOUBLERED)
 				fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
@@ -101,7 +101,7 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 				ft_printf("%s : command not found\n", command);
 			}
 		}
-		else if (st->redirection == 0)
+		else
 		{
 			if (execve(cmd[0], cmd, NULL) == -1)
 			{

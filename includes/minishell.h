@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # define SIMPLERED 1
 # define DOUBLERED 2
+# define LEFTRED 3
 # include "../libft/include/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -14,6 +15,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <dirent.h>
 
 typedef struct			s_struct
 {
@@ -25,6 +27,8 @@ typedef struct			s_struct
 	int			exitstatus;
 	int			redirection;
 	int			oldstdout;
+	char		*pathfile;
+	int			stop;
 }						t_struct;
 
 typedef struct	s_mini
@@ -79,6 +83,7 @@ int					ft_redirection(char *cmd, t_struct *st);
 int					ft_strlenuntilredir(char *str);
 void				ft_redirectbuiltin(t_struct *st);
 void				ft_comebacktostdout(t_struct *st);
+int					ft_checkfile(char *cmd, t_struct *st);
 int     			main(int argc, char **argv, char **envp);
 
 

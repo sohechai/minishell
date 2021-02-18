@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/17 23:17:01 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/18 21:09:47 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC			=		./srcs/main.c \
 					./srcs/tools/ft_echoutils.c \
 					./srcs/tools/ft_strtokk.c \
 					./srcs/tools/ft_sortenv.c \
+					./srcs/tools/ft_redirection.c \
 					./srcs/tools/option.c \
 					./srcs/tools/ft_checkredirection.c \
 
