@@ -20,14 +20,15 @@
 typedef struct			s_struct
 {
 	char		**copyenvp;
-	int			i;
+	char		**files;
 	char		*oldpwd;
 	char		*printerror;
 	char		*newfd;
+	char		*pathfile;
+	int			i;
 	int			exitstatus;
 	int			redirection;
 	int			oldstdout;
-	char		*pathfile;
 	int			stop;
 }						t_struct;
 

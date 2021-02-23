@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/23 15:54:57 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 16:52:20 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ t_struct		*ft_initstruct(void)
 	if (!(st = malloc(sizeof(t_struct) * 1)))
 		return (NULL);
 	st->copyenvp = NULL;
-	st->i = 0;
 	st->oldpwd = NULL;
 	st->newfd = NULL;
 	st->printerror = NULL;
+	st->pathfile = NULL;
+	st->i = 0;
 	st->exitstatus = 0;
 	st->redirection = 0;
 	st->oldstdout = 0;
-	st->pathfile = NULL;
 	st->stop = 0;
 	return (st);
 }

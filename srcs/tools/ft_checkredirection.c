@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 14:17:56 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 17:06:37 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int			ft_sortredirection(char *cmd, int i, t_struct *st)
 {
 	if (cmd[i + 1] == '>')
 	{
-		if (cmd[i + 2] == '>')
-		{
-			printf("erreur de syntaxe près du symbole inattendu « >> »\n");
-			return (0);
-		}
-		else
-			st->redirection = DOUBLERED;
+		// if (cmd[i + 2] == '>')
+		// {
+		// 	printf("erreur de syntaxe près du symbole inattendu « >> »\n");
+		// 	st->redirection = 0;
+		// 	return (0);
+		// }
+		st->redirection = DOUBLERED;
 	}
 	else
 		st->redirection = SIMPLERED;
@@ -92,8 +92,12 @@ int		ft_strlenuntilredir(char *str)
 
 int		ft_redirection(char *cmd, t_struct *st)
 {
+	int			i;
+	int			fd;
+
+	i = 0;
 	if (ft_indexuntilfile(cmd, st) == 0)
-			return (EXIT_FAILURE);
+		return (0);
 	if (st->redirection != 0)
 	{
 		if (ft_lenoffile(cmd) != -1)
@@ -102,6 +106,17 @@ int		ft_redirection(char *cmd, t_struct *st)
 				return (0);
 		}
 		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+		st->files = ft_strtokk(st->newfd, " ><");
+		while (st->files[i] != NULL)
+		{
+			fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
+			i++;
+		}
+		if (i > 1)
+		{
+			free(st->newfd);
+			st->newfd = ft_strdup(st->files[i - 1]);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

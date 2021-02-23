@@ -6,13 +6,13 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/23 15:48:43 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 17:09:39 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// TODO list :
+// OK :
 // - Export ok
 // - Unset ok
 // - cd ok
@@ -25,17 +25,20 @@
 // - ' et " " ok
 // - export $var ok
 // - <, > et >> ok
-// - redirection preciser si cmd not found
-// - revoir $ -> segfault
+
+// TODO list :
 // - finir ft_exit exit aaa aaa -> exit: aaa : argument numérique nécessaire || \
 // - exit 444 444 -> exit: trop d'arguments
-// - rajouter dans parsing ls >>>> text.txt -> erreur de syntaxe près du symbole inattendu « >> » (anglais)
 // - rajouter return (130) pour ctrl c
-// - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
 // - Remplacer tous les printf pas des dprintf
-// - mise a jour header de aurelien
-// - “>>”
 // - Pipes |
+
+// TODO : aurelien
+// - rajouter dans parsing ls >>> text.txt -> syntax error near unexpected token `>'
+// - ls >>>>>> fgkj -> syntax error near unexpected token `>>'
+// - ls <<<< dfgklj -> syntax error near unexpected token `<<'
+// - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
+// - mise a jour header de aurelien
 
 
 // int			ft_allocbuffer(char *buffer, char *cwd, size_t buf_size)
@@ -90,14 +93,13 @@ int			execloop(t_mini *mi, t_struct *st, char **envp)
 		}
 		else if (mi->tab_pipe[n] == 1)
 		{
+			printf("cmd = [%s]\n", mi->tab_arg[n]);
 			ft_pipecmd(st, mi, envp, n);
 			n++;
 		}
 	}
 	return (EXIT_SUCCESS);
 }
-
-//TODO check si j'utilise st->sortenv
 
 void			ft_copyenvp(char **envp, t_struct *st)
 {
