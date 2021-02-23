@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sortenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/17 21:25:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:55:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		**ft_sortenv(char **envp)
 
 void		ft_addquote(char *str)
 {
-	int		i;
+	size_t		i;
 
 	i = 0;
 	ft_printf("declare -x ");
@@ -64,6 +64,8 @@ void		ft_addquote(char *str)
 		}
 		ft_printf("%c", str[i]);
 		i++;
+		if (i >= ft_strlen(str))
+			break ;
 	}
 	ft_printf("\"\n");
 }
@@ -96,7 +98,6 @@ int			ft_printsortenv(t_struct *st)
 	sortenv = ft_saveenv(st);
 	sortquoteenv = ft_sortenv(sortenv);
 	i = 0;
-	ft_redirectbuiltin(st);
 	while (sortquoteenv[i])
 	{
 		if (ft_strchr(sortquoteenv[i], '=') != NULL)
@@ -110,6 +111,5 @@ int			ft_printsortenv(t_struct *st)
 			i++;
 		}
 	}
-	ft_comebacktostdout(st);
 	return (st->exitstatus = EXIT_SUCCESS);
 }

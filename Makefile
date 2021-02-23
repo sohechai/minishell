@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
+#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/18 21:09:47 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/02/23 15:56:34 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,33 +20,34 @@ CC				=		gcc
 
 CFLAGS 			= 		-Wall -Wextra -Werror
 
-SRC			=		./srcs/main.c \
-					./srcs/cmd_func/ft_execbuiltin.c \
-					./srcs/cmd_func/ft_cd.c \
-					./srcs/cmd_func/ft_pwd.c \
-					./srcs/cmd_func/ft_env.c \
-					./srcs/cmd_func/ft_echo.c \
-					./srcs/cmd_func/ft_simplecmd.c \
-					./srcs/cmd_func/ft_unset.c \
-					./srcs/cmd_func/ft_export.c \
-					./srcs/parsing/ft_check_character.c \
-					./srcs/parsing/ft_check_pipe.c \
-					./srcs/parsing/ft_parsing.c \
-					./srcs/parsing/ft_recover_cmd.c \
-					./srcs/parsing/ft_utils.c \
-					./srcs/parsing/print_prompt_waiting.c \
-					./srcs/parsing/tools_parsing.c \
-					./srcs/parsing/reco_env.c \
-					./srcs/tools/ft_getenv.c \
-					./srcs/tools/ft_initstruct.c \
-					./srcs/tools/ft_free.c \
-					./srcs/tools/ft_checkvar.c \
-					./srcs/tools/ft_echoutils.c \
-					./srcs/tools/ft_strtokk.c \
-					./srcs/tools/ft_sortenv.c \
-					./srcs/tools/ft_redirection.c \
-					./srcs/tools/option.c \
-					./srcs/tools/ft_checkredirection.c \
+SRC				=		./srcs/main.c \
+						./srcs/cmd_func/ft_execbuiltin.c \
+						./srcs/cmd_func/ft_cd.c \
+						./srcs/cmd_func/ft_pwd.c \
+						./srcs/cmd_func/ft_env.c \
+						./srcs/cmd_func/ft_echo.c \
+						./srcs/cmd_func/ft_simplecmd.c \
+						./srcs/cmd_func/ft_unset.c \
+						./srcs/cmd_func/ft_export.c \
+						./srcs/cmd_func/ft_exit.c \
+						./srcs/parsing/ft_check_character.c \
+						./srcs/parsing/ft_check_pipe.c \
+						./srcs/parsing/ft_parsing.c \
+						./srcs/parsing/ft_utils.c \
+						./srcs/parsing/print_prompt_waiting.c \
+						./srcs/parsing/tools_parsing.c \
+						./srcs/parsing/reco_env.c \
+						./srcs/parsing/remove_quote.c \
+						./srcs/tools/ft_getenv.c \
+						./srcs/tools/ft_initstruct.c \
+						./srcs/tools/ft_free.c \
+						./srcs/tools/ft_checkvar.c \
+						./srcs/tools/ft_strtokk.c \
+						./srcs/tools/ft_sortenv.c \
+						./srcs/tools/ft_redirection.c \
+						./srcs/tools/option.c \
+						./srcs/tools/ft_checkredirection.c \
+						./srcs/tools/ft_execpipe.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:07:55 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void			ft_separate_cmd(t_mini *mi, size_t i, size_t n)
 	mi->tab_arg = clean_spaces(mi, 0);
 }
 
-int					ft_parsing(t_mini *mi, size_t i)
+int					ft_parsing(t_mini *mi, t_struct *st, size_t i)
 {
 	while (mi->line[i])
 	{
@@ -114,8 +114,7 @@ int					ft_parsing(t_mini *mi, size_t i)
 	}
 	mi->semi++;
 	ft_separate_cmd(mi, 0, 0);
-	if (!change_char_in_dquote(mi, 0, 0))
+	if (!change_char_in_dquote(mi, st, 0, 0))
 		return (0);
-	ft_recover_cmd(mi);
 	return (1);
 }

@@ -63,7 +63,7 @@ void				ft_freetab(char **tab); // free le tableau alloué dans get absolute pat
 void				ft_getabsolutepath(char **cmd, t_struct *st); // permet d'avoir le chemin absolu pour ls ls -la etc
 int					ft_countenv(char **env);
 int					ft_is_built_in(char *cmd); // check si c'est un builtin ou non
-int					ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n);
+int					ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st);
 int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st, size_t buf_size); // alloue memoire pour le buffer et norme de ftsimplecmd
 int					ft_simplecmd(t_struct *st, t_mini *mi, char **envp, size_t n); // boucle pour les commandes sans pipe
 char				**ft_strtokk(char *str, char *sep);
@@ -84,17 +84,24 @@ int					ft_strlenuntilredir(char *str);
 void				ft_redirectbuiltin(t_struct *st);
 void				ft_comebacktostdout(t_struct *st);
 int					ft_checkfile(char *cmd, t_struct *st);
+int					ft_lenoffile(char *cmd);
+int					ft_pipecmd(t_struct *st, t_mini *mi, char **envp, size_t n);
+int					ft_checkquote(char *str);
 int     			main(int argc, char **argv, char **envp);
 
+/*
+ ** AURBUCHE FILES
+*/
 
-int					ft_echo(t_mini *mi, size_t n, t_struct *st); // fonction pour echo
+int					ft_echo(t_mini *mi, char **cmd); // fonction pour echo
 int 				is_env(t_mini *mi, char *str, size_t i, size_t n);
 char				*new_str(char *tmp, char *src, size_t i);
-char				*remove_quote(t_mini *mi, size_t i, size_t j, size_t n);
-size_t				print_quote(t_mini *mi, char *str, size_t i);
-int					re_env(t_mini *mi, char *str, size_t i, size_t n);
-size_t				print_dquote(t_mini *mi, size_t i, size_t n, char c);
+int					re_env(t_mini *mi, t_struct *st, char *str, size_t i, size_t n);
+size_t				print_quote(t_mini *mi, char *cmd, size_t i, char c);
 void				option(t_mini *mi, size_t i, size_t n);
+char				**remove_quote(char **cmd, size_t n);
+int					is_option(t_mini *mi, char *str, size_t i);
+char				**rechange_character(char **cmd, size_t i, size_t n);
 
 /*
  ** CMD FILES
@@ -111,7 +118,7 @@ char				**ft_unsetenv(char *var, t_struct *st);
  ** PARSING FILES
  */
 
-int					ft_parsing(t_mini *mi, size_t i);
+int					ft_parsing(t_mini *mi, t_struct *st, size_t i);
 int					ft_recover_cmd(t_mini *mi); // recupere la cmd ex: echo
 int					ft_check_character(t_mini *mi); // check tout la ligne pour analiser les vrais des faux characters
 void				str_remove_index(int i, t_mini *mi, char c); // supprime un caractere quand celui-ci est inutile
@@ -125,7 +132,7 @@ void 				ft_reset_mi(t_mini *mi);
 void				ft_free_mi(t_mini *mi);
 void				clean_spaces_bet(t_mini *mi, size_t n, size_t i);
 int					check_nquote(char *str, size_t i);
-int					change_char_in_dquote(t_mini *mi, size_t i, size_t n);
+int					change_char_in_dquote(t_mini *mi, t_struct *st, size_t i, size_t n);
 size_t				advance(char *str, size_t i, char c);
 void				change_real_char(t_mini *mi, size_t n, size_t i);
 size_t				ft_change_char(char c, t_mini *mi, size_t i, size_t n);

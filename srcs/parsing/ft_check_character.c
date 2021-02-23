@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_character.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:07:26 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-size_t				ft_change_char(char c, t_mini *mi, size_t i, size_t n)
+size_t			ft_change_char(char c, t_mini *mi, size_t i, size_t n)
 {
 	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != c)
 	{
@@ -29,7 +29,7 @@ size_t				ft_change_char(char c, t_mini *mi, size_t i, size_t n)
 	return (i);
 }
 
-int					check_nquote(char *str, size_t i)
+int				check_nquote(char *str, size_t i)
 {
 	int		dquote;
 	int		squote;
@@ -51,13 +51,13 @@ int					check_nquote(char *str, size_t i)
 	return (1);
 }
 
-size_t				replace(t_mini *mi, size_t n, size_t i)
+static size_t	replace(t_mini *mi, t_struct *st, size_t n, size_t i)
 {
-	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != '\"')
+	while (mi->tab_arg[n][i] && mi->tab_arg[n][i] != '"')
 	{
 		if (mi->tab_arg[n][i] == '$')
 		{
-			if ((i = re_env(mi, mi->tab_arg[n] + (i + 1), i, n)) == 0)
+			if ((i = re_env(mi, st, mi->tab_arg[n] + (i + 1), i, n)) == 0)
 				return (0);
 		}
 		i++;
@@ -67,7 +67,8 @@ size_t				replace(t_mini *mi, size_t n, size_t i)
 	return (i);
 }
 
-int					change_char_in_dquote(t_mini *mi, size_t i, size_t n)
+int				change_char_in_dquote(t_mini *mi,
+								t_struct *st, size_t i, size_t n)
 {
 	while (mi->tab_arg[n])
 	{
@@ -76,7 +77,7 @@ int					change_char_in_dquote(t_mini *mi, size_t i, size_t n)
 		{
 			if (mi->tab_arg[n][i] == '"')
 			{
-				if ((i = replace(mi, n, i + 1)) == 0)
+				if ((i = replace(mi, st, n, i + 1)) == 0)
 					return (ft_error('"', 1));
 			}
 			else if (mi->tab_arg[n][i] == '\'')
@@ -84,9 +85,13 @@ int					change_char_in_dquote(t_mini *mi, size_t i, size_t n)
 				if ((i = advance(mi->tab_arg[n], i + 1, '\'')) == 0)
 					return (ft_error('\'', 1));
 			}
-			else if (mi->tab_arg[n][i] == '$')
+			else if (mi->tab_arg[n][i] == '$'
+				&& !ft_strchr(" \t\0", mi->tab_arg[n][i + 1]))
 			{
-				if ((i = re_env(mi, mi->tab_arg[n] + (i + 1), i, n)) == 0)
+				if (mi->tab_arg[n][i + 1] == '\0')
+					i++;
+				else if ((i = re_env(mi, st,
+						mi->tab_arg[n] + (i + 1), i, n)) == 0)
 					return (0);
 			}
 			else
@@ -97,7 +102,7 @@ int					change_char_in_dquote(t_mini *mi, size_t i, size_t n)
 	return (1);
 }
 
-int					ft_check_character(t_mini *mi)
+int				ft_check_character(t_mini *mi)
 {
 	size_t i;
 

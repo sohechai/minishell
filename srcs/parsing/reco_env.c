@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reco_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:08:50 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static char				*recreate_str(char *str, char *env, size_t i)
 	char	*tmp;
 
 	new_str = NULL;
-	tmp = malloc(sizeof(char) * (i));
-	tmp = ft_strncpy(tmp, str, i);
+	tmp = ft_strndup(str, i);
 	tmp = ft_strfjoin(tmp, env, 3);
-	new_str = ft_strfjoin(tmp, "\"", 1);
+	new_str = ft_strfjoin(tmp, "\0", 1);
 	free(str);
 	return (new_str);
 }
@@ -33,33 +32,57 @@ static char				*recreate_str2(char *str, char *old_str,
 	char	*tmp;
 
 	new_str = NULL;
-	tmp = malloc(sizeof(char) * (i));
-	tmp = ft_strncpy(tmp, str, i);
+	tmp = ft_strndup(str, i);
 	tmp = ft_strfjoin(tmp, env, 3);
 	new_str = ft_strfjoin(tmp, old_str + j, 1);
 	free(str);
 	return (new_str);
 }
 
-int						re_env(t_mini *mi, char *str, size_t i, size_t n)
+static char				*remove_dollar(char *ostr,
+								char *env, size_t i, int next)
+{
+	char	*new_str;
+	char	*tmp;
+	size_t	j;
+
+	new_str = NULL;
+	j = i + ft_strlen(env);
+	tmp = ft_strndup(ostr, i);
+	if (next)
+		new_str = ft_strfjoin(tmp, "\0", 1);
+	else
+		new_str = ft_strfjoin(tmp, ostr + (j + 1), 1);
+	free(ostr);
+	return (new_str);
+}
+
+int						re_env(t_mini *mi, t_struct *st,
+								char *str, size_t i, size_t n)
 {
 	char	*env;
 	char	*val_env;
 	size_t	j;
+	int		next;
 
 	env = NULL;
 	val_env = NULL;
 	j = 0;
-	while (ft_isalpha(str[j]))
+	next = 0;
+	while (ft_isalnum(str[j]))
 		j++;
 	env = ft_strndup(str, j);
-	if (!ft_getenv(mi->envp, env) && endline(str, j))
-		return (0);
-	else if (!ft_getenv(mi->envp, env))
-		return (0);
+	if (!ft_getenv(st->copyenvp, env))
+	{
+		if (endline(str, j))
+			next = 1;
+		mi->tab_arg[n] = remove_dollar(mi->tab_arg[n], env, i, next);
+		free(env);
+		return (i);
+	}
 	else
 	{
-		val_env = ft_getenv(mi->envp, env);
+		val_env = ft_getenv(st->copyenvp, env);
 		if (str[j] == '\0')
 			mi->tab_arg[n] = recreate_str(mi->tab_arg[n], val_env, i);
 		else

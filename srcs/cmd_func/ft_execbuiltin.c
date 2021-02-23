@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/18 23:03:03 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:49:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 
 	pid = fork();
 	status = 0;
-	if (pid == -1)
+	if (pid == -1) // error
 		ft_printf("fork");
-	else if (pid > 0)
+	else if (pid > 0) // parent process
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			st->exitstatus = WEXITSTATUS(status);
 		kill(pid, SIGTERM);
 	}
-	else
+	else // child process
 	{
 		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 		{
@@ -127,7 +127,7 @@ int		ft_is_built_in(char *cmd)
 	return (0);
 }
 
-int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
+int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st)
 {
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd(st);
@@ -152,6 +152,6 @@ int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st, size_t n)
 	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
 		ft_unsetloop(built_in, st);
 	else if (!ft_strcmp(built_in[0], "echo"))
-		ft_echo(mi, n, st);
+		ft_echo(mi, built_in);
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/18 23:23:59 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:57:31 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,24 @@ void		ft_comebacktostdout(t_struct *st)
 
 int		ft_checkfile(char *cmd, t_struct *st)
 {
-	char	*pathfile;
-	struct	stat buffer;
-    int 	exist;
+	char		*pathfile;
+	struct stat buffer;
+	int			len;
+	int			exist;
 
-	pathfile = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+	len = ft_strlen(cmd) - (ft_indexuntilfile(cmd, st) + ft_lenoffile(cmd)) - 1;
+	pathfile = ft_substr(cmd, ft_indexuntilfile(cmd, st), len);
 	exist = stat(pathfile, &buffer);
-    if(exist == 0)
-    {
+	if (exist == 0)
+	{
 		st->stop = 0;
-		return (EXIT_SUCCESS);
+		return (1);
 	}
-    else
-    {
+	else
+	{
 		ft_printf("%s: No such file or directory\n", pathfile);
 		st->stop = 1;
-	    return (EXIT_FAILURE);
+		return (0);
 	}
 	return (0);
 }

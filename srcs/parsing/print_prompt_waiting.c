@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_prompt_waiting.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:34 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:16:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

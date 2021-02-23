@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:03:13 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:03:22 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:56:34 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void			option(t_mini *mi, size_t i, size_t n)
+static int		check_op(t_mini *mi, char *str, size_t i)
 {
-	while (mi->tab_arg[n][i])
+	while (str[i] == 'n')
 	{
-		if (mi->tab_arg[n][i] == '-')
-		{
-			i++;
-			while (mi->tab_arg[n][i] == 'n')
-				i++;
-			if (mi->tab_arg[n][i] == '\0')
-			{
-				mi->op = i;
-				break ;
-			}
-			if (!ft_strchr(" \0", mi->tab_arg[n][i]))
-				break ;
-			mi->op = i;
-		}
 		i++;
 	}
+	if (str[i] != '\0')
+		return (0);
+	mi->op = 1;
+	return (1);
+}
+
+int				is_option(t_mini *mi, char *str, size_t i)
+{
+	if (str[0] == '-' && check_op(mi, str, i))
+		return (1);
+	return (0);
 }

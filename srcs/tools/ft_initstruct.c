@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/18 23:13:54 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:54:57 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_mini			*ft_initmini(void)
 		return (NULL);
 	mi->line = NULL;
 	mi->tab_arg = NULL;
-	mi->cmd = NULL;
-	mi->echo = NULL;
 	mi->error = 0;
 	mi->tab_pipe = 0;
 	mi->quote = 0;
@@ -29,6 +27,7 @@ t_mini			*ft_initmini(void)
 	mi->islast = 0;
 	mi->op = 0;
 	mi->semi = 0;
+	mi->fd = 1;
 	return (mi);
 }
 

@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkredirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/18 23:23:45 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 14:17:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int			ft_lenoffile(char *cmd)
+{
+	int		count;
+	int		len;
+
+	count = 0;
+	len = ft_strlen(cmd);
+	while (len != 0)
+	{
+		if (cmd[len] == '/')
+			return (count - 1);
+		len--;
+		count++;
+	}
+	return (-1);
+}
 
 int			ft_sortredirection(char *cmd, int i, t_struct *st)
 {
@@ -53,8 +70,7 @@ int			ft_indexuntilfile(char *cmd, t_struct *st)
 		}
 		i++;
 	}
-	if (st->redirection != SIMPLERED || st->redirection != DOUBLERED)
-		st->redirection = 0;
+	st->redirection = 0;
 	return (i);
 }
 
@@ -77,13 +93,15 @@ int		ft_strlenuntilredir(char *str)
 int		ft_redirection(char *cmd, t_struct *st)
 {
 	if (ft_indexuntilfile(cmd, st) == 0)
-		return (EXIT_FAILURE);
-	if (st->redirection == 3)
-	{
-		if (ft_checkfile(cmd, st) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	}
-	else if (st->redirection != 0)
+	if (st->redirection != 0)
+	{
+		if (ft_lenoffile(cmd) != -1)
+		{
+			if (ft_checkfile(cmd, st) == 0)
+				return (0);
+		}
 		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+	}
 	return (EXIT_SUCCESS);
 }

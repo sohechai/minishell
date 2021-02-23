@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 15:14:05 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/04 15:14:22 by sofiahechai      ###   ########lyon.fr   */
+/*   Created: 2021/02/23 15:51:31 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/23 15:51:41 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ int				count(t_mini *mi, int count, int i)
 	}
 	return (1);
 }
-
-/*
- *	Verifie si les pipes entrées sont possibles.
- */
 
 int				check_pipe(t_mini *mi)
 {

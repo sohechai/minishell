@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/18 23:25:58 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 15:48:43 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 // - ' et " " ok
 // - export $var ok
 // - <, > et >> ok
+// - redirection preciser si cmd not found
 // - revoir $ -> segfault
 // - finir ft_exit exit aaa aaa -> exit: aaa : argument numérique nécessaire || \
 // - exit 444 444 -> exit: trop d'arguments
@@ -50,13 +51,13 @@
 // 	return (0);
 // }
 
-int			parseloop(t_mini *mi)
+int			parseloop(t_mini *mi, t_struct *st)
 {
 	if (mi->line[0] == '\0' || !ft_check_character(mi))
 	{
 		return (0);
 	}
-	else if (ft_parsing(mi, 0))
+	else if (ft_parsing(mi, st, 0))
 	{
 		return (1);
 	}
@@ -65,7 +66,7 @@ int			parseloop(t_mini *mi)
 
 
 
-void		execloop(t_mini *mi, t_struct *st, char **envp)
+int			execloop(t_mini *mi, t_struct *st, char **envp)
 {
 	size_t		n;
 
@@ -87,12 +88,13 @@ void		execloop(t_mini *mi, t_struct *st, char **envp)
 			}
 			n++;
 		}
-		// else if (mi->tab_pipe[n] == 1)
-		// {
-		// 	printf("on est dans tab pipe == 1");
-		// 	n++;
-		// }
+		else if (mi->tab_pipe[n] == 1)
+		{
+			ft_pipecmd(st, mi, envp, n);
+			n++;
+		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 //TODO check si j'utilise st->sortenv
@@ -154,9 +156,11 @@ int     	main(int argc, char **argv, char **envp)
 	(void)signal(SIGQUIT, ft_sigquit);
 	while (get_next_line(1, &mi->line) > 0)
 	{
-		if (parseloop(mi))
+		if (parseloop(mi, st))
+		{
 			execloop(mi, st, envp);
-		ft_reset_mi(mi);
+			ft_reset_mi(mi);
+		}
 		ft_printf("\033[0;34mMinishell$> \033[0m");
 	}
 	ft_printf("exit\n");
