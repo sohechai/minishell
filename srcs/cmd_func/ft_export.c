@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/17 23:16:15 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/24 14:20:43 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		*ft_strdupwithoutquote(const char *src)
 
 	i = 0;
 	j = 0;
-	length = (int)ft_strlen(src) - 2;
+	length = (int)ft_strlen(src);
 	if (!(dest = malloc(sizeof(char) * (length) + 1)))
 		return (NULL);
 	while (src[i])
@@ -74,16 +74,16 @@ int			ft_sortvar(char *var, t_struct *st)
 	int		i;
 
 	i = 0;
-	if (var[0] == '$')
-	{
-		if (ft_getenv(st->copyenvp, ft_strtrim(var, "$")) != NULL)
-			var = ft_strdup(ft_getenv(st->copyenvp, ft_strtrim(var, "$")));
-		else
-		{
-			ft_printsortenv(st);
-			return (0);
-		}
-	}
+	// if (var[0] == '$')
+	// {
+	// 	if (ft_getenv(st->copyenvp, ft_strtrim(var, "$")) != NULL)
+	// 		var = ft_strdup(ft_getenv(st->copyenvp, ft_strtrim(var, "$")));
+	// 	else
+	// 	{
+	// 		ft_printsortenv(st);
+	// 		return (0);
+	// 	}
+	// }
 	if (ft_checkvarisok(var) == 1)
 	{
 		while (st->copyenvp[i] != NULL)
@@ -93,7 +93,7 @@ int			ft_sortvar(char *var, t_struct *st)
 	}
 	else
 	{
-		ft_printf("export: « %s » : not a valid identifier\n", var);
+		ft_printf("export: `%s': not a valid identifier\n", var);
 		return (st->exitstatus = EXIT_FAILURE);
 	}
 	return (1);

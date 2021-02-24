@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/24 14:19:18 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int				ft_check_character(t_mini *mi)
 		if (mi->line[i] == ';' && mi->line[i + 1] == '|')
 			return (ft_error('|', 1));
 		if (mi->line[i] == '|' && mi->line[i + 1] == ';')
+			return (ft_error(';', 1));
+		if (mi->line[i] == ';' && mi->line[i + 1] == ';')
 			return (ft_error(';', 1));
 		i++;
 	}

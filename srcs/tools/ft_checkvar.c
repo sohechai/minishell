@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkvar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/16 12:31:59 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/24 14:48:59 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,22 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	return (-1);
 }
 
+int		ft_isalphaandequal(int c)
+{
+	if ((65 <= c && c <= 90) || (97 <= c && c <= 122) || c == '=')
+		return (c);
+	else
+		return (0);
+}
+
 int				ft_checkvarisok(char *var)
 {
 	int		i;
 
 	i = 0;
-	if (ft_strchr(var, '='))
-		return (1);
 	while (var[i])
 	{
-		if (ft_isalpha(var[i]) == 0)
+		if (ft_isalphaandequal(var[i]) == 0)
 			return (0);
 		i++;
 	}

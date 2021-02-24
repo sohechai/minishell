@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/04 15:29:15 by tcurinie          #+#    #+#             */
-/*   Updated: 2021/02/23 17:09:39 by sohechai         ###   ########lyon.fr   */
+/*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/24 15:05:03 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 // - rajouter return (130) pour ctrl c
 // - Remplacer tous les printf pas des dprintf
 // - Pipes |
+// - $HOME -> /User/dfkjghd -> /User/dfkjghd: No such file or directory
+// - ctrlc quand process tourne kill process
 
 // TODO : aurelien
 // - rajouter dans parsing ls >>> text.txt -> syntax error near unexpected token `>'
@@ -67,11 +69,10 @@ int			parseloop(t_mini *mi, t_struct *st)
 	return (1);
 }
 
-
-
 int			execloop(t_mini *mi, t_struct *st, char **envp)
 {
 	size_t		n;
+	// char		**cmd;
 
 	n = 0;
 	while (n < mi->semi)
@@ -93,7 +94,7 @@ int			execloop(t_mini *mi, t_struct *st, char **envp)
 		}
 		else if (mi->tab_pipe[n] == 1)
 		{
-			printf("cmd = [%s]\n", mi->tab_arg[n]);
+			// cmd = ft_strtokk(mi->tab_arg[n], "|");
 			ft_pipecmd(st, mi, envp, n);
 			n++;
 		}
