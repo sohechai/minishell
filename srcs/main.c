@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 11:55:11 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:21:02 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 // - ' et " " ok
 // - export $var ok
 // - <, > et >> ok
+// - pipe okkkkkkkkkkkdlkfjgj
 
 // TODO list :
 // - finir ft_exit exit aaa aaa -> exit: aaa : argument numérique nécessaire || \
 // - exit 444 444 -> exit: trop d'arguments
 // - rajouter return (130) pour ctrl c
 // - Remplacer tous les printf pas des dprintf
-// - Pipes |
 // - $HOME -> /User/dfkjghd -> /User/dfkjghd: No such file or directory
 // - ctrlc quand process tourne kill process
 
@@ -94,7 +94,6 @@ int			execloop(t_mini *mi, t_struct *st, char **envp)
 		}
 		else if (mi->tab_pipe[n] == 1)
 		{
-			// cmd = ft_strtokk(mi->tab_arg[n], "|");
 			ft_pipecmd(st, mi, envp, n);
 			n++;
 		}

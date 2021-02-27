@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkredirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 17:06:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:18:51 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,11 @@ int		ft_redirection(char *cmd, t_struct *st)
 				return (0);
 		}
 		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
-		st->files = ft_strtokk(st->newfd, " ><");
+		st->files = ft_strtokk(st->newfd, " ><|");
 		while (st->files[i] != NULL)
 		{
-			fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
+			if (st->files[i + 1] != NULL)
+				fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
 			i++;
 		}
 		if (i > 1)

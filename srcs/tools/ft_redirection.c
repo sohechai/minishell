@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:57:31 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 16:30:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_checkfile(char *cmd, t_struct *st)
 	}
 	else
 	{
-		ft_printf("%s: No such file or directory\n", pathfile);
+		ft_printf("%s: No such file or directoryyy\n", pathfile);
 		st->stop = 1;
 		return (0);
 	}

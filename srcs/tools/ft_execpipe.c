@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 16:16:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:19:44 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,52 +20,7 @@
 // https://stackoverflow.com/questions/60804552/pipe-two-or-more-shell-cmd-in-c-using-a-loop
 
 
-// int		ft_lenoftab(char **str)
-// {
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i][j] != NULL)
-// 	{
-// 		printf("cmd = [%s]\n", str[i]);
-// 		i++;
-// 	}
-// 	printf("i = %d\n", i);
-// 	return (i);
-// }
-
-int		ft_exec_pipe_built_in(t_mini *mi, char **built_in, t_struct *st)
-{
-	if (!ft_strcmp(built_in[0], "pwd"))
-		ft_builtinpwd(st);
-	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
-	{
-		ft_saveoldpwd(st);
-		ft_builtincd(ft_getenv(st->copyenvp, "HOME"), st);
-	}
-	else if (!ft_strcmp(built_in[0], "cd"))
-		ft_cdwithargs(built_in, st);
-	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
-		ft_env(st->copyenvp, st);
-	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
-	{
-		ft_printf("env: %s : No such file or directory\n", built_in[1]);
-		return (st->exitstatus = 127);
-	}
-	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
-		ft_printsortenv(st);
-	else if (!ft_strcmp(built_in[0], "export"))
-		ft_exportloop(built_in, st);
-	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
-		ft_unsetloop(built_in, st);
-	else if (!ft_strcmp(built_in[0], "echo"))
-		ft_echo(mi, built_in);
-	return (EXIT_SUCCESS);
-}
-
-void		ft_execpipe(char *cmd, t_struct *st)
+void		ft_execpipe(char *cmd, t_struct *st, t_mini *mi)
 {
 	char	**parsecmd;
 	char	**command;
@@ -78,8 +33,10 @@ void		ft_execpipe(char *cmd, t_struct *st)
 	command = ft_strtokk(cmd, "|");
     while(command[index] != NULL)
 	{
+		ft_redirection(command[index], st);
+		if (st->redirection != 0)
+			command[index] = ft_substr(command[index], 0, ft_strlenuntilredir(command[index]));
 		parsecmd = ft_strtokk(command[index], " \n\t");
-		ft_getabsolutepath(parsecmd, st);
 		pipe(pipefd);
 		if ((pid = fork()) == -1)
 		{
@@ -92,18 +49,17 @@ void		ft_execpipe(char *cmd, t_struct *st)
 			if ((command[index + 1]) != NULL)
 				dup2(pipefd[1], 1);
 			close(pipefd[0]);
-			// if (ft_is_built_in(command[index]) == false)
-			// {
-			// 	printf("not builtin\n");
-				ft_execcmd(st, command[index], parsecmd); // fix problem message d'erreur espace etc
-			// }
-			// else
-			// {
-			// 	printf("builtin\n");
-			// 	ft_exec_built_in(mi, parsecmd, st);
-			// }
-			// execve(parsecmd[0], parsecmd, NULL);
-			// ft_printf("%s : command not found\n", command[index]);
+			if (ft_is_built_in(parsecmd[0]) == 0)
+			{
+				ft_getabsolutepath(parsecmd, st);
+				ft_execcmd(st, command[index], parsecmd);
+				st->redirection = 0;
+			} // fix problem message d'erreur espace etc
+			else
+			{
+				ft_exec_built_in(mi, parsecmd, st);
+				st->redirection = 0;
+			}
     		exit( EXIT_FAILURE );
 		}
 		else // parent process
@@ -142,7 +98,6 @@ static void		change_space_char(t_mini *mi, size_t i, size_t n)
 int				ft_pipecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 {
 	char	**cmd;
-	//char	**parsecmd;
 	int     i;
 
 	st->copyenvp = envp;
@@ -150,17 +105,12 @@ int				ft_pipecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	change_space_char(mi, 0, n);
 	cmd = ft_strtokk(mi->tab_arg[n], " \t\n");
 	cmd = rechange_character(cmd, 0, 0);
-	cmd = remove_quote(cmd, 0);
+	cmd = remove_quote(cmd, 0); // TODO tjrs util ?
 	if (cmd[0] == NULL || !cmd[0][0])
 		ft_printf("");
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(mi->tab_arg[n], st);
-	// else if (ft_is_built_in(cmd[0]) == false)
-		ft_execpipe(mi->tab_arg[n], st);
-	// else
-	// 	ft_exec_built_in(mi, cmd, st);
+	ft_execpipe(mi->tab_arg[n], st, mi);
 	ft_free_tab(cmd);
-	// 	i++;
-	// }
 	return (EXIT_SUCCESS);
 }

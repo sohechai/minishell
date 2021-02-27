@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 14:05:50 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:19:44 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int		ft_is_built_in(char *cmd)
 	i = 0;
 	while (built_in[i])
 	{
-		if (!ft_strcmp((char*)built_in[i], cmd))
+		if (ft_strcmp((char*)built_in[i], cmd) == 0)
 			return (1);
 		i++;
 	}
