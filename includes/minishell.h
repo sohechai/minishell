@@ -3,6 +3,8 @@
 # define SIMPLERED 1
 # define DOUBLERED 2
 # define LEFTRED 3
+# define STDIN 0
+# define STDOUT 1
 # include "../libft/include/libft.h"
 # include <stdio.h>
 # include <stdlib.h>

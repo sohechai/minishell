@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 20:19:44 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:55:38 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	pid = fork();
 	status = 0;
 	if (pid == -1) // error
-		ft_printf("fork");
+		ft_printf("fork error\n");
 	else if (pid > 0) // parent process
 	{
 		waitpid(pid, &status, 0);

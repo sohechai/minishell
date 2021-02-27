@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 20:19:44 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 21:06:22 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void		ft_execpipe(char *cmd, t_struct *st, t_mini *mi)
 {
 	char	**parsecmd;
 	char	**command;
-	int		index;
+	int		i;
     pid_t	pid;
 	int		pipefd[2];
 	int		fdinput = 0;
 
-	index = 0;
+	i = 0;
 	command = ft_strtokk(cmd, "|");
-    while(command[index] != NULL)
+    while(command[i] != NULL)
 	{
-		ft_redirection(command[index], st);
+		ft_redirection(command[i], st);
 		if (st->redirection != 0)
-			command[index] = ft_substr(command[index], 0, ft_strlenuntilredir(command[index]));
-		parsecmd = ft_strtokk(command[index], " \n\t");
+			command[i] = ft_substr(command[i], 0, ft_strlenuntilredir(command[i]));
+		parsecmd = ft_strtokk(command[i], " \n\t");
 		pipe(pipefd);
 		if ((pid = fork()) == -1)
 		{
@@ -45,29 +45,29 @@ void		ft_execpipe(char *cmd, t_struct *st, t_mini *mi)
 		}
 		else if (pid == 0) // child process
 		{
-			dup2(fdinput, 0); // change input from last one
-			if ((command[index + 1]) != NULL)
-				dup2(pipefd[1], 1);
+			dup2(fdinput, STDIN); // change input from last one
+			if ((command[i + 1]) != NULL) // lien avec cmd d'apres
+				dup2(pipefd[1], STDOUT);
 			close(pipefd[0]);
 			if (ft_is_built_in(parsecmd[0]) == 0)
 			{
 				ft_getabsolutepath(parsecmd, st);
-				ft_execcmd(st, command[index], parsecmd);
-				st->redirection = 0;
-			} // fix problem message d'erreur espace etc
+				ft_execcmd(st, command[i], parsecmd);
+				st->redirection = 0; // TODO utile ?
+			} // TODO fix problem message d'erreur espace etc
 			else
 			{
 				ft_exec_built_in(mi, parsecmd, st);
 				st->redirection = 0;
 			}
-    		exit( EXIT_FAILURE );
+    		exit(EXIT_FAILURE);
 		}
 		else // parent process
 		{
 			wait(NULL);
 			close(pipefd[1]);
 			fdinput = pipefd[0];  // save input for next command
-			index++;
+			i++;
 		}
     }
 }
@@ -103,14 +103,14 @@ int				ft_pipecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 	st->copyenvp = envp;
 	i = 0;
 	change_space_char(mi, 0, n);
-	cmd = ft_strtokk(mi->tab_arg[n], " \t\n");
-	cmd = rechange_character(cmd, 0, 0);
-	cmd = remove_quote(cmd, 0); // TODO tjrs util ?
+	// cmd = ft_strtokk(mi->tab_arg[n], " \t\n");
+	// cmd = rechange_character(cmd, 0, 0);
+	// cmd = remove_quote(cmd, 0); // TODO tjrs util ?
 	if (cmd[0] == NULL || !cmd[0][0])
 		ft_printf("");
-	else if (!ft_strcmp(cmd[0], "exit"))
+	else if (!ft_strcmp(cmd[0], "exit")) // TODO test avec exit
 		ft_exit(mi->tab_arg[n], st);
 	ft_execpipe(mi->tab_arg[n], st, mi);
-	ft_free_tab(cmd);
+	// ft_free_tab(cmd);
 	return (EXIT_SUCCESS);
 }

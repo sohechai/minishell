@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/27 20:18:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:46:06 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,7 @@ int			ft_lenoffile(char *cmd)
 int			ft_sortredirection(char *cmd, int i, t_struct *st)
 {
 	if (cmd[i + 1] == '>')
-	{
-		// if (cmd[i + 2] == '>')
-		// {
-		// 	printf("erreur de syntaxe près du symbole inattendu « >> »\n");
-		// 	st->redirection = 0;
-		// 	return (0);
-		// }
 		st->redirection = DOUBLERED;
-	}
 	else
 		st->redirection = SIMPLERED;
 	return (1);
@@ -110,7 +102,7 @@ int		ft_redirection(char *cmd, t_struct *st)
 		while (st->files[i] != NULL)
 		{
 			if (st->files[i + 1] != NULL)
-				fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
+				fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640); // TODO close
 			i++;
 		}
 		if (i > 1)

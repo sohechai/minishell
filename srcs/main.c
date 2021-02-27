@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 20:21:02 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 20:48:52 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int			parseloop(t_mini *mi, t_struct *st)
 int			execloop(t_mini *mi, t_struct *st, char **envp)
 {
 	size_t		n;
-	// char		**cmd;
 
 	n = 0;
 	while (n < mi->semi)
@@ -90,13 +89,10 @@ int			execloop(t_mini *mi, t_struct *st, char **envp)
 					ft_simplecmd(st, mi, envp, n);
 				}
 			}
-			n++;
 		}
 		else if (mi->tab_pipe[n] == 1)
-		{
 			ft_pipecmd(st, mi, envp, n);
-			n++;
-		}
+		n++;
 	}
 	return (EXIT_SUCCESS);
 }
