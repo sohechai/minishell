@@ -3,80 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execpipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/24 17:23:55 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 16:16:14 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// https://stackoverflow.com/questions/8082932/connecting-n-commands-with-pipes-in-a-shell
+// https://stackoverflow.com/questions/8082932/connecting-n-cmd-with-pipes-in-a-shell
 // https://stackoverflow.com/questions/26788603/simple-shell-with-pipe-function
 // https://forum.hardware.fr/hfr/Programmation/C/implementation-shell-pipe-sujet_50490_1.htm
 // https://stackoverflow.com/questions/35545785/c-program-to-execute-shell-piping-and-redirection
 // https://stackoverflow.com/questions/12679075/almost-perfect-c-shell-piping
-// https://stackoverflow.com/questions/60804552/pipe-two-or-more-shell-commands-in-c-using-a-loop
+// https://stackoverflow.com/questions/60804552/pipe-two-or-more-shell-cmd-in-c-using-a-loop
 
 
-int		ft_lenoftab(char **str)
+// int		ft_lenoftab(char **str)
+// {
+// 	int		i;
+// 	int		j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (str[i][j] != NULL)
+// 	{
+// 		printf("cmd = [%s]\n", str[i]);
+// 		i++;
+// 	}
+// 	printf("i = %d\n", i);
+// 	return (i);
+// }
+
+int		ft_exec_pipe_built_in(t_mini *mi, char **built_in, t_struct *st)
 {
-	int		i;
-
-	i = 0;
-	while (str[i] != NULL)
-		i++;
-	return (i);
+	if (!ft_strcmp(built_in[0], "pwd"))
+		ft_builtinpwd(st);
+	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
+	{
+		ft_saveoldpwd(st);
+		ft_builtincd(ft_getenv(st->copyenvp, "HOME"), st);
+	}
+	else if (!ft_strcmp(built_in[0], "cd"))
+		ft_cdwithargs(built_in, st);
+	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
+		ft_env(st->copyenvp, st);
+	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
+	{
+		ft_printf("env: %s : No such file or directory\n", built_in[1]);
+		return (st->exitstatus = 127);
+	}
+	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
+		ft_printsortenv(st);
+	else if (!ft_strcmp(built_in[0], "export"))
+		ft_exportloop(built_in, st);
+	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
+		ft_unsetloop(built_in, st);
+	else if (!ft_strcmp(built_in[0], "echo"))
+		ft_echo(mi, built_in);
+	return (EXIT_SUCCESS);
 }
 
-void		ft_execpipe(char **cmd)
+void		ft_execpipe(char *cmd, t_struct *st)
 {
-	(void)cmd;
-	// pid_t		pid;
-	// int			status;
-	// int 		i;
-	// int			j;
-	// int			q = 0;
-	// int 		in;
-	// int			pipefd[2];
-	// int			len;
+	char	**parsecmd;
+	char	**command;
+	int		index;
+    pid_t	pid;
+	int		pipefd[2];
+	int		fdinput = 0;
 
-	// i = 0;
-	// j = 0;
-	// in = 0;
-	// pipe(pipefd);
-	// pid = fork();
-	// len = ft_lenoftab(cmd);
-	// while (i < len - 1)
-	// {
-	// 	if (dup2(pipefd[j + 1], 1) < 0)
-	// 	{
-	// 		perror("dup2");
-	// 		exit(EXIT_FAILURE);
-	// 	}
-	// 	if (j != 0)
-	// 	{
-	// 		if (dup2(pipefd[j - 2], 0) < 0)
-	// 		{
-	// 			perror("dup2");
-	// 			exit(EXIT_FAILURE);
-	// 		}
-	// 		while (q < len)
-	// 		{
-	// 			close(pipefd[q]);
-	// 			q++;
-	// 		}
-	// 		if (execve(cmd[i], cmd, NULL) == -1)
-	// 			ft_printf("%s : command not found\n", cmd[i]);
-	// 		j += 2;
-	// 		i++;
-	// 	}
-	// 	while (i < len + 1)
-	// 	{
-	// 		wait(&status);
-	// 	}
-	// }
+	index = 0;
+	command = ft_strtokk(cmd, "|");
+    while(command[index] != NULL)
+	{
+		parsecmd = ft_strtokk(command[index], " \n\t");
+		ft_getabsolutepath(parsecmd, st);
+		pipe(pipefd);
+		if ((pid = fork()) == -1)
+		{
+			ft_printf("fork error\n");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0) // child process
+		{
+			dup2(fdinput, 0); // change input from last one
+			if ((command[index + 1]) != NULL)
+				dup2(pipefd[1], 1);
+			close(pipefd[0]);
+			// if (ft_is_built_in(command[index]) == false)
+			// {
+			// 	printf("not builtin\n");
+				ft_execcmd(st, command[index], parsecmd); // fix problem message d'erreur espace etc
+			// }
+			// else
+			// {
+			// 	printf("builtin\n");
+			// 	ft_exec_built_in(mi, parsecmd, st);
+			// }
+			// execve(parsecmd[0], parsecmd, NULL);
+			// ft_printf("%s : command not found\n", command[index]);
+    		exit( EXIT_FAILURE );
+		}
+		else // parent process
+		{
+			wait(NULL);
+			close(pipefd[1]);
+			fdinput = pipefd[0];  // save input for next command
+			index++;
+		}
+    }
 }
 
 static size_t	change_loop(t_mini *mi, size_t i, size_t n, char c)
@@ -105,33 +142,25 @@ static void		change_space_char(t_mini *mi, size_t i, size_t n)
 int				ft_pipecmd(t_struct *st, t_mini *mi, char **envp, size_t n)
 {
 	char	**cmd;
-	char	**parsecmd;
+	//char	**parsecmd;
 	int     i;
 
 	st->copyenvp = envp;
 	i = 0;
-	parsecmd = ft_strtokk(mi->tab_arg[n], "|");
-	while (parsecmd[i] != NULL)
-	{
-		change_space_char(mi, 0, n);
-		cmd = ft_strtokk(parsecmd[i], " \t\n");
-		cmd = rechange_character(cmd, 0, 0);
-		cmd = remove_quote(cmd, 0);
-		if (cmd[0] == NULL || !cmd[0][0])
-			ft_printf("");
-		else if (!ft_strcmp(cmd[0], "exit"))
-			ft_exit(mi->tab_arg[n], st);
-		else if (ft_is_built_in(cmd[0]) == false)
-		{
-			st->printerror = ft_strdup(cmd[0]);
-			ft_getabsolutepath(cmd, st);
-			ft_execpipe(cmd);
-			free(st->printerror); // TODO <- free
-		}
-		else
-			ft_exec_built_in(mi, cmd, st);
-		ft_free_tab(cmd);
-		i++;
-	}
+	change_space_char(mi, 0, n);
+	cmd = ft_strtokk(mi->tab_arg[n], " \t\n");
+	cmd = rechange_character(cmd, 0, 0);
+	cmd = remove_quote(cmd, 0);
+	if (cmd[0] == NULL || !cmd[0][0])
+		ft_printf("");
+	else if (!ft_strcmp(cmd[0], "exit"))
+		ft_exit(mi->tab_arg[n], st);
+	// else if (ft_is_built_in(cmd[0]) == false)
+		ft_execpipe(mi->tab_arg[n], st);
+	// else
+	// 	ft_exec_built_in(mi, cmd, st);
+	ft_free_tab(cmd);
+	// 	i++;
+	// }
 	return (EXIT_SUCCESS);
 }

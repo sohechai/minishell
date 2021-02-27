@@ -21,6 +21,7 @@ typedef struct			s_struct
 {
 	char		**copyenvp;
 	char		**files;
+	char		**parsecmd;
 	char		*oldpwd;
 	char		*printerror;
 	char		*newfd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/24 15:05:03 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/27 11:55:11 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			parseloop(t_mini *mi, t_struct *st)
 	{
 		return (0);
 	}
-	else if (ft_parsing(mi, st, 0))
+	if (ft_parsing(mi, st, 0))
 	{
 		return (1);
 	}
@@ -137,7 +137,7 @@ void ft_sigquit(int signum)
 	pid_t pid;
 
 	pid = signum;
-	if (kill(pid, signum) == 0)
+	if (kill(pid, signum) == 3)
 		ft_printf("Quit: 3\n");
 }
 
