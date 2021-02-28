@@ -6,7 +6,7 @@
 #    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/02/24 14:33:17 by sohechai         ###   ########lyon.fr    #
+#    Updated: 2021/02/28 15:29:28 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,11 @@ SRC				=		./srcs/main.c \
 						./srcs/cmd_func/ft_pwd.c \
 						./srcs/cmd_func/ft_env.c \
 						./srcs/cmd_func/ft_echo.c \
-						./srcs/cmd_func/ft_simplecmd.c \
 						./srcs/cmd_func/ft_unset.c \
 						./srcs/cmd_func/ft_export.c \
 						./srcs/cmd_func/ft_exit.c \
+						./srcs/cmd_func/ft_simplecmd.c \
+						./srcs/cmd_func/ft_pipecmd.c \
 						./srcs/parsing/ft_check_character.c \
 						./srcs/parsing/ft_check_pipe.c \
 						./srcs/parsing/ft_parsing.c \
@@ -38,6 +39,9 @@ SRC				=		./srcs/main.c \
 						./srcs/parsing/tools_parsing.c \
 						./srcs/parsing/reco_env.c \
 						./srcs/parsing/remove_quote.c \
+						./srcs/tools/ft_getabsolutepath.c \
+						./srcs/tools/ft_builtin.c \
+						./srcs/tools/ft_handlesignal.c \
 						./srcs/tools/ft_getenv.c \
 						./srcs/tools/ft_initstruct.c \
 						./srcs/tools/ft_free.c \
@@ -63,9 +67,6 @@ $(NAME)		: $(OBJS)
 		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE)
 
 		@echo "\033[34m$(NAME): Loading... \033[0m"
-
-submodule	:
-			git submodule init && git submodule update
 
 bonus		:		$(NAME)
 

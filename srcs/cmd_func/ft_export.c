@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/24 14:20:43 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:35:04 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char			*ft_getvar(char *var)
 	return (tmp);
 }
 
-char		*ft_strdupwithoutquote(const char *src)
+char			*ft_strdupwithoutquote(const char *src)
 {
 	char	*dest;
 	int		length;
@@ -69,21 +69,11 @@ char		*ft_strdupwithoutquote(const char *src)
 	return (dest);
 }
 
-int			ft_sortvar(char *var, t_struct *st)
+int				ft_sortvar(char *var, t_struct *st)
 {
 	int		i;
 
 	i = 0;
-	// if (var[0] == '$')
-	// {
-	// 	if (ft_getenv(st->copyenvp, ft_strtrim(var, "$")) != NULL)
-	// 		var = ft_strdup(ft_getenv(st->copyenvp, ft_strtrim(var, "$")));
-	// 	else
-	// 	{
-	// 		ft_printsortenv(st);
-	// 		return (0);
-	// 	}
-	// }
 	if (ft_checkvarisok(var) == 1)
 	{
 		while (st->copyenvp[i] != NULL)
@@ -93,13 +83,13 @@ int			ft_sortvar(char *var, t_struct *st)
 	}
 	else
 	{
-		ft_printf("export: `%s': not a valid identifier\n", var);
+		ft_printf("minishell: export: `%s': not a valid identifier\n", var);
 		return (st->exitstatus = EXIT_FAILURE);
 	}
 	return (1);
 }
 
-int			ft_exportenv(char *var, t_struct *st)
+int				ft_exportenv(char *var, t_struct *st)
 {
 	int		index;
 	int		len;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/17 23:14:30 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:35:28 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		ft_savepwd(t_struct *st)
 int			ft_builtinpwd(t_struct *st)
 {
 	char cwd[PATH_MAX];
+
 	ft_redirectbuiltin(st);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{

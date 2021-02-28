@@ -3,32 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 14:51:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:33:24 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_mini			*ft_initmini(void)
+t_struct		*ft_initstructnext(void)
 {
-	t_mini	*mi;
-
-	if (!(mi = malloc(sizeof(t_mini) * 1)))
-		return (NULL);
-	mi->line = NULL;
-	mi->tab_arg = NULL;
-	mi->error = 0;
-	mi->tab_pipe = 0;
-	mi->quote = 0;
-	mi->nquote = 0;
-	mi->islast = 0;
-	mi->op = 0;
-	mi->semi = 0;
-	mi->fd = 1;
-	return (mi);
+	st->copyenvp = NULL;
+	st->parsecmd = NULL;
+	st->oldpwd = NULL;
+	st->newfd = NULL;
+	st->printerror = NULL;
+	st->pathfile = NULL;
+	st->i = 0;
+	st->index = 0;
+	st->exitstatus = 0;
+	st->redirection = 0;
+	st->oldstdout = 0;
+	st->stop = 0;
+	st->fdinput = 0;
+	st->pid = 0;
 }
 
 t_struct		*ft_initstruct(void)
@@ -37,16 +36,16 @@ t_struct		*ft_initstruct(void)
 
 	if (!(st = malloc(sizeof(t_struct) * 1)))
 		return (NULL);
-	st->copyenvp = NULL;
-	st->parsecmd = NULL;
-	st->oldpwd = NULL;
-	st->newfd = NULL;
-	st->printerror = NULL;
-	st->pathfile = NULL;
-	st->i = 0;
-	st->exitstatus = 0;
-	st->redirection = 0;
-	st->oldstdout = 0;
-	st->stop = 0;
+	st->line = NULL;
+	st->tab_arg = NULL;
+	st->error = 0;
+	st->tab_pipe = 0;
+	st->quote = 0;
+	st->nquote = 0;
+	st->islast = 0;
+	st->op = 0;
+	st->semi = 0;
+	st->fd = 1;
+	ft_initstructnext();
 	return (st);
 }

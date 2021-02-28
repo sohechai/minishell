@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 20:03:42 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/24 17:26:25 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:34:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				ft_lenuntilspace(int i, char *str)
 	int count;
 
 	count = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		i++;
 		count++;
@@ -27,33 +27,69 @@ int				ft_lenuntilspace(int i, char *str)
 	return (count);
 }
 
-int				ft_exit(char *cmd, t_struct *st)
+int				ft_isnum(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+int				ft_checkexitargs2(int i, char *cmd)
+{
+	if (ft_isalpha(cmd[i]) != 0)
+	{
+		ft_printf("minishell: exit: %s : numeric argument required\n",
+				ft_substr(cmd, i, ft_lenuntilspace(i, cmd)));
+		return (1);
+	}
+	return (0);
+}
+
+int				ft_checkexitargs(char *cmd)
 {
 	int		i;
-	int		fd;
 
 	i = 0;
-	ft_printf("exit\n");
-	if (st->redirection == DOUBLERED || st->redirection == SIMPLERED)
-		fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
-	while (cmd[i])
+	while (cmd[i++])
 	{
 		if (cmd[i] == ' ')
 		{
 			while (cmd[i] == ' ')
 				i++;
-			if (ft_isalpha(cmd[i]) != 0)
+			ft_checkexitargs2(i, cmd);
+			if (ft_isnum(cmd[i]) != 0)
 			{
-				ft_printf("exit: %s : argument numérique nécessaire\n",
-						ft_substr(cmd, i, ft_lenuntilspace(i, cmd)));
-				break ;
+				while (ft_isnum(cmd[i]))
+					i++;
+				if (cmd[i])
+				{
+					ft_printf("minishell: exit: too many arguments\n");
+					return (0);
+				}
+				else
+					exit(ft_atoi(cmd));
 			}
 		}
-		i++;
+	}
+	return (1);
+}
+
+int				ft_exit(char *cmd, t_struct *st)
+{
+	int		fd;
+
+	ft_printf("exit\n");
+	if (st->redirection == DOUBLERED || st->redirection == SIMPLERED)
+	{
+		fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
+		exit(st->exitstatus);
+		close(fd);
 	}
 	//ft_freetab(st->copyenvp);
 	//ft_freestruct(st);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
-	exit(st->exitstatus);
+	if (ft_checkexitargs(cmd) == 1)
+		exit(st->exitstatus);
 	return (EXIT_SUCCESS);
 }

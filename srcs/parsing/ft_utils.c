@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:14 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:12:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			ft_error(char c, int i)
 {
 	if (i == 2)
 	{
-		ft_printf("minishell: syntax error near unexpected token"
+		ft_printf("minishell: syntax error near unexpected token\n"
 			"\'%c%c\'\n", c, c);
 		return (0);
 	}
@@ -33,7 +33,7 @@ int			endline(char *str, size_t i)
 	return (1);
 }
 
-void		str_remove_index(int i, t_mini *mi, char c)
+void		str_remove_index(int i, t_struct *st, char c)
 {
 	char	*str;
 	int		j;
@@ -41,13 +41,13 @@ void		str_remove_index(int i, t_mini *mi, char c)
 
 	j = 0;
 	k = 0;
-	if (!(str = malloc(sizeof(char) * (ft_strlen(mi->line)))))
+	if (!(str = malloc(sizeof(char) * (ft_strlen(st->line)))))
 		exit(0);
-	while (mi->line[j])
+	while (st->line[j])
 	{
 		if (j != i && j != i + 1)
 		{
-			str[k] = mi->line[j];
+			str[k] = st->line[j];
 			k++;
 		}
 		if (j == i + 1)
@@ -58,6 +58,6 @@ void		str_remove_index(int i, t_mini *mi, char c)
 		j++;
 	}
 	str[k] = '\0';
-	free(mi->line);
-	mi->line = str;
+	free(st->line);
+	st->line = str;
 }

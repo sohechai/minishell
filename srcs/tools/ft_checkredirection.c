@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkredirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/27 20:46:06 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:42:34 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			ft_indexuntilfile(char *cmd, t_struct *st)
 	return (i);
 }
 
-int		ft_strlenuntilredir(char *str)
+int			ft_strlenuntilredir(char *str)
 {
 	int		i;
 
@@ -80,36 +80,4 @@ int		ft_strlenuntilredir(char *str)
 		i++;
 	}
 	return (i);
-}
-
-int		ft_redirection(char *cmd, t_struct *st)
-{
-	int			i;
-	int			fd;
-
-	i = 0;
-	if (ft_indexuntilfile(cmd, st) == 0)
-		return (0);
-	if (st->redirection != 0)
-	{
-		if (ft_lenoffile(cmd) != -1)
-		{
-			if (ft_checkfile(cmd, st) == 0)
-				return (0);
-		}
-		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
-		st->files = ft_strtokk(st->newfd, " ><|");
-		while (st->files[i] != NULL)
-		{
-			if (st->files[i + 1] != NULL)
-				fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640); // TODO close
-			i++;
-		}
-		if (i > 1)
-		{
-			free(st->newfd);
-			st->newfd = ft_strdup(st->files[i - 1]);
-		}
-	}
-	return (EXIT_SUCCESS);
 }

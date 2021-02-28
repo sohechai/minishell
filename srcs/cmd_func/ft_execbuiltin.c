@@ -3,66 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/27 20:55:38 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:15:51 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
+void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 {
-	int		id;
-	int		i;
-
-	path_split = ft_split(path, ':');
-	free(path);
-	path = NULL;
-	i = 0;
-	while (path_split[i])
+	if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 	{
-		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + \
-		ft_strlen(cmd[0]) + 2));
-		if (bin == NULL)
-			break ;
-		ft_strcat(bin, path_split[i]);
-		ft_strcat(bin, "/");
-		ft_strcat(bin, cmd[0]);
-		id = open(bin, O_RDONLY);
-		if (id > 0)
-			break ;
-		free(bin);
-		bin = NULL;
-		i++;
-	}
-	ft_freetab(path_split);
-	free(cmd[0]);
-	cmd[0] = bin;
-}
-
-void	ft_getabsolutepath(char **cmd, t_struct *st)
-{
-	char	*path;
-	char	*bin;
-	char	**path_split;
-	int		i;
-
-	path = ft_strdup(ft_getenv(st->copyenvp, "PATH"));
-	bin = NULL;
-	path_split = NULL;
-	i = 0;
-	if (path == NULL)
-		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
-	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
-	{
-		ft_pathsplit(cmd, path_split, path, bin);
+		if (st->redirection == DOUBLERED)
+			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
+		else
+			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+				S_IRGRP | S_IWGRP | S_IWUSR);
+		close(1);
+		dup(fd);
+		close(fd);
+		if (execve(cmd[0], cmd, NULL) == -1)
+		{
+			dup2(2, 1);
+			ft_printf("minishell: %s : command not found\n", command);
+		}
+		free(st->newfd);
 	}
 	else
 	{
-		free(path);
-		path = NULL;
+		if (execve(cmd[0], cmd, NULL) == -1)
+		{
+			ft_printf("minishell: %s : command not found\n", command);
+		}
 	}
 }
 
@@ -74,84 +48,21 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 
 	pid = fork();
 	status = 0;
-	if (pid == -1) // error
-		ft_printf("fork error\n");
-	else if (pid > 0) // parent process
+	fd = 0;
+	if (pid == -1)
+		ft_printf("minishell: fork error\n");
+	else if (pid > 0)
+	// parent process
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			st->exitstatus = WEXITSTATUS(status);
 		kill(pid, SIGTERM);
 	}
-	else // child process
+	else
+	// child process
 	{
-		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
-		{
-			if (st->redirection == DOUBLERED)
-				fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
-			else
-				fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-					S_IRGRP | S_IWGRP | S_IWUSR);
-			close(1);
-			dup(fd);
-			close(fd);
-			if (execve(cmd[0], cmd, NULL) == -1)
-			{
-				dup2(2, 1);
-				ft_printf("%s : command not found\n", command);
-			}
-		}
-		else
-		{
-			if (execve(cmd[0], cmd, NULL) == -1)
-			{
-				ft_printf("%s : command not found\n", command);
-			}
-		}
+		ft_redircmd(fd, cmd, command, st);
 		exit(127);
 	}
-}
-
-int		ft_is_built_in(char *cmd)
-{
-	int			i;
-	const char	*built_in[] = {"pwd", "cd", "env", "echo", "export", "unset", NULL};
-
-	i = 0;
-	while (built_in[i])
-	{
-		if (ft_strcmp((char*)built_in[i], cmd) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int		ft_exec_built_in(t_mini *mi, char **built_in, t_struct *st)
-{
-	if (!ft_strcmp(built_in[0], "pwd"))
-		ft_builtinpwd(st);
-	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
-	{
-		ft_saveoldpwd(st);
-		ft_builtincd(ft_getenv(st->copyenvp, "HOME"), st);
-	}
-	else if (!ft_strcmp(built_in[0], "cd"))
-		ft_cdwithargs(built_in, st);
-	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
-		ft_env(st->copyenvp, st);
-	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
-	{
-		ft_printf("env: %s : No such file or directory\n", built_in[1]);
-		return (st->exitstatus = 127);
-	}
-	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
-		ft_printsortenv(st);
-	else if (!ft_strcmp(built_in[0], "export"))
-		ft_exportloop(built_in, st);
-	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)
-		ft_unsetloop(built_in, st);
-	else if (!ft_strcmp(built_in[0], "echo"))
-		ft_echo(mi, built_in);
-	return (EXIT_SUCCESS);
 }

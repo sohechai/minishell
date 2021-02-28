@@ -6,18 +6,18 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 15:51:31 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/23 15:51:41 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:14:16 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int				count(t_mini *mi, int count, int i)
+int				count(t_struct *st, int count, int i)
 {
-	while (mi->line[i] == '|' || mi->line[i] == ' '
-			|| mi->line[i] == '\t')
+	while (st->line[i] == '|' || st->line[i] == ' '
+			|| st->line[i] == '\t')
 	{
-		if (mi->line[i] == '|')
+		if (st->line[i] == '|')
 			count++;
 		if (count == 3)
 			return (ft_error('|', count));
@@ -26,23 +26,23 @@ int				count(t_mini *mi, int count, int i)
 	return (1);
 }
 
-int				check_pipe(t_mini *mi)
+int				check_pipe(t_struct *st)
 {
 	int		i;
 
 	i = 0;
-	while (mi->line[i])
+	while (st->line[i])
 	{
-		if (mi->line[i] == '|' && mi->line[i + 1] == '|'
-			&& mi->line[i + 2] == '|')
+		if (st->line[i] == '|' && st->line[i + 1] == '|'
+			&& st->line[i + 2] == '|')
 		{
-			if (mi->line[i + 3] == '|')
+			if (st->line[i + 3] == '|')
 				i = 2;
 			return (ft_error('|', i));
 		}
-		if (mi->line[i] == '|' && mi->line[i + 1] != '\0')
+		if (st->line[i] == '|' && st->line[i + 1] != '\0')
 		{
-			if (count(mi, 1, i) == 0)
+			if (count(st, 1, i) == 0)
 				return (0);
 		}
 		i++;

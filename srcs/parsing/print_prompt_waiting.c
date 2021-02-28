@@ -6,13 +6,13 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:34 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:12:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int				print_prompt_waiting(t_mini *mi, char *str, size_t i)
+int				print_prompt_waiting(t_struct *st, char *str, size_t i)
 {
 	ft_printf("> ");
 	while (get_next_line(1, &str) > 0)
@@ -27,13 +27,13 @@ int				print_prompt_waiting(t_mini *mi, char *str, size_t i)
 		i = ft_strlen(str);
 		if (str[i - 1] == '|' && str[i - 2] != '\\')
 		{
-			mi->line = ft_strfjoin(mi->line, str, 2);
+			st->line = ft_strfjoin(st->line, str, 2);
 			ft_putstr("> ");
 			continue ;
 		}
 		if (str[i] == '\0')
 			break ;
 	}
-	mi->line = ft_strfjoin(mi->line, str, 2);
+	st->line = ft_strfjoin(st->line, str, 2);
 	return (1);
 }

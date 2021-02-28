@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/27 20:44:07 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:07:49 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_comebacktostdout(t_struct *st)
 	}
 }
 
-int		ft_checkfile(char *cmd, t_struct *st)
+int			ft_checkfile(char *cmd, t_struct *st)
 {
 	char		*pathfile;
 	struct stat buffer;
@@ -56,9 +56,52 @@ int		ft_checkfile(char *cmd, t_struct *st)
 	}
 	else
 	{
-		ft_printf("%s: No such file or directory\n", pathfile);
+		ft_printf("minishell: %s: No such file or directory\n", pathfile);
 		st->stop = 1;
 		return (0);
 	}
 	return (0);
+}
+
+int			ft_openmultiplefiles(int i, t_struct *st)
+{
+	int			fd;
+
+	while (st->files[i] != NULL)
+	{
+		if (st->files[i + 1] != NULL)
+		{
+			fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
+			close(fd);
+		}
+		i++;
+	}
+	return (i);
+}
+
+int			ft_redirection(char *cmd, t_struct *st)
+{
+	int			i;
+
+	i = 0;
+	if (ft_indexuntilfile(cmd, st) == 0)
+		return (0);
+	if (st->redirection != 0)
+	{
+		if (ft_lenoffile(cmd) != -1)
+		{
+			if (ft_checkfile(cmd, st) == 0)
+				return (0);
+		}
+		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+		st->files = ft_strtokk(st->newfd, " ><|");
+		i = ft_openmultiplefiles(i, st);
+		if (i > 1)
+		{
+			free(st->newfd);
+			st->newfd = ft_strdup(st->files[i - 1]);
+		}
+		ft_free_tab(st->files);
+	}
+	return (EXIT_SUCCESS);
 }

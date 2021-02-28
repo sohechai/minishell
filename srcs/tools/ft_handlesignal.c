@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_handlesignal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 10:34:26 by aurbuche          #+#    #+#             */
-/*   Updated: 2021/02/28 13:09:24 by sohechai         ###   ########lyon.fr   */
+/*   Created: 2021/02/28 15:00:43 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/28 15:02:12 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../includes/minishell.h"
 
-char			*ft_substr(char const *s, unsigned int start, size_t len)
+void		ft_sigint(int signum)
 {
-	char		*dst;
-	size_t		i;
+	pid_t pid;
 
-	i = 0;
-	if (start > ft_strlen(s))
-		len = 0;
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	if (!(dst = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (len--)
+	pid = signum;
+	if (kill(pid, signum) < 0)
 	{
-		dst[i] = s[start];
-		i++;
-		start++;
+		ft_printf("\n");
+		ft_printf("\033[0;34mMinishell$> \033[0m");
 	}
-	dst[i] = '\0';
-	return (dst);
+}
+
+void		ft_sigquit(int signum)
+{
+	pid_t pid;
+
+	pid = signum;
+	if (kill(pid, signum) == 3)
+		ft_printf("Quit: 3\n");
 }

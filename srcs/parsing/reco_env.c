@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ static char				*remove_dollar(char *ostr,
 	return (new_str);
 }
 
-int						re_env(t_mini *mi, t_struct *st,
-								char *str, size_t i, size_t n)
+int						re_env(t_struct *st, char *str, size_t i, size_t n)
 {
 	char	*env;
 	char	*val_env;
@@ -76,7 +75,7 @@ int						re_env(t_mini *mi, t_struct *st,
 	{
 		if (endline(str, j))
 			next = 1;
-		mi->tab_arg[n] = remove_dollar(mi->tab_arg[n], env, i, next);
+		st->tab_arg[n] = remove_dollar(st->tab_arg[n], env, i, next);
 		free(env);
 		return (i);
 	}
@@ -84,9 +83,9 @@ int						re_env(t_mini *mi, t_struct *st,
 	{
 		val_env = ft_getenv(st->copyenvp, env);
 		if (str[j] == '\0')
-			mi->tab_arg[n] = recreate_str(mi->tab_arg[n], val_env, i);
+			st->tab_arg[n] = recreate_str(st->tab_arg[n], val_env, i);
 		else
-			mi->tab_arg[n] = recreate_str2(mi->tab_arg[n], str, val_env, i, j);
+			st->tab_arg[n] = recreate_str2(st->tab_arg[n], str, val_env, i, j);
 		return (i + j);
 	}
 }

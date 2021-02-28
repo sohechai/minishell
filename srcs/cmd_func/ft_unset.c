@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/17 23:16:12 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 14:36:21 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			ft_checkifok(char *str, char *var)
 	{
 		if (var[i + 1] == '\0')
 		{
-			if(str[i + 1] == '=' || str[i + 1] == '\0')
+			if (str[i + 1] == '=' || str[i + 1] == '\0')
 				return (1);
 			else
 				return (0);
@@ -90,9 +90,9 @@ char		**ft_unsetenv(char *var, t_struct *st)
 	int		index;
 
 	index = ft_checkifenvexist(var, st->copyenvp);
-	if(ft_strchr(var, '='))
+	if (ft_checkvarisok(var) == 0)
 	{
-		ft_printf("unset: « %s » : not a valid identifier\n", var);
+		ft_printf("minishell: unset: « %s » : not a valid identifier\n", var);
 		st->exitstatus = EXIT_FAILURE;
 		return (NULL);
 	}

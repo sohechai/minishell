@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:55:36 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 13:51:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char		**ft_saveenv(t_struct *st)
 	i = 0;
 	len = ft_countenv(st->copyenvp);
 	if (!(sortenv = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
+		ft_printf("minishell: failed allocate memory to envp\n");
 	while (st->copyenvp[i])
 	{
 		sortenv[i] = ft_strdup(st->copyenvp[i]);

@@ -6,45 +6,45 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:51 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:14:16 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void			ft_reset_mi(t_mini *mi)
+void			ft_reset_mi(t_struct *st)
 {
-	mi->error = 0;
-	mi->tab_pipe = 0;
-	mi->quote = 0;
-	mi->nquote = 0;
-	mi->islast = 0;
-	mi->op = 0;
-	mi->semi = 0;
-	mi->fd = 1;
-	if (mi->tab_arg)
-		ft_free_tab(mi->tab_arg);
-	ft_delete(&mi->line);
+	st->error = 0;
+	st->tab_pipe = 0;
+	st->quote = 0;
+	st->nquote = 0;
+	st->islast = 0;
+	st->op = 0;
+	st->semi = 0;
+	st->fd = 1;
+	if (st->tab_arg)
+		ft_free_tab(st->tab_arg);
+	ft_delete(&st->line);
 }
 
-void			ft_free_mi(t_mini *mi)
+void			ft_free_mi(t_struct *st)
 {
-	ft_delete(&mi->line);
-	ft_free_tab(mi->tab_arg);
+	ft_delete(&st->line);
+	ft_free_tab(st->tab_arg);
 }
 
-void			change_real_char(t_mini *mi, size_t n, size_t i)
+void			change_real_char(t_struct *st, size_t n, size_t i)
 {
-	while (mi->tab_arg[n])
+	while (st->tab_arg[n])
 	{
 		i = 0;
-		while (mi->tab_arg[n][i])
+		while (st->tab_arg[n][i])
 		{
-			if (mi->tab_arg[n][i] == '"' || mi->tab_arg[n][i] == '\'')
-				i = ft_change_char(mi->tab_arg[n][i], mi, i + 1, n);
+			if (st->tab_arg[n][i] == '"' || st->tab_arg[n][i] == '\'')
+				i = ft_change_char(st->tab_arg[n][i], st, i + 1, n);
 			else
 				i++;
-			if (i >= ft_strlen(mi->tab_arg[n]))
+			if (i >= ft_strlen(st->tab_arg[n]))
 				break ;
 		}
 		n++;

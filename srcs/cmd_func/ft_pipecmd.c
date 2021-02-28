@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_simplecmd.c                                     :+:      :+:    :+:   */
+/*   ft_pipecmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:24:40 by sohechai         ###   ########lyon.fr   */
+/*   Created: 2021/02/28 15:28:05 by sohechai          #+#    #+#             */
+/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int				ft_checkquote(char *str)
-{
-	int			i;
-	int			c;
-
-	i = 0;
-	if (str[0] == 34 || str[0] == 39)
-		c = str[0];
-	while (str[i])
-	{
-		if (str[0] != c)
-			return (0);
-		if (str[i] == c && str[i + 1] == ' ')
-			return (-1);
-		i++;
-	}
-	if (str[i - 1] == c)
-		return (1);
-	return (0);
-}
 
 static size_t	change_loop(t_struct *st, size_t i, size_t n, char c)
 {
@@ -56,28 +35,23 @@ static void		change_space_char(t_struct *st, size_t i, size_t n)
 	}
 }
 
-int				ft_simplecmd(t_struct *st, char **envp, size_t n)
+int				ft_pipecmd(t_struct *st, char **envp, size_t n)
 {
 	char	**cmd;
+	int		i;
 
 	st->copyenvp = envp;
+	i = 0;
 	change_space_char(st, 0, n);
 	cmd = ft_strtokk(st->tab_arg[n], " \t\n");
 	cmd = rechange_character(cmd, 0, 0);
-	cmd = remove_quote(cmd, 0);
+	cmd = remove_quote(cmd, 0);// TODO tjrs util ?
 	if (cmd[0] == NULL || !cmd[0][0])
 		ft_printf("");
-	else if (!ft_strcmp(cmd[0], "exit"))
+	else if (!ft_strcmp(cmd[0], "exit"))// TODO test avec exit
 		ft_exit(st->tab_arg[n], st);
-	else if (ft_is_built_in(cmd[0]) == false)
-	{
-		st->printerror = ft_strdup(cmd[0]);
-		ft_getabsolutepath(cmd, st);
-		ft_execcmd(st, st->printerror, cmd);
-		free(st->printerror);
-	}
-	else
-		ft_exec_built_in(cmd, st);
-	ft_free_tab(cmd);
+	st->index = 0;
+	ft_execpipe(st->tab_arg[n], st);
+	// ft_free_tab(cmd);
 	return (EXIT_SUCCESS);
 }

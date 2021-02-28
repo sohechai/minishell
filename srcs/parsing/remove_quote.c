@@ -6,13 +6,13 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 15:38:39 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/23 15:39:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 16:31:13 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static size_t			count_quote(char *str, size_t i, size_t count)
+static size_t		count_quote(char *str, size_t i, size_t count)
 {
 	while (str[i])
 	{
@@ -27,7 +27,7 @@ static size_t			count_quote(char *str, size_t i, size_t count)
 	return (count);
 }
 
-static char				*str_wt_qt(char *cmd, size_t i, size_t j)
+static char			*str_wt_qt(char *cmd, size_t i, size_t j)
 {
 	size_t	count;
 	size_t	k;
@@ -62,7 +62,7 @@ static char				*str_wt_qt(char *cmd, size_t i, size_t j)
 	return (tmp);
 }
 
-char					**remove_quote(char **cmd, size_t n)
+char				**remove_quote(char **cmd, size_t n)
 {
 	while (cmd[n])
 	{
