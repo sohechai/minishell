@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getabsolutepath.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:12:13 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 14:12:18 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 20:43:58 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 	free(path);
 	path = NULL;
 	i = 0;
-	while (path_split[i++])
+	while (path_split[i])
 	{
-		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + \
-		ft_strlen(cmd[0]) + 2));
+		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + ft_strlen(cmd[0]) + 2));
 		if (bin == NULL)
 			break ;
 		ft_strcat(bin, path_split[i]);
@@ -35,6 +34,7 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 			break ;
 		free(bin);
 		bin = NULL;
+		i++;
 	}
 	ft_freetab(path_split);
 	free(cmd[0]);

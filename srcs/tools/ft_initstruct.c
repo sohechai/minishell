@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 16:33:24 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/02/28 20:37:58 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_struct		*ft_initstructnext(void)
+void		ft_initstructnext(t_struct *st)
 {
 	st->copyenvp = NULL;
 	st->parsecmd = NULL;
@@ -46,6 +46,6 @@ t_struct		*ft_initstruct(void)
 	st->op = 0;
 	st->semi = 0;
 	st->fd = 1;
-	ft_initstructnext();
+	ft_initstructnext(st);
 	return (st);
 }
