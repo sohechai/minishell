@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:10:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:14:16 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:59:19 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ char				**rechange_character(char **cmd, size_t i, size_t n)
 				cmd[n][i] = '>';
 			if (cmd[n][i] == -5)
 				cmd[n][i] = '<';
-			if (cmd[n][i] == -6)
-				cmd[n][i] = '\"';
-			if (cmd[n][i] == -7)
-				cmd[n][i] = '\'';
 			if (cmd[n][i] == -8)
 				cmd[n][i] = ' ';
+			if (cmd[n][i] == -9)
+				cmd[n][i] = '$';
 			i++;
 		}
 		n++;
@@ -47,9 +45,10 @@ int					ft_echo(t_struct *st, char **cmd)
 	size_t		n;
 
 	n = 1;
+	ft_redirectbuiltin(st);
 	if (cmd[1] != NULL)
 	{
-		while (is_option(st, cmd[n], 1))
+		while (cmd[n] && is_option(st, cmd[n], 1))
 			n++;
 		while (cmd[n])
 		{
@@ -61,7 +60,9 @@ int					ft_echo(t_struct *st, char **cmd)
 	}
 	if (!st->op)
 		ft_putchar('\n');
+	ft_comebacktostdout(st);
 	st->nquote = 0;
 	st->op = 0;
+	st->exitstatus = 0;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_character.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:42:05 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int				ft_check_character(t_struct *st)
 		ft_error(st->line[0], 0);
 		return (0);
 	}
+//	if (!check_backslash(mi, 0))
+//		return (0);
 	if (!check_nquote(st->line, 0))
 		return (0);
 	while (st->line[i])

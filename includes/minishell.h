@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:47:36 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,22 @@ typedef struct		s_struct
 	int				stop;
 	int				fdinput;
 	pid_t			pid;
-	char			**envp;
-	char			**tab_arg;
-	char			**tab_red;
-	char			**cmd;
-	char			**echo;
-	char			*line;
-	char			error;
-	size_t			semi;
-	int				*tab_pipe;
-	int				quote;
-	int				nquote;
-	int				islast;
-	int				op;
-	int				fd;
+	// t_mini
+	char 		**tab_arg;
+	char		**cmd;
+	char		**echo;
+	char		*line;
+	char		error;
+	int 		*tab_pipe;
+	int			*tab_red;
+	int 		quote;
+	int			nquote;
+	int			islast;
+	int 		op;
+	int 		fd;
+	int			nbackslash;
+	int			nredir;
+	size_t 		semi;
 }					t_struct;
 
 // typedef struct		s_mini
@@ -145,21 +147,20 @@ char				**ft_unsetenv(char *var, t_struct *st);
 */
 
 int					ft_parsing(t_struct *st, size_t i);
-int					ft_recover_cmd(t_struct *st);
-int					ft_check_character(t_struct *st);
-void				str_remove_index(int i, t_struct *st, char c);
-int					print_prompt_waiting(t_struct *st, char *str, size_t i);
-int					endline(char *str, size_t i);
-int					ft_error(char c, int i);
-int					check_pipe(t_struct *st);
-int					check_semi(t_struct *st);
-int					check_redirect(t_struct *st, size_t n);
-void				ft_reset_mi(t_struct *st);
+int					ft_recover_cmd(t_struct *st); // recupere la cmd ex: echo
+int					ft_check_character(t_struct *st); // check tout la ligne pour analiser les vrais des faux characters
+void				str_remove_index(int i, t_struct *st, char c); // supprime un caractere quand celui-ci est inutile
+int					print_prompt_waiting(t_struct *st, char *str, size_t i); // affiche le prompt pour le multiligne
+int					endline(char *str, size_t i); // check si le character est le dernier de la ligne
+int 				ft_error(char c, int i); // affiche des messages d'erreur
+int					check_pipe(t_struct *st); // check si les pipes donnes sont bons
+int					check_semi(t_struct *st); // check si les semilicons donnes sont bons
+int 				check_redirect(t_struct *st, size_t i, size_t n); // check les redirections
+void 				ft_reset_mi(t_struct *st);
 void				ft_free_mi(t_struct *st);
 void				clean_spaces_bet(t_struct *st, size_t n, size_t i);
 int					check_nquote(char *str, size_t i);
-int					change_char_in_dquote(t_struct *st, size_t i,
-						size_t n);
+int					change_char_in_dquote(t_struct *st, size_t i, size_t n);
 size_t				advance(char *str, size_t i, char c);
 void				change_real_char(t_struct *st, size_t n, size_t i);
 size_t				ft_change_char(char c, t_struct *st, size_t i, size_t n);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reco_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:50:40 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int						re_env(t_struct *st, char *str, size_t i, size_t n)
 	while (ft_isalnum(str[j]))
 		j++;
 	env = ft_strndup(str, j);
-	if (!ft_getenv(st->copyenvp, env))
+	if (!ft_getenv(st->copyenvp, env) && str[0] != '?')
 	{
 		if (endline(str, j))
 			next = 1;
@@ -81,7 +81,13 @@ int						re_env(t_struct *st, char *str, size_t i, size_t n)
 	}
 	else
 	{
-		val_env = ft_getenv(st->copyenvp, env);
+		if (str[j] == '?')
+		{
+			val_env = ft_itoa(st->exitstatus);
+			j++;
+		}
+		else
+			val_env = ft_getenv(st->copyenvp, env);
 		if (str[j] == '\0')
 			st->tab_arg[n] = recreate_str(st->tab_arg[n], val_env, i);
 		else

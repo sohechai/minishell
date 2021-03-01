@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:14 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:12:56 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:49:00 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int			ft_error(char c, int i)
 {
 	if (i == 2)
 	{
-		ft_printf("minishell: syntax error near unexpected token\n"
-			"\'%c%c\'\n", c, c);
+		ft_printf("minishell: syntax error near unexpected token "
+			"'%c%c'\n", c, c);
 		return (0);
 	}
-	ft_printf("minishell: syntax error near unexpected token \'%c\'\n", c);
+	ft_printf("minishell: syntax error near unexpected token '%c'\n", c);
 	return (0);
 }
 

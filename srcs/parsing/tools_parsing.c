@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:51 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:14:16 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:53:20 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void			ft_reset_mi(t_struct *st)
 	st->op = 0;
 	st->semi = 0;
 	st->fd = 1;
+	st->nbackslash = 0;
+	st->nredir = 0;
 	if (st->tab_arg)
 		ft_free_tab(st->tab_arg);
 	ft_delete(&st->line);
@@ -62,4 +64,13 @@ size_t			advance(char *str, size_t i, char c)
 	if (str[i] == c)
 		i++;
 	return (i);
+}
+
+int				check_next_one(char *str, char c)
+{
+	if (str[1] == c)
+	{
+		return (1);
+	}
+	return (0);
 }

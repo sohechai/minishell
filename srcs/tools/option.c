@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:03:13 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:14:16 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/01 13:58:07 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int		check_op(t_struct *st, char *str, size_t i)
 {
 	while (str[i] == 'n')
-	{
 		i++;
-	}
-	if (str[i] != '\0')
+	if (i == 1 || str[i] != '\0')
 		return (0);
 	st->op = 1;
 	return (1);
