@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 16:30:48 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/02 17:27:08 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			parseloop(t_struct *st)
 	return (1);
 }
 
-int			execloop(t_struct *st, char **envp)
+int			execloop(t_struct *st)
 {
 	size_t		n;
 
@@ -65,19 +65,19 @@ int			execloop(t_struct *st, char **envp)
 		{
 			ft_redirection(st->tab_arg[n], st);
 			if (st->redirection == 0)
-				ft_simplecmd(st, envp, n);
+				ft_simplecmd(st, n);
 			else
 			{
 				if (st->stop == 0)
 				{
 					st->tab_arg[n] = ft_substr(st->tab_arg[n], 0,
 								ft_strlenuntilredir(st->tab_arg[n]));
-					ft_simplecmd(st, envp, n);
+					ft_simplecmd(st, n);
 				}
 			}
 		}
 		else if (st->tab_pipe[n] == 1)
-			ft_pipecmd(st, envp, n);
+			ft_pipecmd(st, n);
 		n++;
 	}
 	return (EXIT_SUCCESS);
@@ -121,7 +121,7 @@ int			main(int argc, char **argv, char **envp)
 	{
 		if (parseloop(st))
 		{
-			execloop(st, envp);
+			execloop(st);
 			ft_reset_mi(st);
 		}
 		ft_printf("\033[0;34mMinishell$> \033[0m");

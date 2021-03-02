@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/01 13:47:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/02 16:53:55 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_struct			*ft_initstruct(void);
 void				ft_savepwd(t_struct *st);
 char				*ft_getenv(char **envp, char *var);
 void				ft_freestruct(t_struct *st);
+void				ft_freeloop(t_struct *st);
 void				ft_freetab(char **tab);
 void				ft_getabsolutepath(char **cmd, t_struct *st);
 int					ft_countenv(char **env);
@@ -89,8 +90,7 @@ int					ft_is_built_in(char *cmd);
 int					ft_exec_built_in(char **built_in, t_struct *st);
 int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st,
 						size_t buf_size);
-int					ft_simplecmd(t_struct *st, char **envp,
-						size_t n);
+int					ft_simplecmd(t_struct *st, size_t n);
 char				**ft_strtokk(char *str, char *sep);
 int					ft_exit(char *cmd, t_struct *st);
 int					ft_printsortenv(t_struct *st);
@@ -113,7 +113,7 @@ void				ft_comebacktostdout(t_struct *st);
 int					ft_checkfile(char *cmd, t_struct *st);
 int					ft_lenoffile(char *cmd);
 void				ft_execpipe(char *cmd, t_struct *st);
-int					ft_pipecmd(t_struct *st, char **envp, size_t n);
+int					ft_pipecmd(t_struct *st, size_t n);
 int					ft_checkquote(char *str);
 int					main(int argc, char **argv, char **envp);
 

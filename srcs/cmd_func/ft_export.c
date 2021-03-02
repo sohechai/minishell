@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 14:35:04 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/02 17:22:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char			*ft_strdupwithoutquote(const char *src)
 
 	i = 0;
 	j = 0;
-	length = (int)ft_strlen(src);
+	if (ft_strchr(src, '"'))
+		length = (int)ft_strlen(src) - 2;
+	else
+		length = (int)ft_strlen(src);
 	if (!(dest = malloc(sizeof(char) * (length) + 1)))
 		return (NULL);
 	while (src[i])
@@ -69,17 +72,61 @@ char			*ft_strdupwithoutquote(const char *src)
 	return (dest);
 }
 
+char			**ft_copytabnew(char **src)
+{
+	char	**dest;
+	int		len;
+	int		i;
+
+	len = ft_countenv(src) + 1;
+	i = 0;
+	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (src[i])
+	{
+		dest[i] = ft_strdup(src[i]);
+		i++;
+	}
+	dest[i] = NULL;
+	return (dest);
+}
+
+char			**ft_copytab(char **src)
+{
+	char	**dest;
+	int		len;
+	int		i;
+
+	len = ft_countenv(src);
+	i = 0;
+	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (src[i])
+	{
+		dest[i] = ft_strdup(src[i]);
+		i++;
+	}
+	dest[i] = NULL;
+	return (dest);
+}
+
 int				ft_sortvar(char *var, t_struct *st)
 {
 	int		i;
+	char	**saveenvp;
 
 	i = 0;
+	saveenvp = ft_copytabnew(st->copyenvp);
+	ft_freetab(st->copyenvp);
 	if (ft_checkvarisok(var) == 1)
 	{
-		while (st->copyenvp[i] != NULL)
+		while (saveenvp[i] != NULL)
 			i++;
-		st->copyenvp[i] = ft_strdupwithoutquote(var);
-		st->copyenvp[i + 1] = NULL;
+		saveenvp[i] = ft_strdupwithoutquote(var);
+		//i++;
+		saveenvp[i] = NULL;
+		st->copyenvp = ft_copytab(saveenvp);
+		ft_freetab(saveenvp);
 	}
 	else
 	{
@@ -97,7 +144,10 @@ int				ft_exportenv(char *var, t_struct *st)
 	index = ft_checkvarismissing(var, st);
 	len = ft_countenv(st->copyenvp);
 	if (index != -1)
+	{
+		free(st->copyenvp[index]);
 		st->copyenvp[index] = ft_strdup(var);
+	}
 	else
 		ft_sortvar(var, st);
 	return (EXIT_SUCCESS);

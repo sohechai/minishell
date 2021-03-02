@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:28:05 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/02 17:02:42 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void		change_space_char(t_struct *st, size_t i, size_t n)
 	}
 }
 
-int				ft_pipecmd(t_struct *st, char **envp, size_t n)
+int				ft_pipecmd(t_struct *st, size_t n)
 {
 	char	**cmd;
 	int		i;
 
-	st->copyenvp = envp;
+	// st->copyenvp = envp;
 	i = 0;
 	change_space_char(st, 0, n);
 	cmd = ft_strtokk(st->tab_arg[n], " \t\n");
