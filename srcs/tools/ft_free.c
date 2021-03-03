@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/02 17:28:02 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 18:03:03 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void		ft_freeloop(t_struct *st)
 		free(st->tab_pipe);
 	if (st->oldpwd)
 		free(st->oldpwd);
+	// if (st->env != NULL)
+	// 	free(st->env);
+	// if (st->newfd)
+	// 	free(st->newfd);
+	// if (st->files)
+	// 	free(st->files);
 }
 
 void		ft_freetab(char **tab)

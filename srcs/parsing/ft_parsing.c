@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/01 13:45:50 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 17:10:05 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char			**clean_spaces(t_struct *st, size_t n)
 	size_t		end;
 	char		**tab;
 
-	if (!(tab = (char**)malloc(sizeof(char*) * (st->semi + 1))))
+	if (!(tab = ft_calloc(sizeof(char*), (st->semi + 1))))
 		return (NULL);
 	while (n < st->semi && st->tab_arg[n][0] != '\0')
 	{
@@ -52,7 +52,7 @@ static char			**clean_spaces(t_struct *st, size_t n)
 		n++;
 	}
 	tab[n] = NULL;
-	ft_free_tab(st->tab_arg);
+	ft_freetab(st->tab_arg);
 	return (tab);
 }
 

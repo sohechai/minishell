@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 21:33:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 16:35:26 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 			dup2(2, 1);
 			ft_printf("minishell: %s : command not found\n", command);
 		}
-		free(st->newfd);
+		//free(st->newfd);
 	}
 	else
 	{

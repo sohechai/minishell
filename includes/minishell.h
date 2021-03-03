@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 15:20:00 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 16:23:59 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_struct
 	char			*printerror;
 	char			*newfd;
 	char			*pathfile;
+	char			*env;
 	int				i;
 	int				index;
 	int				exitstatus;

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 15:08:12 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 16:34:46 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ int			ft_redirection(char *cmd, t_struct *st)
 		i = ft_openmultiplefiles(i, st);
 		if (i > 1)
 		{
-			free(st->newfd);
+			//free(st->newfd);
 			st->newfd = ft_strdup(st->files[i - 1]);
 		}
-		ft_freetab(st->files);
+		// if(st->files)
+		// 	ft_freetab(st->files);
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 15:09:49 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 16:52:47 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 				i++;
 			else if (!ft_strchr(var, '='))
 			{
-				// free(lessvar);
+				free(lessvar);
 				return (-2);
 			}
-			// free(lessvar);
+			free(lessvar);
 			return (i);
 		}
 		i++;

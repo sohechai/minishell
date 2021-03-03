@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 15:50:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 17:12:19 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int				ft_exportenv(char *var, t_struct *st)
 	{
 		free(st->copyenvp[index]);
 		st->copyenvp[index] = ft_strdup(var);
+		free(var);
 	}
 	else
 		ft_sortvar(var, st);

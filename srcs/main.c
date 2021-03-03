@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/02 17:27:08 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 17:44:51 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int			parseloop(t_struct *st)
 int			execloop(t_struct *st)
 {
 	size_t		n;
+	char *tmp;
 
 	n = 0;
 	while (n < st->semi)
@@ -70,14 +71,18 @@ int			execloop(t_struct *st)
 			{
 				if (st->stop == 0)
 				{
-					st->tab_arg[n] = ft_substr(st->tab_arg[n], 0,
+					tmp = ft_strdup(st->tab_arg[n]);
+					// free(st->tab_arg[n]);
+					st->tab_arg[n] = ft_substr(tmp, 0,
 								ft_strlenuntilredir(st->tab_arg[n]));
+					free(tmp);
 					ft_simplecmd(st, n);
 				}
 			}
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);
+		//free(st->tab_arg[n]);
 		n++;
 	}
 	return (EXIT_SUCCESS);

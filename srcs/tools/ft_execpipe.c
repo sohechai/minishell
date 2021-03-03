@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execpipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 16:23:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 18:01:45 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void		ft_checkredir(t_struct *st)
 {
+	char *tmp;
 	ft_redirection(st->command[st->index], st);
 	if (st->redirection != 0)
-		st->command[st->index] = ft_substr(st->command[st->index], 0,
-						ft_strlenuntilredir(st->command[st->index]));
+	{
+		tmp = st->command[st->index];
+		//free(st->command[st->index]);
+		st->command[st->index] = ft_substr(tmp, 0,
+				ft_strlenuntilredir(tmp));
+		free(tmp);
+	}
 	st->parsecmd = ft_strtokk(st->command[st->index], " \n\t");
 }
 
@@ -34,6 +40,7 @@ void		ft_execpipecmd(t_struct *st)
 		ft_exec_built_in(st->parsecmd, st);
 		st->redirection = 0;
 	}
+	//ft_freetab(st->parsecmd);
 	exit(EXIT_FAILURE);
 }
 
@@ -72,5 +79,7 @@ void		ft_execpipe(char *cmd, t_struct *st)
 			st->fdinput = pipefd[0];// save input for next st->command
 			st->index++;
 		}
+		ft_freetab(st->parsecmd);
 	}
+	ft_freetab(st->command);
 }
