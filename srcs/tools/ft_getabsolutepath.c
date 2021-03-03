@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:12:13 by sohechai          #+#    #+#             */
-/*   Updated: 2021/02/28 20:43:58 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 12:15:19 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 
 	path_split = ft_split(path, ':');
 	free(path);
-	path = NULL;
 	i = 0;
 	while (path_split[i])
 	{
@@ -48,7 +47,7 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 	char	**path_split;
 	int		i;
 
-	path = ft_strdup(ft_getenv(st->copyenvp, "PATH"));
+	path = ft_getenv(st->copyenvp, "PATH");
 	bin = NULL;
 	path_split = NULL;
 	i = 0;
@@ -57,10 +56,12 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
 	{
 		ft_pathsplit(cmd, path_split, path, bin);
+		// free(path);
+		// path = NULL;
 	}
 	else
 	{
 		free(path);
-		path = NULL;
+		//path = NULL;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:59:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 14:58:33 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:20:24 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			ft_strlenequal(char *str)
 	return (i);
 }
 
-char		*ft_getenv(char **envp, char *var)
+char		*ft_getenv(char **copyenvp, char *var)
 {
 	int		i;
 	int		varlen;
@@ -37,17 +37,17 @@ char		*ft_getenv(char **envp, char *var)
 	i = 0;
 	varlen = ft_strlen(var) + 1;
 	var = ft_strjoin(var, "=");
-	while (envp[i])
+	while (copyenvp[i])
 	{
-		if (ft_strnstr(envp[i], var, varlen) != NULL)
+		if (ft_strnstr(copyenvp[i], var, varlen) != NULL)
 		{
-			start = ft_strlenequal(envp[i]) + 1;
-			len = ft_strlen(envp[i]) - varlen;
-			str = ft_substr(envp[i], start, len); // TODO free ?
+			start = ft_strlenequal(copyenvp[i]) + 1;
+			len = ft_strlen(copyenvp[i]) - varlen;
+			str = ft_substr(copyenvp[i], start, len); // TODO free ?
+			free(var);
 			return (str);
 		}
 		i++;
 	}
-	free(var);
 	return (NULL);
 }

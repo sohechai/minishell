@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/02 17:22:22 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:50:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			ft_exportloop(char **built_in, t_struct *st)
 {
 	st->i = 1;
-	built_in[st->i] = ft_strtrim(built_in[st->i], "\"'");
+	// built_in[st->i] = ft_strtrim(built_in[st->i], "\"'");
 	ft_redirectbuiltin(st);
 	while (built_in[st->i] != NULL)
 	{
@@ -41,7 +41,7 @@ char			*ft_getvar(char *var)
 			break ;
 		i++;
 	}
-	tmp = ft_substr(var, 0, i + 1);
+	tmp = ft_substr(var, 0, i);
 	return (tmp);
 }
 
@@ -123,7 +123,8 @@ int				ft_sortvar(char *var, t_struct *st)
 		while (saveenvp[i] != NULL)
 			i++;
 		saveenvp[i] = ft_strdupwithoutquote(var);
-		//i++;
+		// free(var);
+		i++;
 		saveenvp[i] = NULL;
 		st->copyenvp = ft_copytab(saveenvp);
 		ft_freetab(saveenvp);
@@ -131,6 +132,7 @@ int				ft_sortvar(char *var, t_struct *st)
 	else
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n", var);
+		// free(var);
 		return (st->exitstatus = EXIT_FAILURE);
 	}
 	return (1);
@@ -143,7 +145,9 @@ int				ft_exportenv(char *var, t_struct *st)
 
 	index = ft_checkvarismissing(var, st);
 	len = ft_countenv(st->copyenvp);
-	if (index != -1)
+	if(index == -2)
+		return (0);
+	else if (index != -1)
 	{
 		free(st->copyenvp[index]);
 		st->copyenvp[index] = ft_strdup(var);

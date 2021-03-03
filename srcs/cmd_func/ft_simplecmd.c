@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplecmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/02 16:53:03 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:07:05 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int				ft_simplecmd(t_struct *st, size_t n)
 	}
 	else
 		ft_exec_built_in(cmd, st);
-	ft_free_tab(cmd);
+	ft_freetab(cmd);
 	return (EXIT_SUCCESS);
 }

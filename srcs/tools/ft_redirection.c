@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 16:07:49 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:08:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ int			ft_checkfile(char *cmd, t_struct *st)
 	if (exist == 0)
 	{
 		st->stop = 0;
+		// free(pathfile);
 		return (1);
 	}
 	else
 	{
 		ft_printf("minishell: %s: No such file or directory\n", pathfile);
+		// free(pathfile);
 		st->stop = 1;
 		return (0);
 	}
@@ -101,7 +103,7 @@ int			ft_redirection(char *cmd, t_struct *st)
 			free(st->newfd);
 			st->newfd = ft_strdup(st->files[i - 1]);
 		}
-		ft_free_tab(st->files);
+		ft_freetab(st->files);
 	}
 	return (EXIT_SUCCESS);
 }

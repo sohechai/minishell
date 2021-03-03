@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/02 16:53:55 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:20:00 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_struct			*ft_initstruct(void);
 */
 
 void				ft_savepwd(t_struct *st);
-char				*ft_getenv(char **envp, char *var);
+char				*ft_getenv(char **copyenvp, char *var);
 void				ft_freestruct(t_struct *st);
 void				ft_freeloop(t_struct *st);
 void				ft_freetab(char **tab);

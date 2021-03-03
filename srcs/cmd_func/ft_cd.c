@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 14:05:26 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:22:00 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void		ft_cdwithargs(char **built_in, t_struct *st)
 {
-	built_in[1] = ft_strtrim(built_in[1], "\"'");
+	// built_in[1] = ft_strtrim(built_in[1], "\"'");
 	if (ft_strcmp(built_in[1], "~") == 0)
 	{
 		ft_saveoldpwd(st);
-		built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "HOME"));
+		built_in[1] = ft_getenv(st->copyenvp, "HOME");
 	}
 	else if (ft_strcmp(built_in[1], "-") == 0)
 	{
@@ -28,7 +28,7 @@ void		ft_cdwithargs(char **built_in, t_struct *st)
 		{
 			ft_redirectbuiltin(st);
 			ft_printf("%s\n", ft_getenv(st->copyenvp, "OLDPWD"));
-			built_in[1] = ft_strdup(ft_getenv(st->copyenvp, "OLDPWD"));
+			built_in[1] = ft_getenv(st->copyenvp, "OLDPWD");
 			ft_comebacktostdout(st);
 		}
 	}
@@ -44,6 +44,7 @@ int			ft_builtincd(char *path, t_struct *st)
 		ft_printf("minishell: cd: %s: No such file or directory\n", path);
 		return (st->exitstatus = EXIT_FAILURE);
 	}
+	free(path);
 	ft_comebacktostdout(st);
 	ft_savepwd(st);
 	return (st->exitstatus = EXIT_SUCCESS);

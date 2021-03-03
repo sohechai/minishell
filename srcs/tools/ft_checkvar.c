@@ -6,11 +6,25 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/01 13:58:54 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:09:49 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int				ft_strlenuntil_equal(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (i);
+		i++;
+	}
+	return (i);
+}
 
 int				ft_checkvarismissing(char *var, t_struct *st)
 {
@@ -26,7 +40,18 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	while (st->copyenvp[i] != NULL)
 	{
 		if (ft_strnstr(st->copyenvp[i], lessvar, len))
+		{
+			len = ft_strlenuntil_equal(st->copyenvp[i]);
+			if((ft_strncmp(ft_strnstr(st->copyenvp[i], lessvar, len), lessvar, len) != 0))
+				i++;
+			else if (!ft_strchr(var, '='))
+			{
+				// free(lessvar);
+				return (-2);
+			}
+			// free(lessvar);
 			return (i);
+		}
 		i++;
 	}
 	return (-1);

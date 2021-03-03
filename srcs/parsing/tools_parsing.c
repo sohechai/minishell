@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:51 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/02 16:50:44 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 11:54:38 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void			ft_reset_mi(t_struct *st)
 {
 	st->error = 0;
-	st->tab_pipe = 0;
 	st->quote = 0;
 	st->nquote = 0;
 	st->islast = 0;
