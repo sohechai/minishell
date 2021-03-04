@@ -6,34 +6,31 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:54:59 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 17:50:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 15:16:16 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int			what_after(char *str, size_t i)
+static int			what_after(char *str, size_t i, t_struct *st)
 {
-	while (str[i])
+	while (!ft_isalpha(str[i]))
 	{
 		if (str[i] == '>')
 		{
 			if (str[i + 1] == '>')
-				return (ft_error('>', 2));
-			return (ft_error('>', 1));
+				return (ft_error('>', 2, st));
+			return (ft_error('>', 1, st));
 		}
 		i++;
 	}
 	return (1);
 }
 
-static size_t		count_redirr(t_struct *st, size_t i,size_t n)
+static size_t		count_redirr(t_struct *st, size_t i, size_t n, size_t j)
 {
-	int		j;
-
-	j = 1;
 	st->nredir = 1;
-	while (st->tab_arg[n][i])
+	while (st->tab_arg[n][i] == '>' || st->tab_arg[n][i] == ' ')
 	{
 		if (st->tab_arg[n][i] == '>')
 			st->nredir++;
@@ -41,15 +38,15 @@ static size_t		count_redirr(t_struct *st, size_t i,size_t n)
 		{
 			if (st->line[i + 1] == '<')
 				j = 2;
-			return (ft_error('<', j));
+			return (ft_error('<', j, st));
 		}
 		if (st->nredir == 3 && st->tab_arg[n][i + 1] != '>')
-			return (ft_error('>', 1));
+			return (ft_error('>', 1, st));
 		if (st->nredir > 3)
-			return (ft_error('>', 2));
+			return (ft_error('>', 2, st));
 		if (st->tab_arg[n][i] == ' ')
 		{
-			if (!what_after(st->tab_arg[n], i + 1))
+			if (!what_after(st->tab_arg[n], i + 1, st))
 				return (0);
 		}
 		i++;
@@ -68,7 +65,7 @@ static size_t		count_redirl(t_struct *st, size_t i, size_t n)
 		{
 			if (st->tab_arg[n][i + 1] == '<')
 				j++;
-			return (ft_error('<', j));
+			return (ft_error('<', j, st));
 		}
 		i++;
 	}
@@ -84,7 +81,7 @@ int					check_redirect(t_struct *st, size_t i, size_t n)
 		{
 			if (st->tab_arg[n][i] == '>')
 			{
-				if ((i = count_redirr(st, i + 1, n)) == 0)
+				if ((i = count_redirr(st, i + 1, n, 1)) == 0)
 					return (0);
 			}
 			else if (st->tab_arg[n][i] == '<')

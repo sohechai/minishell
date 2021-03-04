@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 15:07:05 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:28:52 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ int				ft_simplecmd(t_struct *st, size_t n)
 		ft_printf("");
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(st->tab_arg[n], st);
-	else if (ft_is_built_in(cmd[0]) == false)
+	// free(st->tab_arg[n]);
+	if (ft_is_built_in(cmd[0]) == false)
 	{
 		st->printerror = ft_strdup(cmd[0]);
-		ft_getabsolutepath(cmd, st);
-		ft_execcmd(st, st->printerror, cmd);
+		if(ft_getabsolutepath(cmd, st) == 1)
+			ft_execcmd(st, st->printerror, cmd);
 		free(st->printerror);
 	}
 	else

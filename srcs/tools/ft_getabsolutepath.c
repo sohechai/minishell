@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:12:13 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 12:15:19 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:49:39 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 	cmd[0] = bin;
 }
 
-void	ft_getabsolutepath(char **cmd, t_struct *st)
+int		ft_getabsolutepath(char **cmd, t_struct *st)
 {
 	char	*path;
 	char	*bin;
@@ -52,8 +52,13 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 	path_split = NULL;
 	i = 0;
 	if (path == NULL)
-		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
-	if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
+	{
+		ft_printf("minishell: ls: No such file or directory\n");
+		free(path);
+		return (0);
+	}
+		// path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
+	else if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
 	{
 		ft_pathsplit(cmd, path_split, path, bin);
 		// free(path);
@@ -64,4 +69,5 @@ void	ft_getabsolutepath(char **cmd, t_struct *st)
 		free(path);
 		//path = NULL;
 	}
+	return (1);
 }

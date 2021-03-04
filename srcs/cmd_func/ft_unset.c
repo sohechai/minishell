@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 14:36:21 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:45:56 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,25 @@ char		**ft_deleteenv(int index, char **envp)
 	return (newenvp);
 }
 
+char			**ft_copytabunset(char **src)
+{
+	char	**dest;
+	int		len;
+	int		i;
+
+	len = ft_countenv(src);
+	i = 0;
+	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
+		ft_printf("failed allocate memory to envp\n");
+	while (src[i])
+	{
+		dest[i] = ft_strdup(src[i]);
+		i++;
+	}
+	dest[i] = NULL;
+	return (dest);
+}
+
 char		**ft_unsetenv(char *var, t_struct *st)
 {
 	int		index;
@@ -98,7 +117,8 @@ char		**ft_unsetenv(char *var, t_struct *st)
 	}
 	else if (ft_checkifenvexist(var, st->copyenvp) != -1)
 	{
-		st->copyenvp = ft_deleteenv(index, st->copyenvp);
+		ft_freetab(st->copyenvp);
+		st->copyenvp = ft_copytabunset(ft_deleteenv(index, st->copyenvp));
 	}
 	st->exitstatus = EXIT_SUCCESS;
 	return (st->copyenvp);

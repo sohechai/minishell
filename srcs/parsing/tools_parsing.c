@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:51 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 16:40:17 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 15:18:56 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void			ft_reset_mi(t_struct *st)
 	st->nbackslash = 0;
 	st->nredir = 0;
 	ft_freeloop(st);
-	ft_delete(&st->line);
 }
 
 void			ft_free_mi(t_struct *st)
 {
 	ft_delete(&st->line);
-	ft_freetab(st->tab_arg);
+	ft_free_tab(st->tab_arg);
 }
 
 void			change_real_char(t_struct *st, size_t n, size_t i)
@@ -67,8 +66,6 @@ size_t			advance(char *str, size_t i, char c)
 int				check_next_one(char *str, char c)
 {
 	if (str[1] == c)
-	{
 		return (1);
-	}
 	return (0);
 }

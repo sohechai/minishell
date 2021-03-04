@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 17:44:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 15:23:15 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int			parseloop(t_struct *st)
 	{
 		return (0);
 	}
-	if (ft_parsing(st, 0))
+	if (!ft_parsing(st, 0))
 	{
-		return (1);
+		return (0);
 	}
 	return (1);
 }
@@ -99,7 +99,10 @@ void		ft_copyenvp(char **envp, t_struct *st)
 		ft_printf("failed allocate memory to envp\n");
 	while (envp[i])
 	{
-		st->copyenvp[i] = ft_strdup(envp[i]);
+		if (ft_strnstr(envp[i], "OLDPWD", 6))
+			st->copyenvp[i] = ft_strdup("OLDPWD");
+		else
+			st->copyenvp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	st->copyenvp[i] = NULL;
@@ -115,8 +118,11 @@ int			main(int argc, char **argv, char **envp)
 		ft_printf("failed allocate memory to structure\n");
 		return (EXIT_FAILURE);
 	}
-	if (argc < 1)
+	if (argc != 1)
+	{
+		ft_printf("too much argument, enter './minishell' to execute\n");
 		return (-1);
+	}
 	(void)argv;
 	ft_copyenvp(envp, st);
 	ft_printf("\033[0;34mMinishell$> \033[0m");
@@ -129,7 +135,10 @@ int			main(int argc, char **argv, char **envp)
 			execloop(st);
 			ft_reset_mi(st);
 		}
+		ft_delete(&st->line);
 		ft_printf("\033[0;34mMinishell$> \033[0m");
 	}
+	// ft_freetab(st->copyenvp);
+	// free(st);
 	return (0);
 }

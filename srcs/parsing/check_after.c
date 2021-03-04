@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   check_after.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:20:47 by sofiahechai      ###   ########lyon.fr   */
+/*   Created: 2021/03/01 13:53:53 by sofiahechai       #+#    #+#             */
+/*   Updated: 2021/03/04 15:15:33 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		ft_freestruct(t_struct *st)
+int					check_after(char *str, size_t i, char c, t_struct *st)
 {
-	free(st);
-}
-
-void		ft_freeloop(t_struct *st)
-{
-	if (st->tab_arg)
-		ft_freetab(st->tab_arg);
-	if (st->tab_pipe)
-		free(st->tab_pipe);
-	if (st->oldpwd)
-		free(st->oldpwd);
-	// if (st->env)
-	// 	free(st->env);
-	// if (st->newfd)
-	// 	free(st->newfd);
-	// if (st->files)
-	// 	free(st->files);
-}
-
-void		ft_freetab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i] != NULL)
-		free(tab[i++]);
-	free(tab);
+	while (str[i] && str[i] != c)
+	{
+		if (ft_isascii(str[i]) && str[i] != c
+			&& str[i] != ' ' && str[i] != '\t')
+			return (1);
+		i++;
+	}
+	if (str[i] == c)
+		return (ft_error(';', 1, st));
+	return (1);
 }

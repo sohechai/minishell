@@ -6,41 +6,39 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/01 13:50:40 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 15:17:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char				*recreate_str(char *str, char *env, size_t i)
+static char		*recreate_str(t_struct *st, size_t n, size_t i)
 {
 	char	*new_str;
 	char	*tmp;
 
 	new_str = NULL;
-	tmp = ft_strndup(str, i);
-	tmp = ft_strfjoin(tmp, env, 3);
+	tmp = ft_strndup(st->tab_arg[n], i);
+	tmp = ft_strfjoin(tmp, st->val_env, 3);
 	new_str = ft_strfjoin(tmp, "\0", 1);
-	free(str);
+	free(st->tab_arg[n]);
 	return (new_str);
 }
 
-static char				*recreate_str2(char *str, char *old_str,
-								char *env, size_t i, size_t j)
+static char		*recreate_str2(t_struct *st, size_t n, size_t i, size_t j)
 {
 	char	*new_str;
 	char	*tmp;
 
 	new_str = NULL;
-	tmp = ft_strndup(str, i);
-	tmp = ft_strfjoin(tmp, env, 3);
-	new_str = ft_strfjoin(tmp, old_str + j, 1);
-	free(str);
+	tmp = ft_strndup(st->tab_arg[n], i);
+	tmp = ft_strfjoin(tmp, st->val_env, 3);
+	new_str = ft_strfjoin(tmp, st->ostr + j, 1);
+	free(st->tab_arg[n]);
 	return (new_str);
 }
 
-static char				*remove_dollar(char *ostr,
-								char *env, size_t i, int next)
+static char		*remove_dollar(char *ostr, char *env, size_t i, int next)
 {
 	char	*new_str;
 	char	*tmp;
@@ -57,41 +55,45 @@ static char				*remove_dollar(char *ostr,
 	return (new_str);
 }
 
-int						re_env(t_struct *st, char *str, size_t i, size_t n)
+static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 {
-	char	*env;
-	char	*val_env;
+	if (st->tmp[j] == '?')
+	{
+		st->val_env = ft_itoa(st->exitstatus);
+		j++;
+	}
+	else
+		st->val_env = ft_getenv(st->copyenvp, st->env);
+	if (st->tmp[j] == '\0')
+		st->tab_arg[n] = recreate_str(st, n, i);
+	else
+		st->tab_arg[n] = recreate_str2(st, n, i, j);
+//	free(st->env);
+}
+
+int				re_env(t_struct *st, char *str, size_t i, size_t n)
+{
 	size_t	j;
 	int		next;
 
-	env = NULL;
-	val_env = NULL;
 	j = 0;
 	next = 0;
+	st->ostr = str;
 	while (ft_isalnum(str[j]))
 		j++;
-	env = ft_strndup(str, j);
-	if (!ft_getenv(st->copyenvp, env) && str[0] != '?')
+	st->env = ft_strndup(str, j);
+	if (!ft_getenv(st->copyenvp, st->env) && str[0] != '?')
 	{
 		if (endline(str, j))
 			next = 1;
-		st->tab_arg[n] = remove_dollar(st->tab_arg[n], env, i, next);
-		free(env);
+		st->tab_arg[n] = remove_dollar(st->tab_arg[n], st->env, i, next);
+//		free(st->env);
 		return (i);
 	}
 	else
 	{
-		if (str[j] == '?')
-		{
-			val_env = ft_itoa(st->exitstatus);
-			j++;
-		}
-		else
-			val_env = ft_getenv(st->copyenvp, env);
-		if (str[j] == '\0')
-			st->tab_arg[n] = recreate_str(st->tab_arg[n], val_env, i);
-		else
-			st->tab_arg[n] = recreate_str2(st->tab_arg[n], str, val_env, i, j);
+		st->tmp = str;
+		create_str(st, n, i, j);
 		return (i + j);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:13:27 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 16:27:27 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 13:58:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_exec_built_in(char **built_in, t_struct *st)
 		ft_builtinpwd(st);
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
 	{
-		st->env = ft_getenv(st->copyenvp, "HOME");
+		st->envi = ft_getenv(st->copyenvp, "HOME");
 		ft_saveoldpwd(st);
 		ft_builtincd(st->env, st);
 	}

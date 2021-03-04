@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/03/03 18:03:32 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/03/04 15:21:15 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC				=		./srcs/main.c \
 						./srcs/cmd_func/ft_pipecmd.c \
 						./srcs/parsing/ft_check_character.c \
 						./srcs/parsing/ft_check_pipe.c \
-						./srcs/parsing/check_backslash.c \
+						./srcs/parsing/check_after.c \
 						./srcs/parsing/check_redirection.c \
 						./srcs/parsing/ft_parsing.c \
 						./srcs/parsing/ft_utils.c \

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 17:11:06 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:01:46 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int			ft_builtinpwd(t_struct *st)
 	ft_redirectbuiltin(st);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
-		st->env = ft_strjoin("PWD=", cwd);
-		ft_exportenv(st->env, st);
+		st->envi = ft_strjoin("PWD=", cwd);
+		ft_exportenv(st->envi, st);
 		ft_printf("%s\n", cwd);
 	}
 	else

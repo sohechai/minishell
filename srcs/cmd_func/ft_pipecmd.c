@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:28:05 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 16:33:16 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:17:02 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int				ft_pipecmd(t_struct *st, size_t n)
 	// 	ft_exit(st->tab_arg[n], st);
 	st->index = 0;
 	ft_execpipe(st->tab_arg[n], st);
+	// free(st->tab_arg[n]);
 	// ft_free_tab(cmd);
 	return (EXIT_SUCCESS);
 }

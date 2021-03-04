@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 17:10:05 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 15:17:12 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char			**clean_spaces(t_struct *st, size_t n)
 	size_t		end;
 	char		**tab;
 
-	if (!(tab = ft_calloc(sizeof(char*), (st->semi + 1))))
+	if (!(tab = (char**)malloc(sizeof(char*) * (st->semi + 1))))
 		return (NULL);
 	while (n < st->semi && st->tab_arg[n][0] != '\0')
 	{
@@ -109,19 +109,20 @@ int					ft_parsing(t_struct *st, size_t i)
 	{
 		if (st->line[i] == '"' || st->line[i] == '\'')
 			i = advance(st->line, i + 1, st->line[i]);
-		if (st->line[i] == ';')
+		else if (st->line[i] == ';')
 		{
 			if (endline(st->line, i + 1))
 				break ;
-			if (st->line[i] == '|' && endline(st->line, i + 1))
-				if (!print_prompt_waiting(st, NULL, 0))
-					return (0);
-			if (st->line[i] == ';')
-				st->semi++;
+			if (!check_after(st->line, i + 1, ';', st))
+				return (0);
+			st->semi++;
+			i++;
 		}
-		if (i >= ft_strlen(st->line))
+		else
+			i++;
+		if (i > ft_strlen(st->line))
 			break ;
-		i++;
+//		i++;
 	}
 	st->semi++;
 	ft_separate_cmd(st, 0, 0);
@@ -132,3 +133,4 @@ int					ft_parsing(t_struct *st, size_t i)
 	}
 	return (1);
 }
+
