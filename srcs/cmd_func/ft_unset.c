@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:45:56 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 20:38:23 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,49 +64,42 @@ int			ft_checkifenvexist(char *var, char **envp)
 	return (-1);
 }
 
-char		**ft_deleteenv(int index, char **envp)
+void			ft_deleteenv(int index, char **copyenvp, t_struct *st)
 {
 	int		i;
 	int		j;
+	int		len;
 	char	**newenvp;
 
 	i = 0;
 	j = 0;
-	newenvp = envp;
-	while (envp[i])
+	len = ft_countenv(copyenvp);
+	if (!(newenvp = ft_calloc(sizeof(char*), len)))
+		ft_printf("failed allocate memory to envp\n");
+	while (copyenvp[i] != NULL)
 	{
 		if (i == index)
 		{
 			i++;
+			if (copyenvp[i] == NULL)
+				break ;
 		}
-		newenvp[j++] = envp[i++];
-	}
-	newenvp[j] = NULL;
-	return (newenvp);
-}
-
-char			**ft_copytabunset(char **src)
-{
-	char	**dest;
-	int		len;
-	int		i;
-
-	len = ft_countenv(src);
-	i = 0;
-	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
-	while (src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
+		newenvp[j] = ft_strdup(copyenvp[i]);
+		j++;
 		i++;
 	}
-	dest[i] = NULL;
-	return (dest);
+	newenvp[j] = NULL;
+	// char **tmp;
+	// tmp = ft_copytab(st->copyenvp);
+	ft_freetab(st->copyenvp);
+	st->copyenvp = ft_copytab(newenvp);
+	ft_freetab(newenvp);
 }
 
 char		**ft_unsetenv(char *var, t_struct *st)
 {
 	int		index;
+	// char 	**tmp;
 
 	index = ft_checkifenvexist(var, st->copyenvp);
 	if (ft_checkvarisok(var) == 0)
@@ -117,8 +110,10 @@ char		**ft_unsetenv(char *var, t_struct *st)
 	}
 	else if (ft_checkifenvexist(var, st->copyenvp) != -1)
 	{
-		ft_freetab(st->copyenvp);
-		st->copyenvp = ft_copytabunset(ft_deleteenv(index, st->copyenvp));
+		// tmp = ft_copytab(st->copyenvp);
+		// ft_freetab(st->copyenvp);
+		ft_deleteenv(index, st->copyenvp, st);
+		// ft_freetab(tmp);
 	}
 	st->exitstatus = EXIT_SUCCESS;
 	return (st->copyenvp);

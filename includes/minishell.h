@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 15:20:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 23:46:01 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct		s_struct
 	char			*printerror;
 	char			*newfd;
 	char			*pathfile;
+	char			*pwd;
+	char			*home;
 	char			*envi;
 	int				i;
 	int				index;
@@ -107,8 +109,7 @@ void				ft_saveoldpwd(t_struct *st);
 void				ft_savepwd(t_struct *st);
 void				ft_exportloop(char **built_in, t_struct *st);
 void				ft_unsetloop(char **built_in, t_struct *st);
-void				ft_sigint(int signum);
-void				ft_sigquit(int signum);
+void				ft_handlesignal(int signum);
 int					ft_checkvarisok(char *var);
 int					ft_checkvarismissing(char *var, t_struct *st);
 char				*ft_getvar(char *var);
@@ -122,6 +123,7 @@ int					ft_lenoffile(char *cmd);
 void				ft_execpipe(char *cmd, t_struct *st);
 int					ft_pipecmd(t_struct *st, size_t n);
 int					ft_checkquote(char *str);
+char				**ft_copytab(char **src);
 int					main(int argc, char **argv, char **envp);
 
 /*

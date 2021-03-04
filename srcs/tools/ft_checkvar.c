@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 16:52:47 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 21:44:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 		}
 		i++;
 	}
+	free(lessvar);
 	return (-1);
 }
 
@@ -72,7 +73,7 @@ int				ft_checkvarisok(char *var)
 	i = 0;
 	while (var[i])
 	{
-		if (ft_isalphaandequal(var[i]) == 0)
+		if (ft_isalphaandequal(var[i]) == 0 || var[0] == '=')
 			return (0);
 		i++;
 	}

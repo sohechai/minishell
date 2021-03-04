@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/03 17:12:19 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 21:41:55 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int				ft_sortvar(char *var, t_struct *st)
 	char	**saveenvp;
 
 	i = 0;
-	saveenvp = ft_copytabnew(st->copyenvp);
-	ft_freetab(st->copyenvp);
 	if (ft_checkvarisok(var) == 1)
 	{
+		saveenvp = ft_copytabnew(st->copyenvp);
+		ft_freetab(st->copyenvp);
 		while (saveenvp[i] != NULL)
 			i++;
 		saveenvp[i] = ft_strdupwithoutquote(var);
@@ -147,11 +147,10 @@ int				ft_exportenv(char *var, t_struct *st)
 	len = ft_countenv(st->copyenvp);
 	if(index == -2)
 		return (0);
-	else if (index != -1)
+	else if (index != -1 && var[0] != '=')
 	{
 		free(st->copyenvp[index]);
 		st->copyenvp[index] = ft_strdup(var);
-		free(var);
 	}
 	else
 		ft_sortvar(var, st);

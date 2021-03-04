@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 20:03:42 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/02/28 14:34:22 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 18:26:17 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int				ft_exit(char *cmd, t_struct *st)
 	if (st->redirection == DOUBLERED || st->redirection == SIMPLERED)
 	{
 		fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
+		free(st->newfd);
 		exit(st->exitstatus);
 		close(fd);
 	}

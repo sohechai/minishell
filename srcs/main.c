@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 15:23:15 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 23:56:06 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,16 @@
 // - pipe okkkkkkkkkkkdlkfjgj
 
 // TODO list :
-// - rajouter return (130) pour ctrl c
-// - Remplacer tous les printf par des dprintf
-// - $HOME -> /User/dfkjghd -> /User/dfkjghd: No such file or directory ou : is a directory
-// - ctrlc quand process tourne kill process
-// - mise en commun 2 struct pour norm etc
+// - je n'arrive pas a appeler la struct dans une fonction void
+// - abc def -> minishell: def : command not found leak de def
+// - cd - leak de "-"
+// - free st->home ?
+// - leak dans ft_exit ?
 
 // TODO : aurelien
-// - rajouter dans parsing ls >>> text.txt -> syntax error near unexpected token `>'
-// - ls >>>>>> fgkj -> syntax error near unexpected token `>>'
-// - ls <<<< dfgklj -> syntax error near unexpected token `<<'
-// - Echo : pour $? -> if (echo $?) printf(st->exitstatus); (retour erreur des commandes)
 // - mise a jour header de aurelien
+// - free quand il y a un $ -> $HOME leak de /Users/sohechai
+// - echo "\"salut\"" -> nous = \salut\ le vrai = "salut"
 
 int			parseloop(t_struct *st)
 {
@@ -72,9 +70,9 @@ int			execloop(t_struct *st)
 				if (st->stop == 0)
 				{
 					tmp = ft_strdup(st->tab_arg[n]);
-					// free(st->tab_arg[n]);
+					free(st->tab_arg[n]);
 					st->tab_arg[n] = ft_substr(tmp, 0,
-								ft_strlenuntilredir(st->tab_arg[n]));
+								ft_strlenuntilredir(tmp));
 					free(tmp);
 					ft_simplecmd(st, n);
 				}
@@ -82,7 +80,8 @@ int			execloop(t_struct *st)
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);
-		//free(st->tab_arg[n]);
+		if (st->newfd)
+			ft_delete(&st->newfd);
 		n++;
 	}
 	return (EXIT_SUCCESS);
@@ -99,6 +98,8 @@ void		ft_copyenvp(char **envp, t_struct *st)
 		ft_printf("failed allocate memory to envp\n");
 	while (envp[i])
 	{
+		if (ft_strnstr(envp[i], "HOME", 4))
+			st->home = ft_substr(envp[i], 5, 40);
 		if (ft_strnstr(envp[i], "OLDPWD", 6))
 			st->copyenvp[i] = ft_strdup("OLDPWD");
 		else
@@ -126,8 +127,8 @@ int			main(int argc, char **argv, char **envp)
 	(void)argv;
 	ft_copyenvp(envp, st);
 	ft_printf("\033[0;34mMinishell$> \033[0m");
-	(void)signal(SIGINT, ft_sigint);
-	(void)signal(SIGQUIT, ft_sigquit);
+	signal(SIGINT, ft_handlesignal);
+	signal(SIGQUIT, ft_handlesignal);
 	while (get_next_line(1, &st->line) > 0)
 	{
 		if (parseloop(st))

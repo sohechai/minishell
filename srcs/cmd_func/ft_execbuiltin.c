@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 14:24:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 21:59:33 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 		close(1);
 		dup(fd);
 		close(fd);
+		free(st->newfd);
 		if (execve(cmd[0], cmd, st->copyenvp) == -1)
 		{
 			dup2(2, 1);
 			ft_printf("minishell: %s : command not found\n", command);
 		}
-		//free(st->newfd);
 	}
 	else
 	{
 		if (execve(cmd[0], cmd, st->copyenvp) == -1)
 		{
 			ft_printf("minishell: %s : command not found\n", command);
+			ft_freetab(cmd);
 		}
 	}
 }

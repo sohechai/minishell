@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:54:27 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 18:55:36 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		ft_comebacktostdout(t_struct *st)
 	{
 		dup2(st->oldstdout, 1);
 		close(st->oldstdout);
+		//free(st->newfd);
 	}
 }
 
@@ -73,7 +74,8 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 	{
 		if (st->files[i + 1] != NULL)
 		{
-			fd = open(st->files[i], O_CREAT | O_RDWR | O_APPEND, 0640);
+			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+				S_IRGRP | S_IWGRP | S_IWUSR);
 			close(fd);
 		}
 		i++;
@@ -100,11 +102,12 @@ int			ft_redirection(char *cmd, t_struct *st)
 		i = ft_openmultiplefiles(i, st);
 		if (i > 1)
 		{
-			// free(st->newfd);
+			free(st->newfd);
 			st->newfd = ft_strdup(st->files[i - 1]);
+			ft_freetab(st->files);
 		}
-		// if(st->files)
-		// 	ft_freetab(st->files);
+		else
+			ft_freetab(st->files);
 	}
 	return (EXIT_SUCCESS);
 }

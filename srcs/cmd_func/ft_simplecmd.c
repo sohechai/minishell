@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:28:52 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 22:14:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ static void		change_space_char(t_struct *st, size_t i, size_t n)
 	}
 }
 
+void			ft_searchpath(char *path)
+{
+	struct stat buffer;
+	int			exist;
+
+	exist = stat(path, &buffer);
+	if (exist == 0)
+	{
+		ft_printf("minishell: %s : Is a directory\n", path);
+		// return (1);
+	}
+	else
+	{
+		ft_printf("minishell: %s: No such file or directory\n", path);
+		// return (0);
+	}
+}
+
 int				ft_simplecmd(t_struct *st, size_t n)
 {
 	char	**cmd;
@@ -69,8 +87,9 @@ int				ft_simplecmd(t_struct *st, size_t n)
 		ft_printf("");
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(st->tab_arg[n], st);
-	// free(st->tab_arg[n]);
-	if (ft_is_built_in(cmd[0]) == false)
+	else if (ft_strchr(cmd[0], '/'))
+		ft_searchpath(cmd[0]);
+	else if (ft_is_built_in(cmd[0]) == false)
 	{
 		st->printerror = ft_strdup(cmd[0]);
 		if(ft_getabsolutepath(cmd, st) == 1)

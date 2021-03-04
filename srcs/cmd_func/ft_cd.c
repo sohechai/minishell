@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 15:11:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 22:22:40 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int			ft_cdwithargs(char **built_in, t_struct *st)
 {
-	char	*env;
+	// char	*env;
 
-	env = ft_strdup("OLDPWD");
+	// env = ft_strdup("OLDPWD");
 	// built_in[1] = ft_strtrim(built_in[1], "\"'");
 	if (ft_strcmp(built_in[1], "~") == 0)
 	{
-		st->envi = ft_getenv(st->copyenvp, "HOME");
 		ft_saveoldpwd(st);
-		built_in[1] = st->envi;
+		built_in[1] = st->home;
 	}
 	else if (ft_strcmp(built_in[1], "-") == 0)
 	{
 		st->envi = ft_getenv(st->copyenvp, "OLDPWD");
 		if (!st->envi)
 		{
-			ft_printf("minishell: cd: « OLDPWD » non défini");
+			ft_printf("minishell: cd: « OLDPWD » not set\n");
 			return (0);
 		}
 		else
@@ -55,5 +54,6 @@ int			ft_builtincd(char *path, t_struct *st)
 	}
 	ft_comebacktostdout(st);
 	ft_savepwd(st);
+	ft_delete(&st->pwd);
 	return (st->exitstatus = EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:01:46 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 17:57:00 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ void		ft_saveoldpwd(t_struct *st)
 void		ft_savepwd(t_struct *st)
 {
 	char	cwd[PATH_MAX];
-	char	*pwd;
+	//char	*pwd;
 
 	getcwd(cwd, sizeof(cwd));
-	pwd = ft_strjoin("PWD=", cwd);
-	ft_exportenv(pwd, st);
-	printf("free pwd\n");
-	free(pwd);
+	st->pwd = ft_strjoin("PWD=", cwd);
+	ft_exportenv(st->pwd, st);
+	//free(pwd);
 }
 
 int			ft_builtinpwd(t_struct *st)
@@ -45,6 +44,7 @@ int			ft_builtinpwd(t_struct *st)
 		st->envi = ft_strjoin("PWD=", cwd);
 		ft_exportenv(st->envi, st);
 		ft_printf("%s\n", cwd);
+		free(st->envi);
 	}
 	else
 		ft_printf("getcwd()");

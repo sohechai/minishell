@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 14:09:12 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 22:05:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		ft_checkredir(t_struct *st)
 	if (st->redirection != 0)
 	{
 		tmp = st->command[st->index];
-		//free(st->command[st->index]);
+		// free(st->command[st->index]);
 		st->command[st->index] = ft_substr(tmp, 0,
 				ft_strlenuntilredir(tmp));
 		free(tmp);
@@ -33,12 +33,12 @@ void		ft_execpipecmd(t_struct *st)
 	{
 		ft_getabsolutepath(st->parsecmd, st);
 		ft_execcmd(st, st->command[st->index], st->parsecmd);
-		st->redirection = 0; // TODO utile ?
+		// st->redirection = 0; // TODO utile ?
 	}// TODO fix problem message d'erreur espace etc
 	else
 	{
 		ft_exec_built_in(st->parsecmd, st);
-		st->redirection = 0;
+		// st->redirection = 0;
 	}
 	//ft_freetab(st->parsecmd);
 	exit(EXIT_FAILURE);
@@ -79,6 +79,8 @@ void		ft_execpipe(char *cmd, t_struct *st)
 			st->fdinput = pipefd[0];// save input for next st->command
 			st->index++;
 		}
+		if (st->newfd != NULL)
+			ft_delete(&st->newfd);
 		ft_freetab(st->parsecmd);
 	}
 	ft_freetab(st->command);

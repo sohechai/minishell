@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:20:47 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 18:24:39 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ void		ft_freeloop(t_struct *st)
 		free(st->tab_pipe);
 	if (st->oldpwd)
 		free(st->oldpwd);
-	// if (st->env)
-	// 	free(st->env);
-	// if (st->newfd)
-	// 	free(st->newfd);
+	// if (st->pwd)
+	// 	free(st->pwd);
+	// if (st->envi)
+	// 	free(st->envi);
+	if (st->newfd)
+		ft_delete(&st->newfd);
 	// if (st->files)
 	// 	free(st->files);
 }
