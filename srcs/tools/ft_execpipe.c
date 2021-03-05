@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 22:05:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 01:27:36 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		ft_checkredir(t_struct *st)
 	ft_redirection(st->command[st->index], st);
 	if (st->redirection != 0)
 	{
+		printf("newfd = %s\n", st->newfd);
 		tmp = st->command[st->index];
 		// free(st->command[st->index]);
 		st->command[st->index] = ft_substr(tmp, 0,
@@ -33,12 +34,12 @@ void		ft_execpipecmd(t_struct *st)
 	{
 		ft_getabsolutepath(st->parsecmd, st);
 		ft_execcmd(st, st->command[st->index], st->parsecmd);
-		// st->redirection = 0; // TODO utile ?
+		st->redirection = 0; // TODO utile ?
 	}// TODO fix problem message d'erreur espace etc
 	else
 	{
 		ft_exec_built_in(st->parsecmd, st);
-		// st->redirection = 0;
+		st->redirection = 0;
 	}
 	//ft_freetab(st->parsecmd);
 	exit(EXIT_FAILURE);
