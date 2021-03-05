@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strfjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienbucher <aurelienbucher@student.    +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 09:08:26 by aurbuche          #+#    #+#             */
-/*   Updated: 2020/06/16 10:36:53 by aurelienbuc      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 11:38:37 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

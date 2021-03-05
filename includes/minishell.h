@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 23:46:01 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 11:17:51 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_struct
 	char			*pwd;
 	char			*home;
 	char			*envi;
+	char			*dollar;
 	int				i;
 	int				index;
 	int				exitstatus;

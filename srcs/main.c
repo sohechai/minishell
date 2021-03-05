@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 01:35:48 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 13:37:55 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 
 // TODO : aurelien
 // - mise a jour header de aurelien
-// - free quand il y a un $ -> $HOME leak de /Users/sohechai
-// - echo "\"salut\"" -> nous = \salut\ le vrai = "salut"
 
 int			parseloop(t_struct *st)
 {

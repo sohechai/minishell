@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 15:17:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 11:58:19 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 		st->tab_arg[n] = recreate_str(st, n, i);
 	else
 		st->tab_arg[n] = recreate_str2(st, n, i, j);
-//	free(st->env);
+	ft_delete(&st->env);
 }
 
 int				re_env(t_struct *st, char *str, size_t i, size_t n)
@@ -82,18 +82,21 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 	while (ft_isalnum(str[j]))
 		j++;
 	st->env = ft_strndup(str, j);
-	if (!ft_getenv(st->copyenvp, st->env) && str[0] != '?')
+	st->envi = ft_getenv(st->copyenvp, st->env);
+	if (!st->envi && str[0] != '?')
 	{
 		if (endline(str, j))
 			next = 1;
 		st->tab_arg[n] = remove_dollar(st->tab_arg[n], st->env, i, next);
-//		free(st->env);
+		ft_delete(&st->env);
+		free(st->envi);
 		return (i);
 	}
 	else
 	{
 		st->tmp = str;
 		create_str(st, n, i, j);
+		free(st->envi);
 		return (i + j);
 	}
 }
