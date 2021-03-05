@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 22:22:40 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:20:29 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int			ft_cdwithargs(char **built_in, t_struct *st)
 	if (ft_strcmp(built_in[1], "~") == 0)
 	{
 		ft_saveoldpwd(st);
-		built_in[1] = st->home;
+		ft_delete(&built_in[1]);
+		built_in[1] = ft_strdup(st->home);
 	}
 	else if (ft_strcmp(built_in[1], "-") == 0)
 	{
@@ -35,7 +36,8 @@ int			ft_cdwithargs(char **built_in, t_struct *st)
 		{
 			ft_redirectbuiltin(st);
 			ft_printf("%s\n", st->envi);
-			built_in[1] = st->envi;
+			ft_delete(&built_in[1]);
+			built_in[1] = ft_strdup(st->envi);
 			ft_comebacktostdout(st);
 		}
 	}

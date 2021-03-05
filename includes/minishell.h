@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 11:17:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:21:21 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int					endline(char *str, size_t i);
 int					ft_error(char c, int i, t_struct *st);
 int					check_pipe(t_struct *st);
 int					check_semi(t_struct *st);
-void				ft_reset_mi(t_struct *st);
+int					ft_reset_mi(t_struct *st);
 void				ft_free_mi(t_struct *st);
 void				clean_spaces_bet(t_struct *st, size_t n, size_t i);
 int					check_nquote(char *str, size_t i, t_struct *st);

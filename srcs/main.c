@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 13:37:55 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:26:49 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@
 int			parseloop(t_struct *st)
 {
 	if (st->line[0] == '\0' || !ft_check_character(st))
-	{
 		return (0);
-	}
 	if (!ft_parsing(st, 0))
-	{
 		return (0);
-	}
 	return (1);
 }
 
@@ -97,8 +93,11 @@ void		ft_copyenvp(char **envp, t_struct *st)
 		ft_printf("failed allocate memory to envp\n");
 	while (envp[i])
 	{
-		if (ft_strnstr(envp[i], "HOME", 4))
+		if (ft_strnstr(envp[i], "HOME=", 5))
+		{
 			st->home = ft_substr(envp[i], 5, 40);
+			st->copyenvp[i] = ft_strdup(envp[i]);
+		}
 		if (ft_strnstr(envp[i], "OLDPWD", 6))
 			st->copyenvp[i] = ft_strdup("OLDPWD");
 		else

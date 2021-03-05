@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 01:27:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:35:18 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void		ft_checkredir(t_struct *st)
 	ft_redirection(st->command[st->index], st);
 	if (st->redirection != 0)
 	{
-		printf("newfd = %s\n", st->newfd);
 		tmp = st->command[st->index];
 		// free(st->command[st->index]);
 		st->command[st->index] = ft_substr(tmp, 0,

@@ -6,7 +6,7 @@
 #    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/03/05 11:59:11 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/03/05 15:33:51 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 SRC				=		./srcs/main.c \
 						./srcs/cmd_func/ft_execbuiltin.c \

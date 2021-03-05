@@ -6,13 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:51 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 15:18:56 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:26:49 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void			ft_reset_mi(t_struct *st)
+int				ft_reset_mi(t_struct *st)
 {
 	st->error = 0;
 	st->quote = 0;
@@ -24,6 +24,7 @@ void			ft_reset_mi(t_struct *st)
 	st->nbackslash = 0;
 	st->nredir = 0;
 	ft_freeloop(st);
+	return (0);
 }
 
 void			ft_free_mi(t_struct *st)
