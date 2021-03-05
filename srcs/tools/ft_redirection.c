@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 18:55:36 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 23:13:51 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void		ft_redirectbuiltin(t_struct *st)
 		dup(fd);
 		close(fd);
 	}
+	else if (st->leftredir == 1)
+	{
+		fd = open(st->newfd, O_RDONLY, 0);
+		st->oldstdout = fd;
+    	dup2(fd, STDIN_FILENO);
+	}
 }
 
 void		ft_comebacktostdout(t_struct *st)
@@ -36,11 +42,53 @@ void		ft_comebacktostdout(t_struct *st)
 	{
 		dup2(st->oldstdout, 1);
 		close(st->oldstdout);
-		//free(st->newfd);
 	}
+	if (st->leftredir == 1)
+		dup2(STDIN_FILENO, st->oldstdout);
 }
 
 int			ft_checkfile(char *cmd, t_struct *st)
+{
+	char		**pathfile;
+	struct stat buffer;
+	int			exist;
+	int			i = 0;
+
+	cmd = ft_strtrim(cmd, "< ");
+	pathfile = ft_strtokk(cmd, "< ");
+	while (pathfile[i])
+	{
+		exist = stat(pathfile[i], &buffer);
+		if (ft_strchr(pathfile[i], '>'))
+		{
+			i++;
+			st->redirection = SIMPLERED;
+			if (ft_strchr(pathfile[i], '>'))
+			{
+				st->redirection = DOUBLERED;
+				i++;
+			}
+		}
+		else if (exist == 0)
+		{
+			st->stop = 0;
+		}
+		else
+		{
+			ft_printf("minishell: %s: No such file or directory\n", pathfile[i]);
+			ft_freetab(pathfile);
+			free(cmd);
+			st->stop = 1;
+			return (0);
+		}
+		i++;
+	}
+	free(cmd);
+	ft_freetab(pathfile);
+	return (0);
+}
+
+int			ft_checkpath(char *cmd, t_struct *st)
 {
 	char		*pathfile;
 	struct stat buffer;
@@ -53,13 +101,11 @@ int			ft_checkfile(char *cmd, t_struct *st)
 	if (exist == 0)
 	{
 		st->stop = 0;
-		// free(pathfile);
 		return (1);
 	}
 	else
 	{
 		ft_printf("minishell: %s: No such file or directory\n", pathfile);
-		// free(pathfile);
 		st->stop = 1;
 		return (0);
 	}
@@ -86,6 +132,7 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 int			ft_redirection(char *cmd, t_struct *st)
 {
 	int			i;
+	char		*tmp;
 
 	i = 0;
 	if (ft_indexuntilfile(cmd, st) == 0)
@@ -94,20 +141,34 @@ int			ft_redirection(char *cmd, t_struct *st)
 	{
 		if (ft_lenoffile(cmd) != -1)
 		{
-			if (ft_checkfile(cmd, st) == 0)
+			if (ft_checkpath(cmd, st) == 0)
 				return (0);
 		}
 		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
-		st->files = ft_strtokk(st->newfd, " ><|");
-		i = ft_openmultiplefiles(i, st);
-		if (i > 1)
+		tmp = ft_strdup(st->newfd);
+		// free(st->newfd);
+		if (st->redirection == LEFTRED)
+			st->leftredir = 1;
+		else
+			st->leftredir = 0;
+		if (st->leftredir == 1)
+			ft_checkfile(tmp ,st);
+		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 		{
 			free(st->newfd);
-			st->newfd = ft_strdup(st->files[i - 1]);
-			ft_freetab(st->files);
+			st->newfd = ft_strdup(tmp);
+			st->files = ft_strtokk(st->newfd, " >|");
+			i = ft_openmultiplefiles(i, st);
+			if (i > 1)
+			{
+				free(st->newfd);
+				st->newfd = ft_strdup(st->files[i - 1]);
+				ft_freetab(st->files);
+			}
+			else
+				ft_freetab(st->files);
 		}
-		else
-			ft_freetab(st->files);
+		ft_delete(&tmp);
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:21:13 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int			ft_builtinpwd(t_struct *st)
 	else
 		ft_printf("getcwd()");
 	ft_comebacktostdout(st);
-	return (st->exitstatus = EXIT_SUCCESS);
+	return (exitstatus = EXIT_SUCCESS);
 }

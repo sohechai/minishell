@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 15:51:31 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 15:16:45 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:59:20 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int				check_pipe(t_struct *st)
 		{
 			if (st->line[i + 3] == '|')
 				i = 2;
-			return (ft_error('|', i, st));
+			return (ft_error('|', i));
 		}
 		if (st->line[i] == '|' && endline(st->line, i + 1))
-			return (ft_error('|', 1, st));
+			return (ft_error('|', 1));
 		i++;
 	}
 	return (1);

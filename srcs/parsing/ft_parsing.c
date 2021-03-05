@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:26:49 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 16:01:31 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int					ft_parsing(t_struct *st, size_t i)
 		{
 			if (endline(st->line, i + 1))
 				break ;
-			if (!check_after(st->line, i + 1, ';', st))
+			if (!check_after(st->line, i + 1, ';'))
 				return (0);
 			st->semi++;
 			i++;

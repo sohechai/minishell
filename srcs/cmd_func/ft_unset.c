@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 20:38:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char		**ft_unsetenv(char *var, t_struct *st)
 	if (ft_checkvarisok(var) == 0)
 	{
 		ft_printf("minishell: unset: « %s » : not a valid identifier\n", var);
-		st->exitstatus = EXIT_FAILURE;
+		exitstatus = EXIT_FAILURE;
 		return (NULL);
 	}
 	else if (ft_checkifenvexist(var, st->copyenvp) != -1)
@@ -115,6 +115,6 @@ char		**ft_unsetenv(char *var, t_struct *st)
 		ft_deleteenv(index, st->copyenvp, st);
 		// ft_freetab(tmp);
 	}
-	st->exitstatus = EXIT_SUCCESS;
+	exitstatus = EXIT_SUCCESS;
 	return (st->copyenvp);
 }

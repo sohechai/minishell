@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:10:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/01 13:59:19 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int					ft_echo(t_struct *st, char **cmd)
 	ft_comebacktostdout(st);
 	st->nquote = 0;
 	st->op = 0;
-	st->exitstatus = 0;
+	exitstatus = 0;
 	return (1);
 }

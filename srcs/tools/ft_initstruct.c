@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/01 13:57:20 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		ft_initstructnext(t_struct *st)
 {
 	st->i = 0;
 	st->index = 0;
-	st->exitstatus = 0;
+	exitstatus = 0;
 	st->redirection = 0;
 	st->oldstdout = 0;
 	st->stop = 0;

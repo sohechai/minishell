@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:13:27 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 18:12:35 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 23:22:18 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_exec_built_in(char **built_in, t_struct *st)
 		ft_builtinpwd(st);
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
 	{
-		st->envi = ft_getenv(st->copyenvp, "HOME");
+		st->envi = ft_strfjoin("/Users/", ft_getenv(st->copyenvp, "USER"), 2);
 		ft_saveoldpwd(st);
 		ft_builtincd(st->envi, st);
 		free(st->envi);
@@ -46,7 +46,7 @@ int		ft_exec_built_in(char **built_in, t_struct *st)
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
 	{
 		ft_printf("env: %s : No such file or directory\n", built_in[1]);
-		return (st->exitstatus = 127);
+		return (exitstatus = 127);
 	}
 	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
 		ft_printsortenv(st);

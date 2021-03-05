@@ -6,12 +6,13 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 15:26:49 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 23:29:04 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+extern int exitstatus;
 // OK :
 // - Export ok
 // - Unset ok
@@ -28,15 +29,12 @@
 // - pipe okkkkkkkkkkkdlkfjgj
 
 // TODO list :
-// - je n'arrive pas a appeler la struct dans une fonction void
 // - abc def -> minishell: def : command not found leak de def
-// - cd - leak de "-"
-// - free st->home ?
+// - pb redirection pipe mm fichier
 // - leak dans ft_exit ?
-// - redirection gauche
+// - ls < text.txt < text2.txt -> minishell: syntax error near unexpected token '<'
 
-// TODO : aurelien
-// - mise a jour header de aurelien
+
 
 int			parseloop(t_struct *st)
 {
@@ -75,8 +73,6 @@ int			execloop(t_struct *st)
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);
-		if (st->newfd)
-			ft_delete(&st->newfd);
 		n++;
 	}
 	return (EXIT_SUCCESS);
@@ -93,11 +89,6 @@ void		ft_copyenvp(char **envp, t_struct *st)
 		ft_printf("failed allocate memory to envp\n");
 	while (envp[i])
 	{
-		if (ft_strnstr(envp[i], "HOME=", 5))
-		{
-			st->home = ft_substr(envp[i], 5, 40);
-			st->copyenvp[i] = ft_strdup(envp[i]);
-		}
 		if (ft_strnstr(envp[i], "OLDPWD", 6))
 			st->copyenvp[i] = ft_strdup("OLDPWD");
 		else
@@ -111,7 +102,7 @@ void		ft_copyenvp(char **envp, t_struct *st)
 int			main(int argc, char **argv, char **envp)
 {
 	t_struct	*st;
-
+	exitstatus = 0;
 	if (!(st = ft_initstruct()))
 	{
 		ft_printf("failed allocate memory to structure\n");

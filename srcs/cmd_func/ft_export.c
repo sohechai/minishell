@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 21:41:55 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int				ft_sortvar(char *var, t_struct *st)
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n", var);
 		// free(var);
-		return (st->exitstatus = EXIT_FAILURE);
+		return (exitstatus = EXIT_FAILURE);
 	}
 	return (1);
 }

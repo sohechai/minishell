@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/03 17:54:43 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 20:27:33 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			ft_indexuntilfile(char *cmd, t_struct *st)
 		else if (cmd[i] == '<')
 		{
 			i++;
+			st->leftredir = 1;
 			st->redirection = LEFTRED;
 			while (cmd[i] == ' ')
 				i++;

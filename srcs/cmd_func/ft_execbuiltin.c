@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 01:32:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 23:36:26 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,23 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 		if (st->redirection == DOUBLERED)
 			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		else
-			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT | O_EXCL |
-				S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP |
+					S_IWGRP | S_IWUSR);
 		close(1);
 		dup(fd);
 		close(fd);
-		free(st->newfd);
 		if (execve(cmd[0], cmd, st->copyenvp) == -1)
 		{
 			dup2(2, 1);
 			ft_printf("minishell: %s : command not found\n", command);
 		}
+	}
+	else if (st->leftredir == 1)
+	{
+		fd = open(st->newfd, O_RDONLY, 0);
+    	dup2(fd, STDIN_FILENO);
+		if (execve(cmd[0], cmd, st->copyenvp) == -1)
+			ft_printf("minishell: %s : command not found\n", command);
 	}
 	else
 	{
@@ -57,7 +63,7 @@ void	ft_execcmd(t_struct *st, char *command, char **cmd)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			st->exitstatus = WEXITSTATUS(status);
+			exitstatus = WEXITSTATUS(status);
 		kill(pid, SIGTERM);
 	}
 	else

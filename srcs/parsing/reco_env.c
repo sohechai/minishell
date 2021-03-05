@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:31:45 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 {
 	if (st->ostr[j] == '?')
 	{
-		st->val_env = ft_itoa(st->exitstatus);
+		st->val_env = ft_itoa(exitstatus);
 		j++;
 	}
 	else
