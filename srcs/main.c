@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/04 23:56:06 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/05 01:35:48 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 // - cd - leak de "-"
 // - free st->home ?
 // - leak dans ft_exit ?
+// - redirection gauche
 
 // TODO : aurelien
 // - mise a jour header de aurelien
