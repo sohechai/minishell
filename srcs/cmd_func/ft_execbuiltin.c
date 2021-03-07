@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 23:36:26 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/06 19:05:52 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 		if (st->redirection == DOUBLERED)
 			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		else
-			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP |
-					S_IWGRP | S_IWUSR);
+			fd = open(st->newfd, O_WRONLY | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		close(1);
 		dup(fd);
 		close(fd);
@@ -34,6 +34,7 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 	{
 		fd = open(st->newfd, O_RDONLY, 0);
     	dup2(fd, STDIN_FILENO);
+		close(fd);
 		if (execve(cmd[0], cmd, st->copyenvp) == -1)
 			ft_printf("minishell: %s : command not found\n", command);
 	}
