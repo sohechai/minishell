@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:14 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:57:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:35:30 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int			ft_error(char c, int i)
+int			ft_error(char c, int i, t_struct *st)
 {
-	exitstatus = 258;
+	st->exitstatus = 258;
 	if (i == 2)
 	{
 		ft_printf("minishell: syntax error near unexpected token "

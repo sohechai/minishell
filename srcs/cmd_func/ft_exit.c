@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 20:03:42 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:29:02 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:32:45 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int				ft_exit(char *cmd, t_struct *st)
 	//ft_freestruct(st);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
 	if (ft_checkexitargs(cmd) == 1)
-		printf("a\n");
-		// exit(exitstatus);
+		exit(exitstatus);
 	return (EXIT_SUCCESS);
 }

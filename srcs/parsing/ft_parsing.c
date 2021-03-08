@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 16:01:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:35:08 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int					ft_parsing(t_struct *st, size_t i)
 		{
 			if (endline(st->line, i + 1))
 				break ;
-			if (!check_after(st->line, i + 1, ';'))
+			if (!check_after(st->line, i + 1, ';', st))
 				return (0);
 			st->semi++;
 			i++;

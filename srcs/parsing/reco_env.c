@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reco_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:36:11 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 {
 	if (st->ostr[j] == '?')
 	{
-		st->val_env = ft_itoa(exitstatus);
+		st->val_env = ft_itoa(st->exitstatus);
 		j++;
 	}
 	else
@@ -88,15 +88,13 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 			next = 1;
 		st->tab_arg[n] = remove_dollar(st->tab_arg[n], st->env, i, next);
 		ft_delete(&st->env);
-		ft_delete(&st->envi);
 		return (i);
 	}
 	else
 	{
-		st->tmp = str;
 		create_str(st, n, i, j);
-		ft_delete(&st->env);
 		ft_delete(&st->envi);
+		ft_delete(&st->env);
 		return (i + j);
 	}
 }

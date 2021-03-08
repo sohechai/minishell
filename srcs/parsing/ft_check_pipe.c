@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 15:51:31 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 15:59:20 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:34:48 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ int				check_pipe(t_struct *st)
 	i = 0;
 	while (st->line[i])
 	{
+		if (st->line[i] == '"' || st->line[i] == '\'')
+			i = advance(st->line, i + 1, st->line[i]);
 		if (st->line[i] == '|' && st->line[i + 1] == '|'
 			&& st->line[i + 2] == '|')
 		{
 			if (st->line[i + 3] == '|')
 				i = 2;
-			return (ft_error('|', i));
+			return (ft_error('|', i, st));
 		}
 		if (st->line[i] == '|' && endline(st->line, i + 1))
-			return (ft_error('|', 1));
+			return (ft_error('|', 1, st));
 		i++;
 	}
 	return (1);

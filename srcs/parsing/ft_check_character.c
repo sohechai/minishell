@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_character.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 16:01:07 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:34:27 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t			ft_change_char(char c, t_struct *st, size_t i, size_t n)
 	return (i);
 }
 
-int				check_nquote(char *str, size_t i)
+int				check_nquote(char *str, size_t i, t_struct *st)
 {
 	int		dquote;
 	int		squote;
@@ -45,9 +45,9 @@ int				check_nquote(char *str, size_t i)
 		i++;
 	}
 	if (squote % 2 != 0)
-		return (ft_error('\'', 1));
+		return (ft_error('\'', 1, st));
 	else if (dquote % 2 != 0)
-		return (ft_error('"', 1));
+		return (ft_error('"', 1, st));
 	return (1);
 }
 
@@ -78,12 +78,12 @@ int				change_char_in_dquote(t_struct *st, size_t i, size_t n)
 			if (st->tab_arg[n][i] == '"')
 			{
 				if ((i = replace(st, n, i + 1)) == 0)
-					return (ft_error('"', 1));
+					return (ft_error('"', 1, st));
 			}
 			else if (st->tab_arg[n][i] == '\'')
 			{
 				if ((i = advance(st->tab_arg[n], i + 1, '\'')) == 0)
-					return (ft_error('\'', 1));
+					return (ft_error('\'', 1, st));
 			}
 			else if (st->tab_arg[n][i] == '$'
 				&& !ft_strchr(" \t\0", st->tab_arg[n][i + 1]))
@@ -108,19 +108,23 @@ int				ft_check_character(t_struct *st)
 	i = 0;
 	if (st->line[0] == '|' || st->line[0] == ';')
 	{
-		ft_error(st->line[0], 0);
+		ft_error(st->line[0], 0, st);
 		return (0);
 	}
-	if (!check_nquote(st->line, 0))
+	if (!check_nquote(st->line, 0, st))
 		return (0);
 	while (st->line[i])
 	{
+		if (st->line[i] == '"' || st->line[i] == '\'')
+			i = advance(st->line, i + 1, st->line[i]);
 		if (st->line[i] == ';' && st->line[i + 1] == '|')
-			return (ft_error('|', 1));
+			return (ft_error('|', 1, st));
 		if (st->line[i] == '|' && st->line[i + 1] == ';')
-			return (ft_error(';', 1));
+			return (ft_error(';', 1, st));
 		if (st->line[i] == ';' && st->line[i + 1] == ';')
-			return (ft_error(';', 1));
+			return (ft_error(';', 1, st));
+		if (i >= ft_strlen(st->line))
+			break ;
 		i++;
 	}
 	if (!check_pipe(st))

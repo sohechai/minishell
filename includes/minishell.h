@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 17:05:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:37:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char				**remove_quote(char **cmd, size_t n);
 int					is_option(t_struct *st, char *str, size_t i);
 char				**rechange_character(char **cmd, size_t i, size_t n);
 int					check_redirect(t_struct *st, size_t i, size_t n);
-int					check_after(char *str, size_t i, char c);
+int					check_after(char *str, size_t i, char c, t_struct *st);
 
 /*
  ** CMD FILES
@@ -168,13 +168,13 @@ int					ft_check_character(t_struct *st);
 void				str_remove_index(int i, t_struct *st, char c);
 int					print_prompt_waiting(t_struct *st, char *str, size_t i);
 int					endline(char *str, size_t i);
-int					ft_error(char c, int i);
+int					ft_error(char c, int i, t_struct *st);
 int					check_pipe(t_struct *st);
 int					check_semi(t_struct *st);
 int					ft_reset_mi(t_struct *st);
 void				ft_free_mi(t_struct *st);
 void				clean_spaces_bet(t_struct *st, size_t n, size_t i);
-int					check_nquote(char *str, size_t i);
+int					check_nquote(char *str, size_t i, t_struct *st);
 int					change_char_in_dquote(t_struct *st, size_t i,
 						size_t n);
 size_t				advance(char *str, size_t i, char c);
