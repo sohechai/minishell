@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:44:51 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 15:22:08 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void		ft_redirectbuiltin(t_struct *st)
 	st->oldstdout = dup(1);
 	if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 	{
+		
 		if (st->redirection == DOUBLERED)
 			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		else
-			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-				S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open(st->newfd, O_WRONLY | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		close(1);
 		dup(fd);
 		close(fd);
@@ -97,15 +98,25 @@ int			ft_checkpath(char *cmd, t_struct *st)
 
 	len = ft_strlen(cmd) - (ft_indexuntilfile(cmd, st) + ft_lenoffile(cmd)) - 1;
 	pathfile = ft_substr(cmd, ft_indexuntilfile(cmd, st), len);
-	exist = stat(pathfile, &buffer);
+	if (!ft_strncmp(pathfile, "~", 1))
+	{
+		st->envi = ft_getenv(st->copyenvp, "HOME");
+		st->tempo = ft_strtrim(pathfile, "~");
+		free(pathfile);
+		pathfile = ft_strjoin(st->envi, st->tempo);
+		ft_delete(&st->tempo);
+	}
+	exist = lstat(pathfile, &buffer);
 	if (exist == 0)
 	{
 		st->stop = 0;
+		ft_delete(&pathfile);
 		return (1);
 	}
 	else
 	{
 		ft_printf("minishell: %s: No such file or directory\n", pathfile);
+		ft_delete(&pathfile);
 		st->stop = 1;
 		return (0);
 	}

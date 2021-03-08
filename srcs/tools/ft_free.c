@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:40:01 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 15:16:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void		ft_freeloop(t_struct *st)
 {
 	if (st->tab_arg)
 		ft_freetab(st->tab_arg);
-	// if (st->tab_pipe)
-	// 	free(st->tab_pipe);
+	if (st->tab_pipe)
+		free(st->tab_pipe);
 	if (st->oldpwd)
 		ft_delete(&st->oldpwd);
 	st->leftredir = 0;

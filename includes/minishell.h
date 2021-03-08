@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 13:37:22 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 15:11:10 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_struct
 	char			*home;
 	char			*envi;
 	char			*dollar;
+	char			*tempo;
 	int				i;
 	int				index;
 	int				exitstatus;

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 12:44:58 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 15:21:45 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 		if (st->redirection == DOUBLERED)
 			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		else
-			fd = open(st->newfd, O_WRONLY | O_CREAT | O_TRUNC,
-					S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT | O_EXCL ,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		close(1);
 		dup(fd);
 		close(fd);

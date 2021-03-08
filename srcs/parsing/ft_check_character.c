@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:34:27 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 15:15:55 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ size_t			ft_change_char(char c, t_struct *st, size_t i, size_t n)
 			st->tab_arg[n][i] = -5;
 		i++;
 	}
+	if (st->tab_arg[n][i] == c)
+		return (i + 1);
 	return (i);
 }
 
