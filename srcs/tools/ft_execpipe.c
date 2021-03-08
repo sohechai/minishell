@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execpipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/06 18:53:22 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 12:54:35 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void		ft_execpipecmd(t_struct *st)
 	{
 		ft_getabsolutepath(st->parsecmd, st);
 		ft_execcmd(st, st->command[st->index], st->parsecmd);
-		st->redirection = 0; // TODO utile ?
+		// st->redirection = 0; // TODO utile ?
 	}// TODO fix problem message d'erreur espace etc
 	else
 	{
 		ft_exec_built_in(st->parsecmd, st);
-		st->redirection = 0;
+		// st->redirection = 0;
 	}
 	//ft_freetab(st->parsecmd);
 	exit(EXIT_FAILURE);

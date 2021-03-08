@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 20:03:42 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:29:02 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,12 @@ int				ft_exit(char *cmd, t_struct *st)
 		exit(exitstatus);
 		close(fd);
 	}
+	// ft_freeloop(st);
 	//ft_freetab(st->copyenvp);
 	//ft_freestruct(st);
 	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
 	if (ft_checkexitargs(cmd) == 1)
-		exit(exitstatus);
+		printf("a\n");
+		// exit(exitstatus);
 	return (EXIT_SUCCESS);
 }

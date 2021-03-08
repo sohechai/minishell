@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 23:29:04 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:14:28 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ extern int exitstatus;
 
 // TODO list :
 // - abc def -> minishell: def : command not found leak de def
-// - pb redirection pipe mm fichier
 // - leak dans ft_exit ?
 // - ls < text.txt < text2.txt -> minishell: syntax error near unexpected token '<'
 

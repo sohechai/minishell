@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 22:58:47 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:24:04 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void		ft_freeloop(t_struct *st)
 {
 	if (st->tab_arg)
 		ft_freetab(st->tab_arg);
-	if (st->tab_pipe)
-		free(st->tab_pipe);
+	// if (st->tab_pipe)
+	// 	free(st->tab_pipe);
 	if (st->oldpwd)
-		free(st->oldpwd);
+		ft_delete(&st->oldpwd);
 	st->leftredir = 0;
 	st->stop = 0;
 	// if (st->envi)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 23:13:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 12:50:50 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int			ft_redirection(char *cmd, t_struct *st)
 			if (ft_checkpath(cmd, st) == 0)
 				return (0);
 		}
-		st->newfd = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+		st->newfd = ft_strtrim(ft_strdup(cmd + ft_indexuntilfile(cmd, st)), " ");
 		tmp = ft_strdup(st->newfd);
 		// free(st->newfd);
 		if (st->redirection == LEFTRED)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplecmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 23:37:12 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:22:35 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int				ft_simplecmd(t_struct *st, size_t n)
 		ft_printf("");
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(st->tab_arg[n], st);
-	else if (ft_strchr(cmd[0], '/'))
+	else if (ft_strchr(cmd[0], '/') && ft_strncmp(cmd[0], "./", 2))
 		ft_searchpath(cmd[0]);
 	else if (ft_is_built_in(cmd[0]) == false)
 	{
