@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkvar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 21:44:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:00:13 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 		if (ft_strnstr(st->copyenvp[i], lessvar, len))
 		{
 			len = ft_strlenuntil_equal(st->copyenvp[i]);
-			if((ft_strncmp(ft_strnstr(st->copyenvp[i], lessvar, len), lessvar, len) != 0))
+			if ((ft_strncmp(ft_strnstr(st->copyenvp[i], lessvar, len),
+				lessvar, len) != 0))
 				i++;
 			else if (!ft_strchr(var, '='))
 			{

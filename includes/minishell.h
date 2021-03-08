@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 15:11:10 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:25:01 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include <errno.h>
 # include <dirent.h>
 
-// extern int exit_status;
-
 typedef struct		s_struct
 {
 	char			**copyenvp;
@@ -50,7 +48,6 @@ typedef struct		s_struct
 	char			*tempo;
 	int				i;
 	int				index;
-	int				exitstatus;
 	int				redirection;
 	int				leftredir;
 	int				oldstdout;
@@ -81,19 +78,15 @@ typedef struct		s_struct
 	char			*val_env;
 }					t_struct;
 
-int			exitstatus;
-// typedef struct		s_mini
-// {
-	
-// }					t_mini;
+int					g_exitstatus;
 
 t_struct			*ft_initstruct(void);
-// t_mini				*ft_initmini(void);
 
 /*
  ** TOOLS FILES
 */
 
+void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
 char				*ft_getenv(char **copyenvp, char *var);
 void				ft_freestruct(t_struct *st);
@@ -130,6 +123,7 @@ void				ft_execpipe(char *cmd, t_struct *st);
 int					ft_pipecmd(t_struct *st, size_t n);
 int					ft_checkquote(char *str);
 char				**ft_copytab(char **src);
+char				**ft_copytabnew(char **src);
 int					main(int argc, char **argv, char **envp);
 
 /*
@@ -147,7 +141,7 @@ char				**remove_quote(char **cmd, size_t n);
 int					is_option(t_struct *st, char *str, size_t i);
 char				**rechange_character(char **cmd, size_t i, size_t n);
 int					check_redirect(t_struct *st, size_t i, size_t n);
-int					check_after(char *str, size_t i, char c, t_struct *st);
+int					check_after(char *str, size_t i, char c);
 
 /*
  ** CMD FILES
@@ -169,13 +163,13 @@ int					ft_check_character(t_struct *st);
 void				str_remove_index(int i, t_struct *st, char c);
 int					print_prompt_waiting(t_struct *st, char *str, size_t i);
 int					endline(char *str, size_t i);
-int					ft_error(char c, int i, t_struct *st);
+int					ft_error(char c, int i);
 int					check_pipe(t_struct *st);
 int					check_semi(t_struct *st);
 int					ft_reset_mi(t_struct *st);
 void				ft_free_mi(t_struct *st);
 void				clean_spaces_bet(t_struct *st, size_t n, size_t i);
-int					check_nquote(char *str, size_t i, t_struct *st);
+int					check_nquote(char *str, size_t i);
 int					change_char_in_dquote(t_struct *st, size_t i,
 						size_t n);
 size_t				advance(char *str, size_t i, char c);

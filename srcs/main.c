@@ -6,34 +6,19 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 13:14:28 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern int exitstatus;
-// OK :
-// - Export ok
-// - Unset ok
-// - cd ok
-// - pwd ok
-// - env ok
-// - ; ok
-// - exit ok
-// - ctrl-D ok
-// - ctrl-C ok
-// - ' et " " ok
-// - export $var ok
-// - <, > et >> ok
-// - pipe okkkkkkkkkkkdlkfjgj
+/*
+** TODO list :
+** - abc def -> minishell: def : command not found leak de def
+** - leak ft_exit car double free avec ft_freeloop
+*/
 
-// TODO list :
-// - abc def -> minishell: def : command not found leak de def
-// - leak dans ft_exit ?
-// - ls < text.txt < text2.txt -> minishell: syntax error near unexpected token '<'
-
-
+// extern int	g_exitstatus;
 
 int			parseloop(t_struct *st)
 {
@@ -44,10 +29,24 @@ int			parseloop(t_struct *st)
 	return (1);
 }
 
+void		ft_parsecmdwithredir(int n, t_struct *st)
+{
+	char *tmp;
+
+	if (st->stop == 0)
+	{
+		tmp = ft_strdup(st->tab_arg[n]);
+		free(st->tab_arg[n]);
+		st->tab_arg[n] = ft_substr(tmp, 0,
+					ft_strlenuntilredir(tmp));
+		free(tmp);
+		ft_simplecmd(st, n);
+	}
+}
+
 int			execloop(t_struct *st)
 {
 	size_t		n;
-	char *tmp;
 
 	n = 0;
 	while (n < st->semi)
@@ -59,15 +58,7 @@ int			execloop(t_struct *st)
 				ft_simplecmd(st, n);
 			else
 			{
-				if (st->stop == 0)
-				{
-					tmp = ft_strdup(st->tab_arg[n]);
-					free(st->tab_arg[n]);
-					st->tab_arg[n] = ft_substr(tmp, 0,
-								ft_strlenuntilredir(tmp));
-					free(tmp);
-					ft_simplecmd(st, n);
-				}
+				ft_parsecmdwithredir(n, st);
 			}
 		}
 		else if (st->tab_pipe[n] == 1)
@@ -77,31 +68,22 @@ int			execloop(t_struct *st)
 	return (EXIT_SUCCESS);
 }
 
-void		ft_copyenvp(char **envp, t_struct *st)
+void		ft_mainloop(t_struct *st)
 {
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ft_countenv(envp);
-	if (!(st->copyenvp = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
-	while (envp[i])
+	if (parseloop(st))
 	{
-		if (ft_strnstr(envp[i], "OLDPWD", 6))
-			st->copyenvp[i] = ft_strdup("OLDPWD");
-		else
-			st->copyenvp[i] = ft_strdup(envp[i]);
-		i++;
+		execloop(st);
+		ft_reset_mi(st);
 	}
-	st->copyenvp[i] = NULL;
-	i = 0;
+	ft_delete(&st->line);
+	ft_printf("\033[0;34mMinishell$> \033[0m");
 }
 
 int			main(int argc, char **argv, char **envp)
 {
 	t_struct	*st;
-	exitstatus = 0;
+
+	g_exitstatus = 0;
 	if (!(st = ft_initstruct()))
 	{
 		ft_printf("failed allocate memory to structure\n");
@@ -118,16 +100,6 @@ int			main(int argc, char **argv, char **envp)
 	signal(SIGINT, ft_handlesignal);
 	signal(SIGQUIT, ft_handlesignal);
 	while (get_next_line(1, &st->line) > 0)
-	{
-		if (parseloop(st))
-		{
-			execloop(st);
-			ft_reset_mi(st);
-		}
-		ft_delete(&st->line);
-		ft_printf("\033[0;34mMinishell$> \033[0m");
-	}
-	// ft_freetab(st->copyenvp);
-	// free(st);
+		ft_mainloop(st);
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
+#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/03/05 23:29:15 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/03/08 17:14:08 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRC				=		./srcs/main.c \
 						./srcs/tools/ft_handlesignal.c \
 						./srcs/tools/ft_getenv.c \
 						./srcs/tools/ft_initstruct.c \
+						./srcs/tools/ft_copytab.c \
+						./srcs/tools/ft_copyenvp.c \
 						./srcs/tools/ft_free.c \
 						./srcs/tools/ft_checkvar.c \
 						./srcs/tools/ft_strtokk.c \

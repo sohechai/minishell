@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handlesignal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 15:00:43 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 16:43:26 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void		ft_handlesignal(int signum)
 		ft_printf("\n");
 		if (signum == -1)
 			ft_printf("\033[0;34mMinishell$> \033[0m", 1);
-		exitstatus = 130;
+		g_exitstatus = 130;
 	}
 	else if (signum == SIGQUIT)
 	{
 		signum = wait(&status);
 		if (signum != -1)
 		{
-			exitstatus = 131;
+			g_exitstatus = 131;
 			ft_printf("^\\Quit: 3\n");
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getabsolutepath.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:12:13 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 23:36:26 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:03:08 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 	i = 0;
 	while (path_split[i])
 	{
-		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) + ft_strlen(cmd[0]) + 2));
+		bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[i]) +
+				ft_strlen(cmd[0]) + 2));
 		if (bin == NULL)
 			break ;
 		ft_strcat(bin, path_split[i]);
@@ -57,17 +58,9 @@ int		ft_getabsolutepath(char **cmd, t_struct *st)
 		free(path);
 		return (0);
 	}
-		// path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin");
 	else if (cmd[0][0] != '/' && strncmp(cmd[0], "./", 2) != 0)
-	{
 		ft_pathsplit(cmd, path_split, path, bin);
-		// free(path);
-		// path = NULL;
-	}
 	else
-	{
 		free(path);
-		//path = NULL;
-	}
 	return (1);
 }

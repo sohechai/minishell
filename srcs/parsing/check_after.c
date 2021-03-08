@@ -6,13 +6,13 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:53:53 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:38:08 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:22:19 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int					check_after(char *str, size_t i, char c, t_struct *st)
+int					check_after(char *str, size_t i, char c)
 {
 	while (str[i] && str[i] != c)
 	{
@@ -22,6 +22,6 @@ int					check_after(char *str, size_t i, char c, t_struct *st)
 		i++;
 	}
 	if (str[i] == c)
-		return (ft_error(';', 1, st));
+		return (ft_error(';', 1));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 12:54:35 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:01:45 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void		ft_checkredir(t_struct *st)
 {
 	char *tmp;
+
 	ft_redirection(st->command[st->index], st);
 	if (st->redirection != 0)
 	{
 		tmp = st->command[st->index];
-		// free(st->command[st->index]);
 		st->command[st->index] = ft_substr(tmp, 0,
 				ft_strlenuntilredir(tmp));
 		free(tmp);
@@ -33,14 +33,9 @@ void		ft_execpipecmd(t_struct *st)
 	{
 		ft_getabsolutepath(st->parsecmd, st);
 		ft_execcmd(st, st->command[st->index], st->parsecmd);
-		// st->redirection = 0; // TODO utile ?
-	}// TODO fix problem message d'erreur espace etc
-	else
-	{
-		ft_exec_built_in(st->parsecmd, st);
-		// st->redirection = 0;
 	}
-	//ft_freetab(st->parsecmd);
+	else
+		ft_exec_built_in(st->parsecmd, st);
 	exit(EXIT_FAILURE);
 }
 
@@ -64,19 +59,19 @@ void		ft_execpipe(char *cmd, t_struct *st)
 		ft_checkredir(st);
 		pipe(pipefd);
 		ft_pipeerror(st);
-		if (st->pid == 0)// child process
+		if (st->pid == 0)
 		{
-			dup2(st->fdinput, STDIN);// change input from last one
-			if ((st->command[st->index + 1]) != NULL)// lien avec cmd d'apres
+			dup2(st->fdinput, STDIN);
+			if ((st->command[st->index + 1]) != NULL)
 				dup2(pipefd[1], STDOUT);
 			close(pipefd[0]);
 			ft_execpipecmd(st);
 		}
-		else// parent process
+		else
 		{
 			wait(NULL);
 			close(pipefd[1]);
-			st->fdinput = pipefd[0];// save input for next st->command
+			st->fdinput = pipefd[0];
 			st->index++;
 		}
 		if (st->newfd != NULL)

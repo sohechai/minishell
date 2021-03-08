@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:13:27 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 23:22:18 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,20 @@ int		ft_is_built_in(char *cmd)
 	return (0);
 }
 
+void	ft_simplecd(t_struct *st)
+{
+	st->envi = ft_strfjoin("/Users/", ft_getenv(st->copyenvp, "USER"), 2);
+	ft_saveoldpwd(st);
+	ft_builtincd(st->envi, st);
+	free(st->envi);
+}
+
 int		ft_exec_built_in(char **built_in, t_struct *st)
 {
 	if (!ft_strcmp(built_in[0], "pwd"))
 		ft_builtinpwd(st);
 	else if (!ft_strcmp(built_in[0], "cd") && built_in[1] == 0)
-	{
-		st->envi = ft_strfjoin("/Users/", ft_getenv(st->copyenvp, "USER"), 2);
-		ft_saveoldpwd(st);
-		ft_builtincd(st->envi, st);
-		free(st->envi);
-	}
+		ft_simplecd(st);
 	else if (!ft_strcmp(built_in[0], "cd"))
 		ft_cdwithargs(built_in, st);
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] == NULL)
@@ -46,7 +49,7 @@ int		ft_exec_built_in(char **built_in, t_struct *st)
 	else if (!ft_strcmp(built_in[0], "env") && built_in[1] != NULL)
 	{
 		ft_printf("env: %s : No such file or directory\n", built_in[1]);
-		return (exitstatus = 127);
+		return (g_exitstatus = 127);
 	}
 	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
 		ft_printsortenv(st);

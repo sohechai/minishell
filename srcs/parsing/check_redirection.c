@@ -6,13 +6,13 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:54:59 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:33:49 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:22:40 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int			what_after(char *str, size_t i, t_struct *st, char c)
+static int			what_after(char *str, size_t i, char c)
 {
 	while (!ft_isalnum(str[i]))
 	{
@@ -20,9 +20,9 @@ static int			what_after(char *str, size_t i, t_struct *st, char c)
 		{
 			if (str[i + 1] == c)
 			{
-				return (ft_error(c, 2, st));
+				return (ft_error(c, 2));
 			}
-			return (ft_error(c, 1, st));
+			return (ft_error(c, 1));
 		}
 		i++;
 	}
@@ -40,15 +40,15 @@ static size_t		count_redirr(t_struct *st, size_t i, size_t n, size_t j)
 		{
 			if (st->line[i + 1] == '<')
 				j = 2;
-			return (ft_error('<', j, st));
+			return (ft_error('<', j));
 		}
 		if (st->nredir == 3 && st->tab_arg[n][i + 1] != '>')
-			return (ft_error('>', 1, st));
+			return (ft_error('>', 1));
 		if (st->nredir > 3)
-			return (ft_error('>', 2, st));
+			return (ft_error('>', 2));
 		if (st->tab_arg[n][i] == ' ')
 		{
-			if (!what_after(st->tab_arg[n], i + 1, st, '>'))
+			if (!what_after(st->tab_arg[n], i + 1, '>'))
 				return (0);
 		}
 		i++;
@@ -67,11 +67,11 @@ static size_t		count_redirl(t_struct *st, size_t i, size_t n, size_t j)
 			st->nredir++;
 			if (st->tab_arg[n][i + 1] == '<')
 				j++;
-			return (ft_error('<', j, st));
+			return (ft_error('<', j));
 		}
 		if (st->tab_arg[n][i] == ' ')
 		{
-			if (!what_after(st->tab_arg[n], i + 1, st, '<'))
+			if (!what_after(st->tab_arg[n], i + 1, '<'))
 				return (0);
 		}
 		i++;

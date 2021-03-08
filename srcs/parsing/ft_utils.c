@@ -6,15 +6,15 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:14 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:35:30 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int			ft_error(char c, int i, t_struct *st)
+int			ft_error(char c, int i)
 {
-	st->exitstatus = 258;
+	g_exitstatus = 258;
 	if (i == 2)
 	{
 		ft_printf("minishell: syntax error near unexpected token "

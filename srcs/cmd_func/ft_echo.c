@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:10:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int					ft_echo(t_struct *st, char **cmd)
 	ft_comebacktostdout(st);
 	st->nquote = 0;
 	st->op = 0;
-	exitstatus = 0;
+	g_exitstatus = 0;
 	return (1);
 }

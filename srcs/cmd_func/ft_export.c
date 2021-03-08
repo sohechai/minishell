@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void			ft_exportloop(char **built_in, t_struct *st)
 {
 	st->i = 1;
-	// built_in[st->i] = ft_strtrim(built_in[st->i], "\"'");
 	ft_redirectbuiltin(st);
 	while (built_in[st->i] != NULL)
 	{
@@ -72,44 +71,6 @@ char			*ft_strdupwithoutquote(const char *src)
 	return (dest);
 }
 
-char			**ft_copytabnew(char **src)
-{
-	char	**dest;
-	int		len;
-	int		i;
-
-	len = ft_countenv(src) + 1;
-	i = 0;
-	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
-	while (src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
-		i++;
-	}
-	dest[i] = NULL;
-	return (dest);
-}
-
-char			**ft_copytab(char **src)
-{
-	char	**dest;
-	int		len;
-	int		i;
-
-	len = ft_countenv(src);
-	i = 0;
-	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
-		ft_printf("failed allocate memory to envp\n");
-	while (src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
-		i++;
-	}
-	dest[i] = NULL;
-	return (dest);
-}
-
 int				ft_sortvar(char *var, t_struct *st)
 {
 	int		i;
@@ -123,7 +84,6 @@ int				ft_sortvar(char *var, t_struct *st)
 		while (saveenvp[i] != NULL)
 			i++;
 		saveenvp[i] = ft_strdupwithoutquote(var);
-		// free(var);
 		i++;
 		saveenvp[i] = NULL;
 		st->copyenvp = ft_copytab(saveenvp);
@@ -132,8 +92,7 @@ int				ft_sortvar(char *var, t_struct *st)
 	else
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n", var);
-		// free(var);
-		return (exitstatus = EXIT_FAILURE);
+		return (g_exitstatus = EXIT_FAILURE);
 	}
 	return (1);
 }
@@ -145,7 +104,7 @@ int				ft_exportenv(char *var, t_struct *st)
 
 	index = ft_checkvarismissing(var, st);
 	len = ft_countenv(st->copyenvp);
-	if(index == -2)
+	if (index == -2)
 		return (0);
 	else if (index != -1 && var[0] != '=')
 	{

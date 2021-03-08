@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:59:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/04 14:50:33 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:03:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char		*ft_getenv(char **copyenvp, char *var)
 		{
 			start = ft_strlenequal(copyenvp[i]) + 1;
 			len = ft_strlen(copyenvp[i]) - varlen;
-			str = ft_substr(copyenvp[i], start, len); // TODO free ?
+			str = ft_substr(copyenvp[i], start, len);
 			free(var);
 			return (str);
 		}

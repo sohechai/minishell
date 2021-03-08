@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void		ft_saveoldpwd(t_struct *st)
 void		ft_savepwd(t_struct *st)
 {
 	char	cwd[PATH_MAX];
-	//char	*pwd;
 
 	getcwd(cwd, sizeof(cwd));
 	st->pwd = ft_strjoin("PWD=", cwd);
 	ft_exportenv(st->pwd, st);
-	//free(pwd);
 }
 
 int			ft_builtinpwd(t_struct *st)
@@ -49,5 +47,5 @@ int			ft_builtinpwd(t_struct *st)
 	else
 		ft_printf("getcwd()");
 	ft_comebacktostdout(st);
-	return (exitstatus = EXIT_SUCCESS);
+	return (g_exitstatus = EXIT_SUCCESS);
 }

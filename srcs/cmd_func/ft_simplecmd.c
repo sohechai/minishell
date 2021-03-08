@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:22:35 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 16:45:09 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,15 @@ void			ft_searchpath(char *path)
 
 	exist = stat(path, &buffer);
 	if (exist == 0)
-	{
 		ft_printf("minishell: %s : Is a directory\n", path);
-		// return (1);
-	}
 	else
-	{
 		ft_printf("minishell: %s: No such file or directory\n", path);
-		// return (0);
-	}
 }
 
 int				ft_simplecmd(t_struct *st, size_t n)
 {
 	char	**cmd;
 
-	// st->copyenvp = envp;
 	change_space_char(st, 0, n);
 	cmd = ft_strtokk(st->tab_arg[n], " \t\n");
 	cmd = rechange_character(cmd, 0, 0);
@@ -92,7 +85,7 @@ int				ft_simplecmd(t_struct *st, size_t n)
 	else if (ft_is_built_in(cmd[0]) == false)
 	{
 		st->printerror = ft_strdup(cmd[0]);
-		if(ft_getabsolutepath(cmd, st) == 1)
+		if (ft_getabsolutepath(cmd, st) == 1)
 			ft_execcmd(st, st->printerror, cmd);
 		free(st->printerror);
 	}

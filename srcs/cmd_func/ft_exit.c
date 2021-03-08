@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 20:03:42 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:32:45 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,10 @@ int				ft_exit(char *cmd, t_struct *st)
 	{
 		fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		free(st->newfd);
-		exit(exitstatus);
+		exit(g_exitstatus);
 		close(fd);
 	}
-	// ft_freeloop(st);
-	//ft_freetab(st->copyenvp);
-	//ft_freestruct(st);
-	// TODO faire fonction ft_exit qui free proprement tout ce qui a ete alloué
 	if (ft_checkexitargs(cmd) == 1)
-		exit(exitstatus);
+		exit(g_exitstatus);
 	return (EXIT_SUCCESS);
 }

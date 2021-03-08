@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 15:22:08 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:05:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void		ft_redirectbuiltin(t_struct *st)
 	st->oldstdout = dup(1);
 	if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 	{
-		
 		if (st->redirection == DOUBLERED)
 			fd = open(st->newfd, O_CREAT | O_RDWR | O_APPEND, 0640);
 		else
-			fd = open(st->newfd, O_WRONLY | O_CREAT | O_TRUNC,
-					S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open(st->newfd, O_WRONLY | O_TRUNC | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		close(1);
 		dup(fd);
 		close(fd);
@@ -33,7 +32,7 @@ void		ft_redirectbuiltin(t_struct *st)
 	{
 		fd = open(st->newfd, O_RDONLY, 0);
 		st->oldstdout = fd;
-    	dup2(fd, STDIN_FILENO);
+		dup2(fd, STDIN_FILENO);
 	}
 }
 
@@ -53,10 +52,11 @@ int			ft_checkfile(char *cmd, t_struct *st)
 	char		**pathfile;
 	struct stat buffer;
 	int			exist;
-	int			i = 0;
+	int			i;
 
 	cmd = ft_strtrim(cmd, "< ");
 	pathfile = ft_strtokk(cmd, "< ");
+	i = 0;
 	while (pathfile[i])
 	{
 		exist = stat(pathfile[i], &buffer);
@@ -76,7 +76,8 @@ int			ft_checkfile(char *cmd, t_struct *st)
 		}
 		else
 		{
-			ft_printf("minishell: %s: No such file or directory\n", pathfile[i]);
+			ft_printf("minishell: %s: No such file or directory\n",
+				pathfile[i]);
 			ft_freetab(pathfile);
 			free(cmd);
 			st->stop = 1;
@@ -164,7 +165,7 @@ int			ft_redirection(char *cmd, t_struct *st)
 		else
 			st->leftredir = 0;
 		if (st->leftredir == 1)
-			ft_checkfile(tmp ,st);
+			ft_checkfile(tmp, st);
 		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 		{
 			free(st->newfd);

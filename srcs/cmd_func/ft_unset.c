@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/05 15:56:57 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void			ft_deleteenv(int index, char **copyenvp, t_struct *st)
 		i++;
 	}
 	newenvp[j] = NULL;
-	// char **tmp;
-	// tmp = ft_copytab(st->copyenvp);
 	ft_freetab(st->copyenvp);
 	st->copyenvp = ft_copytab(newenvp);
 	ft_freetab(newenvp);
@@ -99,22 +97,16 @@ void			ft_deleteenv(int index, char **copyenvp, t_struct *st)
 char		**ft_unsetenv(char *var, t_struct *st)
 {
 	int		index;
-	// char 	**tmp;
 
 	index = ft_checkifenvexist(var, st->copyenvp);
 	if (ft_checkvarisok(var) == 0)
 	{
 		ft_printf("minishell: unset: « %s » : not a valid identifier\n", var);
-		exitstatus = EXIT_FAILURE;
+		g_exitstatus = EXIT_FAILURE;
 		return (NULL);
 	}
 	else if (ft_checkifenvexist(var, st->copyenvp) != -1)
-	{
-		// tmp = ft_copytab(st->copyenvp);
-		// ft_freetab(st->copyenvp);
 		ft_deleteenv(index, st->copyenvp, st);
-		// ft_freetab(tmp);
-	}
-	exitstatus = EXIT_SUCCESS;
+	g_exitstatus = EXIT_SUCCESS;
 	return (st->copyenvp);
 }

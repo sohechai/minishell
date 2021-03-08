@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:16:34 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 13:36:30 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:23:17 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				print_prompt_waiting(t_struct *st, char *str, size_t i)
 			continue ;
 		}
 		if (str[0] == '|' || str[0] == ';')
-			return (ft_error(str[0], 1, st));
+			return (ft_error(str[0], 1));
 		i = ft_strlen(str);
 		if (str[i - 1] == '|' && str[i - 2] != '\\')
 		{
