@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/01 16:05:13 by sohechai          #+#    #+#              #
-#    Updated: 2021/03/09 12:38:38 by sohechai         ###   ########lyon.fr    #
+#    Created: 2021/03/09 16:20:54 by sohechai          #+#    #+#              #
+#    Updated: 2021/03/09 17:21:36 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ SRC				=		./srcs/main.c \
 						./srcs/tools/option.c \
 						./srcs/tools/ft_checkredirection.c \
 						./srcs/tools/ft_execpipe.c \
+						./srcs/tools/ft_redirectinfile.c \
+						./srcs/tools/ft_leftredirection.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

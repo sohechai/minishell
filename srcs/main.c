@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 12:36:03 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 17:13:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int			execloop(t_struct *st)
 			if (st->redirection == 0)
 				ft_simplecmd(st, n);
 			else
-			{
 				ft_parsecmdwithredir(n, st);
-			}
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/09 12:53:42 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 17:12:39 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_builtinpwd(t_struct *st)
 	ft_redirectbuiltin(st);
 	env = ft_getenv(st->copyenvp, "PWD");
 	if (!env && getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("%s\n", cwd);
+		ft_printf("%s\n", cwd);
 	else if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		st->envi = ft_strjoin("PWD=", cwd);

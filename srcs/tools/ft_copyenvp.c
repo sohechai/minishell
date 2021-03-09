@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:13:02 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 12:44:47 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 15:30:02 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void		ft_copyenvp(char **envp, t_struct *st)
 	int		len;
 
 	i = -1;
-	len = ft_countenv(envp);
-	if (len == 0)
+	if ((len = ft_countenv(envp)) == 0)
 		create_env(st);
 	else
 	{
@@ -52,5 +51,6 @@ void		ft_copyenvp(char **envp, t_struct *st)
 				st->copyenvp[i] = ft_strdup(envp[i]);
 		}
 		st->copyenvp[i] = NULL;
+		ft_delete(&st->envi);
 	}
 }

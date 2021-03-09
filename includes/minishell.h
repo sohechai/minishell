@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 12:37:25 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 17:22:16 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ t_struct			*ft_initstruct(void);
 */
 
 void				create_env(t_struct *st);
+void				ft_searchpath(char *path);
+void				ft_searchpathforredir(char *path, t_struct *st);
+int					ft_checkmultipleleftred(char *file, t_struct *st);
+void				ft_createnewfd(char *file, t_struct *st);
+char				*ft_subleftfile(char *file, t_struct *st);
+int					ft_checkpath(char *cmd, t_struct *st);
 void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
 char				*ft_getenv(char **copyenvp, char *var);
