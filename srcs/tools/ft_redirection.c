@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/09 13:44:09 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 13:51:03 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int			ft_checkpath(char *cmd, t_struct *st)
 
 	len = ft_strlen(cmd) - ft_lenoffile(cmd);
 	pathfile = ft_substr(cmd, 0, len);
-	printf("pathfile  = %s\n", pathfile);
 	if (!ft_strncmp(pathfile, "~", 1))
 	{
 		st->envi = ft_getenv(st->copyenvp, "HOME");
@@ -117,7 +116,6 @@ int			ft_checkpath(char *cmd, t_struct *st)
 	}
 	else
 	{
-					printf("allo\n");
 		ft_printf("minishell: %s: No such file or directory\n", pathfile);
 		ft_delete(&pathfile);
 		st->stop = 1;
@@ -178,15 +176,15 @@ int			ft_redirection(char *cmd, t_struct *st)
 			{
 				free(st->newfd);
 				st->newfd = ft_strdup(st->files[i - 1]);
+				if (ft_lenoffile(st->newfd) != -1)
+				{
+					if (ft_checkpath(st->newfd, st) == 0)
+						return (0);
+				}
 				ft_freetab(st->files);
 			}
 			else
 				ft_freetab(st->files);
-			if (ft_lenoffile(st->newfd) != -1)
-			{
-				if (ft_checkpath(st->newfd, st) == 0)
-					return (0);
-			}
 		}
 		ft_delete(&tmp);
 	}
