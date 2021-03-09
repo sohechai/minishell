@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:36:03 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 ** - abc def -> minishell: def : command not found leak de def
 ** - leak ft_exit car double free avec ft_freeloop
 */
-
-// extern int	g_exitstatus;
 
 int			parseloop(t_struct *st)
 {

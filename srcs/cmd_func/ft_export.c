@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:49:10 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char			*ft_strdupwithoutquote(const char *src)
 		return (NULL);
 	while (src[i])
 	{
-		if (src[i] == '"' || src[i] == '"')
+		if (src[i] == '"' || src[i] == '\'')
 			i++;
 		dest[j] = src[i];
 		j++;
@@ -87,7 +87,6 @@ int				ft_sortvar(char *var, t_struct *st)
 		i++;
 		saveenvp[i] = NULL;
 		st->copyenvp = ft_copytab(saveenvp);
-		ft_freetab(saveenvp);
 	}
 	else
 	{

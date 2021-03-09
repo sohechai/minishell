@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:21:59 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 13:02:22 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,11 @@ int				change_char_in_dquote(t_struct *st, size_t i, size_t n)
 		i = 0;
 		while (st->tab_arg[n][i])
 		{
-			if (st->tab_arg[n][i] == '"')
-			{
-				if ((i = replace(st, n, i + 1)) == 0)
-					return (ft_error('"', 1));
-			}
-			else if (st->tab_arg[n][i] == '\'')
-			{
-				if ((i = advance(st->tab_arg[n], i + 1, '\'')) == 0)
-					return (ft_error('\'', 1));
-			}
+			if (st->tab_arg[n][i] == '"' && (i = replace(st, n, i + 1)) == 0)
+				return (ft_error('"', 1));
+			else if (st->tab_arg[n][i] == '\''
+				&& !(i = advance(st->tab_arg[n], i + 1, '\'')))
+				return (ft_error('\'', 1));
 			else if (st->tab_arg[n][i] == '$'
 				&& !ft_strchr(" \t\0", st->tab_arg[n][i + 1]))
 			{
@@ -109,10 +104,7 @@ int				ft_check_character(t_struct *st)
 
 	i = 0;
 	if (st->line[0] == '|' || st->line[0] == ';')
-	{
-		ft_error(st->line[0], 0);
-		return (0);
-	}
+		return (ft_error(st->line[0], 0));
 	if (!check_nquote(st->line, 0))
 		return (0);
 	while (st->line[i])

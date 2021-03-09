@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:22:19 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 13:01:38 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,3 @@ int					ft_parsing(t_struct *st, size_t i)
 		return (ft_reset_mi(st));
 	return (1);
 }
-

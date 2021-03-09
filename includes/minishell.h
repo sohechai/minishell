@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:25:01 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:37:25 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_struct			*ft_initstruct(void);
  ** TOOLS FILES
 */
 
+void				create_env(t_struct *st);
 void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
 char				*ft_getenv(char **copyenvp, char *var);

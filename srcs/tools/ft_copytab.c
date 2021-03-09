@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 16:42:21 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:00:30 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:51:39 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char			**ft_copytabnew(char **src)
 	len = ft_countenv(src) + 1;
 	i = 0;
 	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
+	{
 		ft_printf("failed allocate memory to envp\n");
+		return (NULL);
+	}
 	while (src[i])
 	{
 		dest[i] = ft_strdup(src[i]);
@@ -40,12 +43,16 @@ char			**ft_copytab(char **src)
 	len = ft_countenv(src);
 	i = 0;
 	if (!(dest = ft_calloc(sizeof(char*), (len + 1))))
+	{
 		ft_printf("failed allocate memory to envp\n");
+		return (NULL);
+	}
 	while (src[i])
 	{
 		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
 	dest[i] = NULL;
+	ft_freetab(src);
 	return (dest);
 }

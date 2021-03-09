@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:00:13 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:57:52 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	return (-1);
 }
 
-int				ft_isalphaandequal(int c)
+int				ft_isalphaandequal(int c, int tmp, int i)
 {
-	if ((65 <= c && c <= 90) || (97 <= c && c <= 122) || c == '=')
+	if (ft_isalpha(c) || c == '=' || c == '/' || c == '_')
+		return (c);
+	else if (ft_isdigit(c) && tmp < i)
 		return (c);
 	else
 		return (0);
@@ -70,12 +72,16 @@ int				ft_isalphaandequal(int c)
 int				ft_checkvarisok(char *var)
 {
 	int		i;
+	int		tmp;
 
 	i = 0;
+	tmp = 0;
 	while (var[i])
 	{
-		if (ft_isalphaandequal(var[i]) == 0 || var[0] == '=')
+		if (!ft_isalphaandequal(var[i], tmp, i) || var[0] == '=')
 			return (0);
+		if (var[i] == '=')
+			tmp = i;
 		i++;
 	}
 	return (1);

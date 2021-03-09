@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:05:25 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:24:36 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:34:25 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			ft_checkifenvexist(char *var, char **envp)
 	return (-1);
 }
 
-void			ft_deleteenv(int index, char **copyenvp, t_struct *st)
+void		ft_deleteenv(int index, char **copyenvp, t_struct *st)
 {
 	int		i;
 	int		j;
@@ -91,7 +91,6 @@ void			ft_deleteenv(int index, char **copyenvp, t_struct *st)
 	newenvp[j] = NULL;
 	ft_freetab(st->copyenvp);
 	st->copyenvp = ft_copytab(newenvp);
-	ft_freetab(newenvp);
 }
 
 char		**ft_unsetenv(char *var, t_struct *st)
