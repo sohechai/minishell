@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:05:22 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 13:44:09 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ int			ft_checkpath(char *cmd, t_struct *st)
 	int			len;
 	int			exist;
 
-	len = ft_strlen(cmd) - (ft_indexuntilfile(cmd, st) + ft_lenoffile(cmd)) - 1;
-	pathfile = ft_substr(cmd, ft_indexuntilfile(cmd, st), len);
+	len = ft_strlen(cmd) - ft_lenoffile(cmd);
+	pathfile = ft_substr(cmd, 0, len);
+	printf("pathfile  = %s\n", pathfile);
 	if (!ft_strncmp(pathfile, "~", 1))
 	{
 		st->envi = ft_getenv(st->copyenvp, "HOME");
@@ -116,6 +117,7 @@ int			ft_checkpath(char *cmd, t_struct *st)
 	}
 	else
 	{
+					printf("allo\n");
 		ft_printf("minishell: %s: No such file or directory\n", pathfile);
 		ft_delete(&pathfile);
 		st->stop = 1;
@@ -132,6 +134,11 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 	{
 		if (st->files[i + 1] != NULL)
 		{
+			if (ft_lenoffile(st->files[i]) != -1)
+			{
+				if (ft_checkpath(st->files[i], st) == 0)
+					return (0);
+			}
 			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
 				S_IRGRP | S_IWGRP | S_IWUSR);
 			close(fd);
@@ -151,11 +158,6 @@ int			ft_redirection(char *cmd, t_struct *st)
 		return (0);
 	if (st->redirection != 0)
 	{
-		if (ft_lenoffile(cmd) != -1)
-		{
-			if (ft_checkpath(cmd, st) == 0)
-				return (0);
-		}
 		tmp = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
 		st->newfd = ft_strtrim(tmp, " ");
 		free(tmp);
@@ -180,6 +182,11 @@ int			ft_redirection(char *cmd, t_struct *st)
 			}
 			else
 				ft_freetab(st->files);
+			if (ft_lenoffile(st->newfd) != -1)
+			{
+				if (ft_checkpath(st->newfd, st) == 0)
+					return (0);
+			}
 		}
 		ft_delete(&tmp);
 	}
