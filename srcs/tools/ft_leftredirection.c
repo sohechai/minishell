@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:16:12 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 17:21:06 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 14:25:25 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*ft_subleftfile(char *file, t_struct *st)
 		count++;
 		i++;
 	}
-	st->newfd = ft_substr(file, 0, start - 1);
+	st->newfd = ft_strtrim((ft_substr(file, 0, start - 1)), " ");
 	dest = ft_substr(file, start, count - 1);
 	return (dest);
 }
@@ -44,12 +44,11 @@ char		*ft_subleftfile(char *file, t_struct *st)
 void		ft_createnewfd(char *file, t_struct *st)
 {
 	int		i;
-	char **tmp;
+	char	**tmp;
 	char	*str;
 
 	i = 0;
 	tmp = ft_strtokk(file, " ");
-	// ft_delete(&st->newfd);
 	str = ft_strdup("");
 	while (tmp[i])
 	{
@@ -57,26 +56,40 @@ void		ft_createnewfd(char *file, t_struct *st)
 			i += 2;
 		else
 		{
-			str = ft_strjoin(str, tmp[i]);
+			str = ft_strfjoin(str, tmp[i], 1);
 			i++;
 		}
 	}
-	st->newfd = ft_strdup(str);
+	ft_freetab(tmp);
+	str = ft_strtrim(str, " ");
+	if (!ft_strchr(str, '<'))
+	{
+		ft_delete(&st->newfd);
+		st->newfd = ft_strdup(str);
+	}
+	ft_delete(&str);
 }
 
 int			ft_checkmultipleleftred(char *file, t_struct *st)
 {
 	char	**tmp;
+	char	*tmp1;
 	int		i;
 
-	tmp = ft_strtokk(ft_subleftfile(file, st), "< \0");
+	tmp1 = ft_subleftfile(file, st);
+	tmp = ft_strtokk(tmp1, "< ");
+	ft_delete(&tmp1);
 	i = 0;
 	while (tmp[i])
 	{
-		if (ft_checkpath(tmp[i], st) == 0)
-			return (0);
+		if (ft_strcmp(st->newfd, tmp[i]) != 0)
+		{
+			if (ft_checkpath(tmp[i], st) == 0)
+				return (0);
+		}
 		i++;
 	}
+	ft_freetab(tmp);
 	ft_createnewfd(file, st);
 	return (1);
 }
@@ -90,6 +103,7 @@ void			ft_searchpathforredir(char *path, t_struct *st)
 	if (exist == 0)
 	{
 		ft_printf("minishell: %s : Is a directory\n", path);
+		ft_delete(&st->newfd);
 		st->newfd = ft_strdup("");
 	}
 }
