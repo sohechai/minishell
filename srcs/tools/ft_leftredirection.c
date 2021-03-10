@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:16:12 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/10 14:25:25 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 15:32:45 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char		*ft_subleftfile(char *file, t_struct *st)
 	int		count;
 	int		start;
 	char	*dest;
+	char	*tmp;
 
 	i = 0;
 	count = 0;
@@ -36,8 +37,11 @@ char		*ft_subleftfile(char *file, t_struct *st)
 		count++;
 		i++;
 	}
-	st->newfd = ft_strtrim((ft_substr(file, 0, start - 1)), " ");
+	tmp = ft_substr(file, 0, start - 1);
 	dest = ft_substr(file, start, count - 1);
+	ft_delete(&st->newfd);
+	st->newfd = ft_strtrim(tmp, " ");
+	ft_delete(&tmp);
 	return (dest);
 }
 
@@ -45,6 +49,7 @@ void		ft_createnewfd(char *file, t_struct *st)
 {
 	int		i;
 	char	**tmp;
+	char	*tmp1;
 	char	*str;
 
 	i = 0;
@@ -61,13 +66,14 @@ void		ft_createnewfd(char *file, t_struct *st)
 		}
 	}
 	ft_freetab(tmp);
-	str = ft_strtrim(str, " ");
+	tmp1 = ft_strtrim(str, " ");
 	if (!ft_strchr(str, '<'))
 	{
 		ft_delete(&st->newfd);
-		st->newfd = ft_strdup(str);
+		st->newfd = ft_strdup(tmp1);
 	}
 	ft_delete(&str);
+	ft_delete(&tmp1);
 }
 
 int			ft_checkmultipleleftred(char *file, t_struct *st)
@@ -85,7 +91,10 @@ int			ft_checkmultipleleftred(char *file, t_struct *st)
 		if (ft_strcmp(st->newfd, tmp[i]) != 0)
 		{
 			if (ft_checkpath(tmp[i], st) == 0)
+			{
+				ft_freetab(tmp);
 				return (0);
+			}
 		}
 		i++;
 	}

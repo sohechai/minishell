@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/10 14:15:15 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 15:27:13 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,15 @@ int			ft_redirection(char *cmd, t_struct *st)
 			ft_checkfile(tmp, st);
 		if (st->redirection == SIMPLERED || st->redirection == DOUBLERED)
 		{
-			free(st->newfd);
-			st->newfd = ft_strdup(tmp);
-			if (ft_strchr(st->newfd, '<'))
-				ft_checkmultipleleftred(st->newfd, st);
-			else if (ft_lenoffile(st->newfd) != -1)
-				ft_searchpathforredir(st->newfd, st);
+			if (ft_strchr(tmp, '<'))
+				ft_checkmultipleleftred(tmp, st);
+			else if (ft_lenoffile(tmp) != -1)
+				ft_searchpathforredir(tmp, st);
+			if (!st->newfd)
+			{
+				free(st->newfd);
+				st->newfd = ft_strdup(tmp);
+			}
 			st->files = ft_strtokk(st->newfd, " >|");
 			i = ft_openmultiplefiles(i, st);
 			if (i > 1)
