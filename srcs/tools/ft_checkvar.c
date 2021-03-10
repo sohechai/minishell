@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/09 12:57:52 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 13:37:07 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ int				ft_strlenuntil_equal(char *str)
 	return (i);
 }
 
+int				checkvarloop(t_struct *st, char *var, char *lessvar, int i)
+{
+	int		len;
+
+	len = ft_strlenuntil_equal(st->copyenvp[i]);
+	if ((ft_strncmp(ft_strnstr(st->copyenvp[i], lessvar, len),
+					lessvar, len) != 0))
+		i++;
+	else if (!ft_strchr(var, '='))
+	{
+		ft_delete(&lessvar);
+		return (-2);
+	}
+	ft_delete(&lessvar);
+	return (i);
+}
+
 int				ft_checkvarismissing(char *var, t_struct *st)
 {
 	int		i;
@@ -40,19 +57,7 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 	while (st->copyenvp[i] != NULL)
 	{
 		if (ft_strnstr(st->copyenvp[i], lessvar, len))
-		{
-			len = ft_strlenuntil_equal(st->copyenvp[i]);
-			if ((ft_strncmp(ft_strnstr(st->copyenvp[i], lessvar, len),
-				lessvar, len) != 0))
-				i++;
-			else if (!ft_strchr(var, '='))
-			{
-				free(lessvar);
-				return (-2);
-			}
-			free(lessvar);
-			return (i);
-		}
+			return (checkvarloop(st, var, lessvar, i));
 		i++;
 	}
 	free(lessvar);

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:01:45 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 13:37:30 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,38 @@ void		ft_pipeerror(t_struct *st)
 	}
 }
 
-void		ft_execpipe(char *cmd, t_struct *st)
+void		execpipeloop(t_struct *st)
 {
 	int		pipefd[2];
 
+	ft_checkredir(st);
+	pipe(pipefd);
+	ft_pipeerror(st);
+	if (st->pid == 0)
+	{
+		dup2(st->fdinput, STDIN);
+		if ((st->command[st->index + 1]) != NULL)
+			dup2(pipefd[1], STDOUT);
+		close(pipefd[0]);
+		ft_execpipecmd(st);
+	}
+	else
+	{
+		wait(NULL);
+		close(pipefd[1]);
+		st->fdinput = pipefd[0];
+		st->index++;
+	}
+	if (st->newfd != NULL)
+		ft_delete(&st->newfd);
+	ft_freetab(st->parsecmd);
+}
+
+void		ft_execpipe(char *cmd, t_struct *st)
+{
 	st->command = ft_strtokk(cmd, "|");
 	st->fdinput = 0;
 	while (st->command[st->index] != NULL)
-	{
-		ft_checkredir(st);
-		pipe(pipefd);
-		ft_pipeerror(st);
-		if (st->pid == 0)
-		{
-			dup2(st->fdinput, STDIN);
-			if ((st->command[st->index + 1]) != NULL)
-				dup2(pipefd[1], STDOUT);
-			close(pipefd[0]);
-			ft_execpipecmd(st);
-		}
-		else
-		{
-			wait(NULL);
-			close(pipefd[1]);
-			st->fdinput = pipefd[0];
-			st->index++;
-		}
-		if (st->newfd != NULL)
-			ft_delete(&st->newfd);
-		ft_freetab(st->parsecmd);
-	}
+		execpipeloop(st);
 	ft_freetab(st->command);
 }

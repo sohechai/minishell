@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:12:13 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/08 17:03:08 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 13:32:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 		i++;
 	}
 	ft_freetab(path_split);
-	free(cmd[0]);
-	cmd[0] = bin;
+	if (bin != NULL)
+	{
+		free(cmd[0]);
+		cmd[0] = bin;
+	}
 }
 
 int		ft_getabsolutepath(char **cmd, t_struct *st)

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/08 17:02:40 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 13:33:02 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void		ft_freetab(char **tab)
 
 	i = 0;
 	while (tab[i] != NULL)
-		free(tab[i++]);
+	{
+		ft_delete(&tab[i++]);
+	}
 	free(tab);
 }
