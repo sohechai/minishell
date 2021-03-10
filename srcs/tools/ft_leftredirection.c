@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:16:12 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/10 15:32:45 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 16:53:39 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@ char		*ft_subleftfile(char *file, t_struct *st)
 	char	*dest;
 	char	*tmp;
 
-	i = 0;
+	i = -1;
 	count = 0;
 	start = 0;
-	while (file[i])
+	while (file[++i])
 	{
 		if (file[i] == '<')
 		{
 			start = i + 1;
 			break ;
 		}
-		i++;
 	}
 	while (file[i] != '>' && file[i] != '\0')
 	{
@@ -45,6 +44,36 @@ char		*ft_subleftfile(char *file, t_struct *st)
 	return (dest);
 }
 
+char		*ft_deleteleftfile(char *file)
+{
+	int		i;
+	int		count;
+	int		start;
+	char	*str;
+
+	i = -1;
+	count = 0;
+	start = 0;
+	while (file[++i])
+	{
+		if (file[i] == '>')
+		{
+			start = i;
+			break ;
+		}
+	}
+	while (file[i])
+		i++;
+	if (!(str = malloc(sizeof(char) * (i - start) + 1)))
+		return (NULL);
+	i = 0;
+	while (file[start])
+		str[i++] = file[start++];
+	str[i] = '\0';
+	free(file);
+	return (str);
+}
+
 void		ft_createnewfd(char *file, t_struct *st)
 {
 	int		i;
@@ -53,17 +82,14 @@ void		ft_createnewfd(char *file, t_struct *st)
 	char	*str;
 
 	i = 0;
-	tmp = ft_strtokk(file, " ");
+	tmp = ft_strtokk(file, "<");
 	str = ft_strdup("");
 	while (tmp[i])
 	{
-		if (!ft_strcmp(tmp[i], "<") && tmp[i + 2] != NULL)
-			i += 2;
-		else
-		{
-			str = ft_strfjoin(str, tmp[i], 1);
-			i++;
-		}
+		if (ft_strchr(tmp[i], '>') != NULL && i != 0)
+			tmp[i] = ft_deleteleftfile(tmp[i]);
+		str = ft_strfjoin(str, tmp[i], 1);
+		i++;
 	}
 	ft_freetab(tmp);
 	tmp1 = ft_strtrim(str, " ");

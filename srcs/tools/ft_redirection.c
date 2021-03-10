@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/10 15:27:13 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 16:53:44 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int			ft_checkfile(char *cmd, t_struct *st)
 			free(cmd);
 			st->stop = 1;
 			return (0);
+		}
+		if (pathfile[i + 1] == NULL)
+		{
+			ft_delete(&st->newfd);
+			st->newfd = ft_strdup(pathfile[i]);
 		}
 		i++;
 	}
