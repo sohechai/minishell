@@ -12,17 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-char		*ft_subleftfile(char *file, t_struct *st)
+char		*ft_subleftfile(char *file, t_struct *st, int count, int start)
 {
 	int		i;
-	int		count;
-	int		start;
 	char	*dest;
 	char	*tmp;
 
 	i = -1;
-	count = 0;
-	start = 0;
 	while (file[++i])
 	{
 		if (file[i] == '<')
@@ -106,7 +102,7 @@ int			ft_checkmultipleleftred(char *file, t_struct *st)
 	char	*tmp1;
 	int		i;
 
-	tmp1 = ft_subleftfile(file, st);
+	tmp1 = ft_subleftfile(file, st, 0, 0);
 	tmp = ft_strtokk(tmp1, "< ");
 	ft_delete(&tmp1);
 	i = 0;
@@ -127,7 +123,7 @@ int			ft_checkmultipleleftred(char *file, t_struct *st)
 	return (1);
 }
 
-void			ft_searchpathforredir(char *path, t_struct *st)
+void		ft_searchpathforredir(char *path, t_struct *st)
 {
 	struct stat buffer;
 	int			exist;

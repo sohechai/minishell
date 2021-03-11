@@ -91,7 +91,7 @@ void				ft_searchpath(char *path);
 void				ft_searchpathforredir(char *path, t_struct *st);
 int					ft_checkmultipleleftred(char *file, t_struct *st);
 void				ft_createnewfd(char *file, t_struct *st);
-char				*ft_subleftfile(char *file, t_struct *st);
+char				*ft_subleftfile(char *file, t_struct *st, int count, int start);
 int					ft_checkpath(char *cmd, t_struct *st);
 void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
