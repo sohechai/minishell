@@ -95,6 +95,8 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 		create_str(st, n, i, j);
 		ft_delete(&st->envi);
 		ft_delete(&st->env);
+		if ((i + j) == 0)
+			j++;
 		return (i + j);
 	}
 }

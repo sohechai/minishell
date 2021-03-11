@@ -63,6 +63,8 @@ static size_t	replace(t_struct *st, size_t n, size_t i)
 			if ((i = re_env(st, st->tab_arg[n] + (i + 1), i, n)) == 0)
 				return (0);
 		}
+		if (i >= ft_strlen(st->tab_arg[n]))
+			break ;
 		i++;
 	}
 	if (st->tab_arg[n][i] == '"')
@@ -92,6 +94,8 @@ int				change_char_in_dquote(t_struct *st, size_t i, size_t n)
 			}
 			else
 				i++;
+			if (i >= ft_strlen(st->tab_arg[n]))
+				break ;
 		}
 		n++;
 	}

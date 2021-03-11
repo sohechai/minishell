@@ -126,6 +126,8 @@ int					ft_parsing(t_struct *st, size_t i)
 	st->semi++;
 	ft_separate_cmd(st, 0, 0);
 	if (!check_redirect(st, 0, 0) || !change_char_in_dquote(st, 0, 0))
+	{
 		return (ft_reset_mi(st));
+	}
 	return (1);
 }

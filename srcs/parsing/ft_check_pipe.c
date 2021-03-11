@@ -14,7 +14,7 @@
 
 int				check_pipe(t_struct *st)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
 	while (st->line[i])
@@ -30,6 +30,8 @@ int				check_pipe(t_struct *st)
 		}
 		if (st->line[i] == '|' && endline(st->line, i + 1))
 			return (ft_error('|', 1));
+		if (i >= ft_strlen(st->line))
+			break ;
 		i++;
 	}
 	return (1);
