@@ -12,13 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+char	*redup(char *del, char *ret)
+{
+	ft_delete(&del);
+	return (ret);
+}
+
 void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 {
 	int		id;
 	int		i;
 
 	path_split = ft_split(path, ':');
-	free(path);
+	ft_delete(&path);
 	i = 0;
 	while (path_split[i])
 	{
@@ -32,16 +38,12 @@ void	ft_pathsplit(char **cmd, char **path_split, char *path, char *bin)
 		id = open(bin, O_RDONLY);
 		if (id > 0)
 			break ;
-		free(bin);
-		bin = NULL;
+		ft_delete(&bin);
 		i++;
 	}
 	ft_freetab(path_split);
 	if (bin != NULL)
-	{
-		ft_delete(&cmd[0]);
-		cmd[0] = bin;
-	}
+		cmd[0] = redup(cmd[0], bin);
 }
 
 int		ft_getabsolutepath(char **cmd, t_struct *st)
@@ -49,15 +51,13 @@ int		ft_getabsolutepath(char **cmd, t_struct *st)
 	char	*path;
 	char	*bin;
 	char	**path_split;
-	int		i;
 
 	path = ft_getenv(st->copyenvp, "PATH");
 	bin = NULL;
 	path_split = NULL;
-	i = 0;
 	if (path == NULL)
 	{
-		ft_printf("minishell: ls: No such file or directory\n");
+		ft_printf("minishell: %s: No such file or directory\n", cmd[0]);
 		free(path);
 		return (0);
 	}

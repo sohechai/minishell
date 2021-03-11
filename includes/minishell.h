@@ -132,6 +132,11 @@ int					ft_checkquote(char *str);
 char				**ft_copytab(char **src);
 char				**ft_copytabnew(char **src);
 int					main(int argc, char **argv, char **envp);
+int					is_redirection(char *cmd, char *tmp, t_struct *st);
+int					ft_openmultiplefiles(int i, t_struct *st);
+char				*redup(char *del, char *ret);
+char				*dup_and_free(char *del, char *src);
+int					ft_exist(t_struct *st, char *pathfile, int exist);
 
 /*
  ** AURBUCHE FILES

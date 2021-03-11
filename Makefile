@@ -58,6 +58,7 @@ SRC				=		./srcs/main.c \
 						./srcs/tools/ft_execpipe.c \
 						./srcs/tools/ft_redirectinfile.c \
 						./srcs/tools/ft_leftredirection.c \
+						./srcs/tools/redirection_tools.c \
 
 OBJS			= 		$(SRC:.c=.o)
 
