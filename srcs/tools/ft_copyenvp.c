@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_copyenvp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:13:02 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 15:30:02 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 22:40:18 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void		ft_savelastcmd(int n, t_struct *st)
+{
+	int		i;
+	char	**tmp;
+
+	i = 0;
+	tmp = ft_strtokk(st->tab_arg[n], " ");
+	while (tmp[i])
+		i++;
+	st->lastcmd = ft_strdup(tmp[i - 1]);
+	ft_freetab(tmp);
+}
 
 void		create_env(t_struct *st)
 {
@@ -47,6 +60,8 @@ void		ft_copyenvp(char **envp, t_struct *st)
 				st->copyenvp[i] = ft_strdup("OLDPWD");
 			else if (ft_strnstr(envp[i], "SHLVL", 5))
 				st->copyenvp[i] = ft_strfjoin("SHLVL=", ft_itoa(shlvl), 2);
+			else if (ft_strnstr(envp[i], "_=", 2))
+				st->copyenvp[i] = ft_strdup("_=/usr/bin/env");
 			else
 				st->copyenvp[i] = ft_strdup(envp[i]);
 		}

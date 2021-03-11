@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirectinfile.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:18:46 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 17:19:06 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:03:20 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

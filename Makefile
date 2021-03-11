@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/09 16:20:54 by sohechai          #+#    #+#              #
-#    Updated: 2021/03/10 16:52:47 by sohechai         ###   ########lyon.fr    #
+#    Created: 2021/03/11 22:50:24 by sofiahechai       #+#    #+#              #
+#    Updated: 2021/03/11 22:50:28 by sofiahechai      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC				=		./srcs/main.c \
 						./srcs/tools/ft_execpipe.c \
 						./srcs/tools/ft_redirectinfile.c \
 						./srcs/tools/ft_leftredirection.c \
+						./srcs/tools/redirection_tools.c \
 
 OBJS			= 		$(SRC:.c=.o)
 

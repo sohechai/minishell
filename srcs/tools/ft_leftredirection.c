@@ -3,26 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_leftredirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:16:12 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/10 16:53:39 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:33:21 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char		*ft_subleftfile(char *file, t_struct *st)
+char		*ft_subleftfile(char *file, t_struct *st, int count, int start)
 {
 	int		i;
-	int		count;
-	int		start;
 	char	*dest;
 	char	*tmp;
 
 	i = -1;
-	count = 0;
-	start = 0;
 	while (file[++i])
 	{
 		if (file[i] == '<')
@@ -47,12 +43,10 @@ char		*ft_subleftfile(char *file, t_struct *st)
 char		*ft_deleteleftfile(char *file)
 {
 	int		i;
-	int		count;
 	int		start;
 	char	*str;
 
 	i = -1;
-	count = 0;
 	start = 0;
 	while (file[++i])
 	{
@@ -70,7 +64,7 @@ char		*ft_deleteleftfile(char *file)
 	while (file[start])
 		str[i++] = file[start++];
 	str[i] = '\0';
-	free(file);
+	ft_delete(&file);
 	return (str);
 }
 
@@ -108,7 +102,7 @@ int			ft_checkmultipleleftred(char *file, t_struct *st)
 	char	*tmp1;
 	int		i;
 
-	tmp1 = ft_subleftfile(file, st);
+	tmp1 = ft_subleftfile(file, st, 0, 0);
 	tmp = ft_strtokk(tmp1, "< ");
 	ft_delete(&tmp1);
 	i = 0;
@@ -129,7 +123,7 @@ int			ft_checkmultipleleftred(char *file, t_struct *st)
 	return (1);
 }
 
-void			ft_searchpathforredir(char *path, t_struct *st)
+void		ft_searchpathforredir(char *path, t_struct *st)
 {
 	struct stat buffer;
 	int			exist;

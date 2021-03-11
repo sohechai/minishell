@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_character.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:11:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/09 13:02:22 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 17:52:45 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static size_t	replace(t_struct *st, size_t n, size_t i)
 			if ((i = re_env(st, st->tab_arg[n] + (i + 1), i, n)) == 0)
 				return (0);
 		}
+		if (i >= ft_strlen(st->tab_arg[n]))
+			break ;
 		i++;
 	}
 	if (st->tab_arg[n][i] == '"')
@@ -92,6 +94,8 @@ int				change_char_in_dquote(t_struct *st, size_t i, size_t n)
 			}
 			else
 				i++;
+			if (i >= ft_strlen(st->tab_arg[n]))
+				break ;
 		}
 		n++;
 	}

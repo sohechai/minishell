@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/10 15:02:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 23:56:41 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_struct
 	char			*envi;
 	char			*dollar;
 	char			*tempo;
+	char			*lastcmd;
 	int				i;
 	int				index;
 	int				redirection;
@@ -86,12 +87,15 @@ t_struct			*ft_initstruct(void);
  ** TOOLS FILES
 */
 
+void				ft_savelastcmd(int n, t_struct *st);
+char				*ft_subredir(char *src);
+int					ft_countredir(char *str);
 void				create_env(t_struct *st);
 void				ft_searchpath(char *path);
 void				ft_searchpathforredir(char *path, t_struct *st);
 int					ft_checkmultipleleftred(char *file, t_struct *st);
 void				ft_createnewfd(char *file, t_struct *st);
-char				*ft_subleftfile(char *file, t_struct *st);
+char				*ft_subleftfile(char *file, t_struct *st, int count, int start);
 int					ft_checkpath(char *cmd, t_struct *st);
 void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
@@ -132,6 +136,11 @@ int					ft_checkquote(char *str);
 char				**ft_copytab(char **src);
 char				**ft_copytabnew(char **src);
 int					main(int argc, char **argv, char **envp);
+int					is_redirection(char *cmd, char *tmp, t_struct *st);
+int					ft_openmultiplefiles(int i, t_struct *st);
+char				*redup(char *del, char *ret);
+char				*dup_and_free(char *del, char *src);
+int					ft_exist(t_struct *st, char *pathfile, int exist);
 
 /*
  ** AURBUCHE FILES

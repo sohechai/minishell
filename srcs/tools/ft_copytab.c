@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_copytab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 16:42:21 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 12:51:39 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:33:21 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

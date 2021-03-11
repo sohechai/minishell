@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:15:37 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/09 13:01:38 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 17:53:32 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int					ft_parsing(t_struct *st, size_t i)
 	st->semi++;
 	ft_separate_cmd(st, 0, 0);
 	if (!check_redirect(st, 0, 0) || !change_char_in_dquote(st, 0, 0))
+	{
 		return (ft_reset_mi(st));
+	}
 	return (1);
 }

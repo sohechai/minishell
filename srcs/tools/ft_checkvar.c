@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkvar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/10 13:37:07 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 19:15:14 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				ft_checkvarismissing(char *var, t_struct *st)
 
 int				ft_isalphaandequal(int c, int tmp, int i)
 {
-	if (ft_isalpha(c) || c == '=' || c == '/' || c == '_')
+	if (ft_isalpha(c) || c == '=' || c == '/' || c == '_' || c == ' ')
 		return (c);
 	else if (ft_isdigit(c) && tmp < i)
 		return (c);

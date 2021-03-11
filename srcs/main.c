@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/09 17:13:56 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 00:41:11 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 /*
 ** TODO list :
-** - abc def -> minishell: def : command not found leak de def
-** - leak ft_exit car double free avec ft_freeloop
+** - ${var}   contenu de la variable "var" ?
+** - st->lastcmd pour $_ stock le dernier argument de la commande + free st->lastcmd
+** - leak redirection ? ft_exit ?
 */
 
 int			parseloop(t_struct *st)
@@ -35,8 +36,7 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 	{
 		tmp = ft_strdup(st->tab_arg[n]);
 		free(st->tab_arg[n]);
-		st->tab_arg[n] = ft_substr(tmp, 0,
-					ft_strlenuntilredir(tmp));
+		st->tab_arg[n] = ft_subredir(tmp);
 		free(tmp);
 		ft_simplecmd(st, n);
 	}
@@ -45,8 +45,10 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 int			execloop(t_struct *st)
 {
 	size_t		n;
+	int 		i;
 
 	n = 0;
+	i = 0;
 	while (n < st->semi)
 	{
 		if (st->tab_pipe[n] == 0)
@@ -56,9 +58,11 @@ int			execloop(t_struct *st)
 				ft_simplecmd(st, n);
 			else
 				ft_parsecmdwithredir(n, st);
+			ft_savelastcmd(n, st);
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);
+		ft_delete(&st->newfd);
 		n++;
 	}
 	return (EXIT_SUCCESS);
