@@ -59,6 +59,7 @@ int			execloop(t_struct *st)
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);
+		ft_delete(&st->newfd);
 		n++;
 	}
 	return (EXIT_SUCCESS);
