@@ -45,10 +45,8 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 int			execloop(t_struct *st)
 {
 	size_t		n;
-	int 		i;
 
 	n = 0;
-	i = 0;
 	while (n < st->semi)
 	{
 		if (st->tab_pipe[n] == 0)
