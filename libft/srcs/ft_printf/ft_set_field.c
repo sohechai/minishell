@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_field.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienbucher <aurelienbucher@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 11:35:31 by aurbuche          #+#    #+#             */
-/*   Updated: 2020/06/03 11:30:25 by aurelienbuc      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:32:12 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

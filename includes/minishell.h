@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 13:41:17 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:32:48 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct		s_struct
 	int				stop;
 	int				fdinput;
 	pid_t			pid;
-	// t_mini
 	char			**envp;
 	char			**tab_arg;
 	char			**tab_red;
@@ -91,11 +90,12 @@ void				ft_savelastcmd(int n, t_struct *st);
 char				*ft_subredir(char *src);
 int					ft_countredir(char *str);
 void				create_env(t_struct *st);
-void				ft_searchpath(char *path);
+void				ft_searchpath(char *path, t_struct *st);
 void				ft_searchpathforredir(char *path, t_struct *st);
 int					ft_checkmultipleleftred(char *file, t_struct *st);
 void				ft_createnewfd(char *file, t_struct *st);
-char				*ft_subleftfile(char *file, t_struct *st, int count, int start);
+char				*ft_subleftfile(char *file, t_struct *st, int count,
+							int start);
 int					ft_checkpath(char *cmd, t_struct *st);
 void				ft_copyenvp(char **envp, t_struct *st);
 void				ft_savepwd(t_struct *st);
@@ -112,7 +112,7 @@ int					ft_allocbuffer(char *buffer, char *cwd, t_struct *st,
 int					ft_simplecmd(t_struct *st, size_t n);
 char				**ft_strtokk(char *str, char *sep);
 int					ft_exit(char *cmd, t_struct *st);
-int					ft_printsortenv(t_struct *st);
+int					ft_printsortenv(t_struct *st, int i);
 void				ft_execcmd(t_struct *st, char *command, char **cmd);
 int					ft_cdwithargs(char **built_in, t_struct *st);
 void				ft_saveoldpwd(t_struct *st);
@@ -143,26 +143,10 @@ char				*dup_and_free(char *del, char *src);
 int					ft_exist(t_struct *st, char *pathfile, int exist);
 
 /*
- ** AURBUCHE FILES
-*/
-
-int					ft_echo(t_struct *st, char **cmd);
-int					is_env(t_struct *st, char *str, size_t i, size_t n);
-char				*new_str(char *tmp, char *src, size_t i);
-int					re_env(t_struct *st, char *str, size_t i,
-						size_t n);
-size_t				print_quote(t_struct *st, char *cmd, size_t i, char c);
-void				option(t_struct *st, size_t i, size_t n);
-char				**remove_quote(char **cmd, size_t n);
-int					is_option(t_struct *st, char *str, size_t i);
-char				**rechange_character(char **cmd, size_t i, size_t n);
-int					check_redirect(t_struct *st, size_t i, size_t n);
-int					check_after(char *str, size_t i, char c);
-
-/*
  ** CMD FILES
 */
 
+int					ft_echo(t_struct *st, char **cmd);
 int					ft_builtinpwd(t_struct *st);
 int					ft_builtincd(char *path, t_struct *st);
 void				ft_env(char **envp, t_struct *st);
@@ -188,10 +172,22 @@ void				clean_spaces_bet(t_struct *st, size_t n, size_t i);
 int					check_nquote(char *str, size_t i);
 int					change_char_in_dquote(t_struct *st, size_t i,
 						size_t n);
+void				delete_env(t_struct *st);
 size_t				advance(char *str, size_t i, char c);
 void				change_real_char(t_struct *st, size_t n, size_t i);
 size_t				ft_change_char(char c, t_struct *st, size_t i, size_t n);
 int					change_char_in_dquote(t_struct *st, size_t i, size_t n);
 void				stock_env(t_struct *st, size_t j, char *str);
+int					is_env(t_struct *st, char *str, size_t i, size_t n);
+char				*new_str(char *tmp, char *src, size_t i);
+int					re_env(t_struct *st, char *str, size_t i,
+						size_t n);
+size_t				print_quote(t_struct *st, char *cmd, size_t i, char c);
+void				option(t_struct *st, size_t i, size_t n);
+char				**remove_quote(char **cmd, size_t n);
+int					is_option(t_struct *st, char *str, size_t i);
+char				**rechange_character(char **cmd, size_t i, size_t n);
+int					check_redirect(t_struct *st, size_t i, size_t n);
+int					check_after(char *str, size_t i, char c);
 
 #endif

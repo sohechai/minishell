@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:20:32 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_redircmd(int fd, char **cmd, char *command, t_struct *st)
 		ft_simpleanddoublered(st, fd, cmd, command);
 	else if (st->leftredir == 1)
 	{
+		printf("allooo\n");
 		fd = open(st->newfd, O_RDONLY, 0);
 		dup2(fd, STDIN_FILENO);
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:02:08 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 13:50:11 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:10:29 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 	{
 		i = ft_countredir(st->newfd);
 		st->newfd = dup_and_free(st->newfd, st->files[i]);
-		if (ft_lenoffile(st->newfd) != -1)
+		if (st->newfd && ft_lenoffile(st->newfd) != -1)
 			if (ft_checkpath(st->newfd, st) == 0)
 				return (0);
 		ft_freetab(st->files);

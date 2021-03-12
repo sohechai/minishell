@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:07:44 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 13:49:42 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:06:45 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 			if (ft_lenoffile(st->files[i]) != -1)
 				if (ft_checkpath(st->files[i], st) == 0)
 					return (0);
-			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-				S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open(st->files[i], O_EXCL | O_CREAT | O_APPEND, 0640);
 			close(fd);
 		}
 		if (st->stop == 1)

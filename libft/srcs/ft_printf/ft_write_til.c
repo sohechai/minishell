@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write_til.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienbucher <aurelienbucher@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:20:37 by aurbuche          #+#    #+#             */
-/*   Updated: 2020/06/03 11:30:48 by aurelienbuc      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:32:12 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

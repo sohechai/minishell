@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:13:27 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 15:01:58 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_exec_built_in(char **built_in, t_struct *st)
 		return (g_exitstatus = 127);
 	}
 	else if (!ft_strcmp(built_in[0], "export") && built_in[1] == 0)
-		ft_printsortenv(st);
+		ft_printsortenv(st, 0);
 	else if (!ft_strcmp(built_in[0], "export"))
 		ft_exportloop(built_in, st);
 	else if (!ft_strcmp(built_in[0], "unset") && built_in[1] != 0)

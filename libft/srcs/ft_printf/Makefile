@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aurbuche <aurbuche@student.le-101.fr>      +#+  +:+       +#+         #
+#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 10:26:14 by aurbuche          #+#    #+#              #
-#    Updated: 2020/03/12 13:17:40 by aurbuche         ###   ########lyon.fr    #
+#    Updated: 2021/03/12 16:32:12 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 

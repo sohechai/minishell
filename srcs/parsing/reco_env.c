@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:08:40 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 13:47:58 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:19:09 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 	else
 	{
 		create_str(st, n, i, j);
-		ft_delete(&st->envi);
-		ft_delete(&st->env);
+		delete_env(st);
 		if ((i + j) == 0)
 			j++;
 		return (i + j);

@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 13:06:40 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:23:49 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 /*
 ** TODO list :
-** - ${var}   contenu de la variable "var" ?
-** - st->lastcmd pour $_ stock le dernier argument de la commande + free st->lastcmd
-** - leak redirection ? ft_exit ?
+** - ls > text file file2
 */
 
 int			parseloop(t_struct *st)

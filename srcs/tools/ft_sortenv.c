@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 16:48:38 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 15:16:47 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,21 +89,20 @@ char		**ft_saveenv(t_struct *st)
 	return (sortenv);
 }
 
-int			ft_printsortenv(t_struct *st)
+int			ft_printsortenv(t_struct *st, int i)
 {
 	char	**sortquoteenv;
 	char	**sortenv;
-	int		i;
 
 	sortenv = ft_saveenv(st);
 	sortquoteenv = ft_sortenv(sortenv);
-	i = 0;
 	ft_redirectbuiltin(st);
 	while (sortquoteenv[i])
 	{
 		if (ft_strchr(sortquoteenv[i], '=') != NULL)
 		{
-			ft_addquote(sortquoteenv[i]);
+			if (ft_strncmp(sortquoteenv[i], "_=\"", 2))
+				ft_addquote(sortquoteenv[i]);
 			i++;
 		}
 		else

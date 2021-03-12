@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 12:10:53 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:13:49 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int				ft_exportenv(char *var, t_struct *st)
 
 	index = ft_checkvarismissing(var, st);
 	len = ft_countenv(st->copyenvp);
-	if (index == -2)
+	if (index == -2 || !ft_strncmp(var, "_=", 2))
 		return (0);
 	else if (index != -1 && var[0] != '=')
 	{

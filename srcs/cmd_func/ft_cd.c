@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:02 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 15:28:32 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ void		ft_cdwithtild(t_struct *st, char **built_in)
 {
 	st->envi = ft_strfjoin("/Users/", ft_getenv(st->copyenvp, "USER"), 2);
 	ft_saveoldpwd(st);
+	st->envi = ft_strfjoin(st->envi, built_in[1] + 1, 1);
 	ft_delete(&built_in[1]);
 	built_in[1] = ft_strdup(st->envi);
-	free(st->envi);
+	ft_delete(&st->envi);
 }
 
 int			ft_cdwithargs(char **built_in, t_struct *st)
 {
 	ft_redirectbuiltin(st);
-	if (ft_strcmp(built_in[1], "~") == 0)
+	if (ft_strchr(built_in[1], '~'))
 		ft_cdwithtild(st, built_in);
 	else if (ft_strcmp(built_in[1], "-") == 0)
 	{

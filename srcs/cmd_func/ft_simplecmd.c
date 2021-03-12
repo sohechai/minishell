@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:16:57 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ static void		change_space_char(t_struct *st, size_t i, size_t n)
 	}
 }
 
-void			ft_searchpath(char *path)
+void			ft_searchpath(char *path, t_struct *st)
 {
 	struct stat buffer;
 	int			exist;
 
 	exist = stat(path, &buffer);
+	ft_redirectbuiltin(st);
+	ft_comebacktostdout(st);
 	if (exist == 0)
 	{
 		ft_printf("minishell: %s : Is a directory\n", path);
@@ -85,8 +87,9 @@ int				ft_simplecmd(t_struct *st, size_t n)
 	cmd = remove_quote(cmd, 0);
 	if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(st->tab_arg[n], st);
-	else if (ft_strchr(cmd[0], '/') && ft_strncmp(cmd[0], "./", 2))
-		ft_searchpath(cmd[0]);
+	else if (ft_strchr(cmd[0], '/') && ft_strncmp(cmd[0], "./", 2)
+		&& ft_strncmp(cmd[0], "/bin/", 5))
+		ft_searchpath(cmd[0], st);
 	else if (ft_is_built_in(cmd[0]) == false)
 	{
 		st->printerror = ft_strdup(cmd[0]);
