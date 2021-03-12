@@ -64,6 +64,8 @@ static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 	}
 	else
 		st->val_env = ft_getenv(st->copyenvp, st->env);
+	ft_delete(&st->envi);
+	ft_delete(&st->env);
 	if (st->ostr[j] == '\0')
 		st->tab_arg[n] = recreate_str(st, n, i);
 	else
@@ -93,8 +95,6 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 	else
 	{
 		create_str(st, n, i, j);
-		ft_delete(&st->envi);
-		ft_delete(&st->env);
 		if ((i + j) == 0)
 			j++;
 		return (i + j);
