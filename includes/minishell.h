@@ -191,5 +191,7 @@ int					change_char_in_dquote(t_struct *st, size_t i,
 size_t				advance(char *str, size_t i, char c);
 void				change_real_char(t_struct *st, size_t n, size_t i);
 size_t				ft_change_char(char c, t_struct *st, size_t i, size_t n);
+int					change_char_in_dquote(t_struct *st, size_t i, size_t n);
+void				stock_env(t_struct *st, size_t j, char *str);
 
 #endif

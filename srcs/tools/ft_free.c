@@ -37,8 +37,6 @@ void		ft_freetab(char **tab)
 
 	i = 0;
 	while (tab[i] != NULL)
-	{
 		ft_delete(&tab[i++]);
-	}
 	free(tab);
 }

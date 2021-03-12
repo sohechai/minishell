@@ -45,8 +45,7 @@ int			ft_countredir(char *str)
 
 	count = 0;
 	i = 0;
-	printf("%s\n", str);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '>' || str[i] == '<')
 			count++;

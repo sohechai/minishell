@@ -62,6 +62,11 @@ static void		create_str(t_struct *st, size_t n, size_t i, size_t j)
 		st->val_env = ft_itoa(g_exitstatus);
 		j++;
 	}
+	else if (st->ostr[j] == '_')
+	{
+		st->val_env = ft_strdup(st->lastcmd);
+		j++;
+	}
 	else
 		st->val_env = ft_getenv(st->copyenvp, st->env);
 	if (st->ostr[j] == '\0')
@@ -80,9 +85,8 @@ int				re_env(t_struct *st, char *str, size_t i, size_t n)
 	st->ostr = str;
 	while (ft_isalnum(str[j]))
 		j++;
-	st->env = ft_strndup(str, j);
-	st->envi = ft_getenv(st->copyenvp, st->env);
-	if (!st->envi && str[0] != '?')
+	stock_env(st, j, str);
+	if (!st->envi && str[0] != '?' && str[0] != '_')
 	{
 		if (endline(str, j))
 			next = 1;

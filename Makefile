@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 SRC				=		./srcs/main.c \
 						./srcs/cmd_func/ft_execbuiltin.c \
@@ -41,6 +41,8 @@ SRC				=		./srcs/main.c \
 						./srcs/parsing/tools_parsing.c \
 						./srcs/parsing/reco_env.c \
 						./srcs/parsing/remove_quote.c \
+						./srcs/parsing/change_char_in_dquote.c \
+						./srcs/parsing/env_tools.c \
 						./srcs/tools/ft_getabsolutepath.c \
 						./srcs/tools/ft_builtin.c \
 						./srcs/tools/ft_handlesignal.c \

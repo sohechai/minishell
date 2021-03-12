@@ -98,13 +98,13 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 				if (ft_checkpath(st->files[i], st) == 0)
 					return (0);
 			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-						S_IRGRP | S_IWGRP | S_IWUSR);
+				S_IRGRP | S_IWGRP | S_IWUSR);
 			close(fd);
 		}
 		if (st->stop == 1)
 		{
 			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-						S_IRGRP | S_IWGRP | S_IWUSR);
+				S_IRGRP | S_IWGRP | S_IWUSR);
 			close(fd);
 		}
 		i++;
