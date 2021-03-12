@@ -15,7 +15,6 @@
 /*
 ** TODO list :
 ** - ${var}   contenu de la variable "var" ?
-** - st->lastcmd pour $_ stock le dernier argument de la commande + free st->lastcmd
 ** - leak redirection ? ft_exit ?
 */
 

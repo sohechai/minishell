@@ -17,3 +17,9 @@ void		stock_env(t_struct *st, size_t j, char *str)
 	st->env = ft_strndup(str, j);
 	st->envi = ft_getenv(st->copyenvp, st->env);
 }
+
+void		delete_env(t_struct *st)
+{
+	ft_delete(&st->envi);
+	ft_delete(&st->env);
+}

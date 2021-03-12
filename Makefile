@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 SRC				=		./srcs/main.c \
 						./srcs/cmd_func/ft_execbuiltin.c \
