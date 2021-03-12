@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/11 23:56:41 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 13:41:17 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,7 @@ int					change_char_in_dquote(t_struct *st, size_t i,
 size_t				advance(char *str, size_t i, char c);
 void				change_real_char(t_struct *st, size_t n, size_t i);
 size_t				ft_change_char(char c, t_struct *st, size_t i, size_t n);
+int					change_char_in_dquote(t_struct *st, size_t i, size_t n);
+void				stock_env(t_struct *st, size_t j, char *str);
 
 #endif

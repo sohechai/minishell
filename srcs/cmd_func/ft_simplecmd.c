@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simplecmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:03:46 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/11 22:29:02 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int				ft_simplecmd(t_struct *st, size_t n)
 	char	**cmd;
 
 	change_space_char(st, 0, n);
+	ft_savelastcmd(n, st);
 	cmd = ft_strtokk(st->tab_arg[n], " \t\n");
 	cmd = rechange_character(cmd, 0, 0);
 	cmd = remove_quote(cmd, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkvar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:16:09 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/11 19:15:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

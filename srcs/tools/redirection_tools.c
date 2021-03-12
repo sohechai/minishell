@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:02:08 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 00:40:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 13:50:11 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int			ft_countredir(char *str)
 
 	count = 0;
 	i = 0;
-	printf("%s\n", str);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '>' || str[i] == '<')
 			count++;

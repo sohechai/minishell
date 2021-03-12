@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkredirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 00:39:55 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 13:09:46 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,52 +65,6 @@ int			ft_indexuntilfile(char *cmd, t_struct *st)
 	}
 	st->redirection = 0;
 	return (i);
-}
-
-char		*ft_subredir(char *src)
-{
-	int		i;
-	int		j;
-	int 	start;
-	int		end;
-	char	*dest;
-
-	i = 0;
-	j = 0;
-	end = ft_strlen(src);
-	while (src[i])
-	{
-		if (src[i] == '>' || src[i] == '<')
-			break ;
-		i++;
-	}
-	start = i;
-	while(end > 0)
-	{
-		if (src[end] == ' ')
-		{
-			while (src[end] == ' ')
-				end--;
-			if (src[end] == '>' || src[end] == '<')
-			{
-				end = 0;
-				break ;
-			}
-			else
-				break ;
-		}
-		end --;
-	}
-	if (!(dest = malloc(sizeof(char) * (start + end) + 1)))
-		return (NULL);
-	i = 0;
-	start --;
-	while (i != start)
-		dest[j++] = src[i++];
-	while (src[end] && end != 0)
-		dest[j++] = src[++end];
-	dest[j] = '\0';
-	return (dest);
 }
 
 int			ft_strlenuntilredir(char *str)

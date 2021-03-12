@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+         #
+#    By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 22:50:24 by sofiahechai       #+#    #+#              #
-#    Updated: 2021/03/11 22:50:28 by sofiahechai      ###   ########lyon.fr    #
+#    Updated: 2021/03/12 13:51:11 by sohechai         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,9 @@ SRC				=		./srcs/main.c \
 						./srcs/parsing/tools_parsing.c \
 						./srcs/parsing/reco_env.c \
 						./srcs/parsing/remove_quote.c \
+						./srcs/parsing/change_char_in_dquote.c \
+						./srcs/parsing/env_tools.c \
+						./srcs/tools/ft_subredir.c \
 						./srcs/tools/ft_getabsolutepath.c \
 						./srcs/tools/ft_builtin.c \
 						./srcs/tools/ft_handlesignal.c \

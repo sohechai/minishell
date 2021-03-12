@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:44:41 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/11 13:38:37 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 13:49:02 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void		ft_freetab(char **tab)
 
 	i = 0;
 	while (tab[i] != NULL)
-	{
 		ft_delete(&tab[i++]);
-	}
 	free(tab);
 }

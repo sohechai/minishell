@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 00:41:11 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 13:06:40 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 int			execloop(t_struct *st)
 {
 	size_t		n;
-	int 		i;
 
 	n = 0;
-	i = 0;
 	while (n < st->semi)
 	{
 		if (st->tab_pipe[n] == 0)
@@ -58,7 +56,6 @@ int			execloop(t_struct *st)
 				ft_simplecmd(st, n);
 			else
 				ft_parsecmdwithredir(n, st);
-			ft_savelastcmd(n, st);
 		}
 		else if (st->tab_pipe[n] == 1)
 			ft_pipecmd(st, n);

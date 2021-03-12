@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handlesignal.c                                  :+:      :+:    :+:   */
+/*   env_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/28 15:00:43 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
+/*   Created: 2021/03/12 13:44:47 by sohechai          #+#    #+#             */
+/*   Updated: 2021/03/12 13:44:50 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		ft_handlesignal(int signum)
+void		stock_env(t_struct *st, size_t j, char *str)
 {
-	int			status;
-
-	if (signum == SIGINT)
-	{
-		signum = wait(&status);
-		ft_printf("\n");
-		if (signum == -1)
-			ft_printf("\033[0;34mMinishell$> \033[0m", 1);
-		g_exitstatus = 130;
-	}
-	else if (signum == SIGQUIT)
-	{
-		signum = wait(&status);
-		if (signum != -1)
-		{
-			g_exitstatus = 131;
-			ft_printf("^\\Quit: 3\n");
-		}
-	}
+	st->env = ft_strndup(str, j);
+	st->envi = ft_getenv(st->copyenvp, st->env);
 }
