@@ -20,7 +20,7 @@
 
 int			parseloop(t_struct *st)
 {
-	if (st->line[0] == '\0' || !ft_check_character(st))
+	if (st->line[0] == '\0' || !ft_check_character(st, 0))
 		return (0);
 	if (!ft_parsing(st, 0))
 		return (0);

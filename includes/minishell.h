@@ -171,7 +171,7 @@ char				**ft_unsetenv(char *var, t_struct *st);
 
 int					ft_parsing(t_struct *st, size_t i);
 int					ft_recover_cmd(t_struct *st);
-int					ft_check_character(t_struct *st);
+int					ft_check_character(t_struct *st, size_t i);
 void				str_remove_index(int i, t_struct *st, char c);
 int					print_prompt_waiting(t_struct *st, char *str, size_t i);
 int					endline(char *str, size_t i);

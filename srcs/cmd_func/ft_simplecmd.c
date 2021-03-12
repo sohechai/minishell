@@ -76,9 +76,7 @@ int				ft_simplecmd(t_struct *st, size_t n)
 	cmd = ft_strtokk(st->tab_arg[n], " \t\n");
 	cmd = rechange_character(cmd, 0, 0);
 	cmd = remove_quote(cmd, 0);
-	if (cmd[0] == NULL || !cmd[0][0])
-		ft_printf("");
-	else if (!ft_strcmp(cmd[0], "exit"))
+	if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(st->tab_arg[n], st);
 	else if (ft_strchr(cmd[0], '/') && ft_strncmp(cmd[0], "./", 2))
 		ft_searchpath(cmd[0]);

@@ -102,11 +102,8 @@ int				change_char_in_dquote(t_struct *st, size_t i, size_t n)
 	return (1);
 }
 
-int				ft_check_character(t_struct *st)
+int				ft_check_character(t_struct *st, size_t i)
 {
-	size_t i;
-
-	i = 0;
 	if (st->line[0] == '|' || st->line[0] == ';')
 		return (ft_error(st->line[0], 0));
 	if (!check_nquote(st->line, 0))
