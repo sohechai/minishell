@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 16:23:49 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 17:41:05 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** TODO list :
-** - ls > text file file2
+** - ls > text file file2    ls > text.txt > text2 -la file file2
 */
 
 int			parseloop(t_struct *st)
