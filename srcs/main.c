@@ -35,7 +35,6 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 		tmp = ft_strdup(st->tab_arg[n]);
 		free(st->tab_arg[n]);
 		st->tab_arg[n] = ft_subredir(tmp);
-		printf("st->tab = %s\n", st->tab_arg[n]);
 		free(tmp);
 		ft_simplecmd(st, n);
 	}

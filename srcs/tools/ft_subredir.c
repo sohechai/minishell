@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int			ft_subredirr(char *redir)
+int				ft_subredirr(char *redir)
 {
 	int		i;
 	char	**str;
@@ -27,13 +27,13 @@ int			ft_subredirr(char *redir)
 	return (i);
 }
 
-char		*ft_subwithoutspace(char *src)
+char			*ft_subwithoutspace(char *src)
 {
 	int		i;
 	char	*dest;
 
 	i = 0;
-	while(src[i])
+	while (src[i])
 	{
 		if (src[i] == '>' || src[i] == '<')
 			break ;
@@ -43,17 +43,11 @@ char		*ft_subwithoutspace(char *src)
 	return (dest);
 }
 
-char		*ft_subredir(char *src)
+static char		*sub_loop(char **cmd, char *dest)
 {
 	int		i;
-	char	**cmd;
-	char	*dest;
 
 	i = 0;
-	if (!ft_strchr(src, ' '))
-		return (ft_subwithoutspace(src));
-	cmd = ft_strtokk(src, " ");
-	dest = ft_strdup("");
 	while (cmd[i])
 	{
 		cmd[i] = ft_strjoin(cmd[i], " ");
@@ -70,6 +64,19 @@ char		*ft_subredir(char *src)
 			i++;
 		}
 	}
+	return (dest);
+}
+
+char			*ft_subredir(char *src)
+{
+	char	**cmd;
+	char	*dest;
+
+	if (!ft_strchr(src, ' '))
+		return (ft_subwithoutspace(src));
+	cmd = ft_strtokk(src, " ");
+	dest = ft_strdup("");
+	dest = sub_loop(cmd, dest);
 	ft_freetab(cmd);
 	dest = ft_strtrim(dest, " ");
 	return (dest);

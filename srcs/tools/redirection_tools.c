@@ -62,7 +62,6 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 		ft_searchpathforredir(tmp, st);
 	if (!st->newfd)
 		st->newfd = dup_and_free(st->newfd, tmp);
-	printf("new = %s\n",st->newfd);
 	st->files = ft_strtokk(st->newfd, " >|");
 	i = ft_openmultiplefiles(i, st);
 	if (i > 0)
@@ -81,80 +80,12 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 	return (1);
 }
 
-void		ft_getredirofnewfd(char *files, t_struct *st)
-{
-	int		len;
-
-	len = ft_strlen(files);
-	if (ft_strchr(files, '<'))
-	{
-		if (!ft_strchr(files, '>'))
-			st->redirection = LEFTRED;
-		st->leftredir = 1;
-	}
-	while (len > 0)
-	{
-		if (files[len] == '>')
-		{
-			len--;
-			if (files[len] == '>')
-				st->redirection = DOUBLERED;
-			else
-				st->redirection = SIMPLERED;
-		}
-		len--;
-	}
-}
-
-void		ft_getnewfd(char *src, t_struct *st)
-{
-	int		len;
-	int		length;
-	int		start;
-
-	len = 0;
-	length = strlen(src);
-	start = 0;
-	while (src[len])
-	{
-		if (src[len] == '>' || src[len] == '<')
-		{
-			start = len;
-			break ;
-		}
-		len++;
-	}
-	len = ft_strlen(src);
-	while (len > 0)
-	{
-		if (src[len] == ' ')
-		{
-			len--;
-			if (src[len] == '>' || src[len] == '<')
-			{
-				len = length;
-				break ;
-			}
-			else
-			{
-				len--;
-				break ;
-			}
-		}
-		len--;
-	}
-	if (len == 0)
-		len = length;
-	ft_delete(&st->newfd);
-	st->newfd = ft_substr(src, start, len);
-}
-
 int			is_redirection(char *cmd, char *tmp, t_struct *st)
 {
 	int		i;
 
 	i = 0;
-	tmp = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
+	tmp = ft_strdup(cmd + ft_indexuntilfile(cmd, st, 0));
 	ft_getredirofnewfd(st->newfd, st);
 	free(tmp);
 	tmp = ft_strdup(st->newfd);

@@ -103,7 +103,7 @@ int			ft_openmultiplefiles(int i, t_struct *st)
 		}
 		if (st->stop == 1)
 		{
-			fd = open(st->files[i],  O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+			fd = open(st->files[i], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
 						S_IRGRP | S_IWGRP | S_IWUSR);
 			close(fd);
 		}
@@ -117,7 +117,7 @@ int			ft_redirection(char *cmd, t_struct *st)
 	char		*tmp;
 
 	tmp = NULL;
-	if (ft_indexuntilfile(cmd, st) == 0)
+	if (ft_indexuntilfile(cmd, st, 0) == 0)
 		return (0);
 	if (st->redirection != 0)
 		is_redirection(cmd, tmp, st);

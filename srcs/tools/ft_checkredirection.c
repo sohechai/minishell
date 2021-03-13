@@ -35,15 +35,11 @@ int			ft_sortredirection(char *cmd, int i, t_struct *st)
 		st->redirection = DOUBLERED;
 	else
 		st->redirection = SIMPLERED;
-	printf("redir = %d\n", st->redirection);
 	return (1);
 }
 
-int			ft_indexuntilfile(char *cmd, t_struct *st)
+int			ft_indexuntilfile(char *cmd, t_struct *st, int i)
 {
-	int		i;
-
-	i = 0;
 	while (cmd[i])
 	{
 		if (cmd[i] == '>')

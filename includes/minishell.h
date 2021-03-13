@@ -125,7 +125,7 @@ void				ft_handlesignal(int signum);
 int					ft_checkvarisok(char *var);
 int					ft_checkvarismissing(char *var, t_struct *st);
 char				*ft_getvar(char *var);
-int					ft_indexuntilfile(char *str, t_struct *st);
+int					ft_indexuntilfile(char *str, t_struct *st, int i);
 int					ft_redirection(char *cmd, t_struct *st);
 int					ft_strlenuntilredir(char *str);
 void				ft_redirectbuiltin(t_struct *st);
@@ -143,6 +143,7 @@ int					ft_openmultiplefiles(int i, t_struct *st);
 char				*redup(char *del, char *ret);
 char				*dup_and_free(char *del, char *src);
 int					ft_exist(t_struct *st, char *pathfile, int exist);
+void				ft_getredirofnewfd(char *files, t_struct *st);
 
 /*
  ** CMD FILES
