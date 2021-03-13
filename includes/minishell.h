@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 16:32:48 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 14:37:14 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ t_struct			*ft_initstruct(void);
 
 void				ft_savelastcmd(int n, t_struct *st);
 char				*ft_subredir(char *src);
+void				ft_getnewfd(char *src, t_struct *st);
+int					ft_subredirr(char *redir);
 int					ft_countredir(char *str);
 void				create_env(t_struct *st);
 void				ft_searchpath(char *path, t_struct *st);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 17:41:05 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 14:38:38 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int			execloop(t_struct *st)
 	{
 		if (st->tab_pipe[n] == 0)
 		{
+			ft_getnewfd(st->tab_arg[n], st);
 			ft_redirection(st->tab_arg[n], st);
 			if (st->redirection == 0)
 				ft_simplecmd(st, n);

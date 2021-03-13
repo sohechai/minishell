@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 14:33:24 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

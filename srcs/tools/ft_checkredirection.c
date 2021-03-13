@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkredirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:26:54 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 16:20:32 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 14:14:34 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ int			ft_lenoffile(char *cmd)
 
 int			ft_sortredirection(char *cmd, int i, t_struct *st)
 {
-	if (cmd[i + 1] == '>')
+	if (cmd[i] == '>')
 		st->redirection = DOUBLERED;
 	else
 		st->redirection = SIMPLERED;
+	printf("redir = %d\n", st->redirection);
 	return (1);
 }
 
@@ -47,6 +48,7 @@ int			ft_indexuntilfile(char *cmd, t_struct *st)
 	{
 		if (cmd[i] == '>')
 		{
+			i++;
 			ft_sortredirection(cmd, i, st);
 			while (cmd[i] == '>')
 				i++;

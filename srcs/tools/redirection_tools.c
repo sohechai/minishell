@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:02:08 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 16:10:29 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 14:55:23 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 		ft_searchpathforredir(tmp, st);
 	if (!st->newfd)
 		st->newfd = dup_and_free(st->newfd, tmp);
+	printf("new = %s\n",st->newfd);
 	st->files = ft_strtokk(st->newfd, " >|");
 	i = ft_openmultiplefiles(i, st);
-	if (ft_countredir(st->newfd) > 0)
+	if (i > 0)
 	{
-		i = ft_countredir(st->newfd);
-		st->newfd = dup_and_free(st->newfd, st->files[i]);
+		//i = ft_countredir(st->newfd);
+		st->newfd = dup_and_free(st->newfd, st->files[i - 1]);
 		if (st->newfd && ft_lenoffile(st->newfd) != -1)
 			if (ft_checkpath(st->newfd, st) == 0)
 				return (0);
@@ -81,13 +82,72 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 	return (1);
 }
 
+void		ft_getredirofnewfd(char *files, t_struct *st)
+{
+	int		len;
+
+	len = ft_strlen(files);
+	if (ft_strchr(files, '<'))
+	{
+		if (!ft_strchr(files, '>'))
+			st->redirection = LEFTRED;
+		st->leftredir = 1;
+	}
+	while (len > 0)
+	{
+		if (files[len] == '>')
+		{
+			len--;
+			if (files[len] == '>')
+				st->redirection = DOUBLERED;
+			else
+				st->redirection = SIMPLERED;
+		}
+		len--;
+	}
+}
+
+void		ft_getnewfd(char *src, t_struct *st)
+{
+	int		i;
+	char	**cmd;
+	char	*newfd;
+
+	i = 0;
+	cmd = ft_strtokk(src, " ");
+	newfd = ft_strdup("");
+	while (cmd[i])
+	{
+		cmd[i] = ft_strjoin(cmd[i], " ");
+		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
+		{
+			newfd = ft_strjoin(newfd, cmd[i]);
+			if (ft_subredirr(cmd[i]) == 0 && cmd[i + 1] != NULL)
+			{
+				newfd = ft_strjoin(newfd, cmd[i + 1]);
+				i +=2;
+			}
+			else
+			{
+				i++;
+				//newfd = ft_strjoin(newfd, cmd[i]);
+			}
+		}
+		else
+			i++;
+	}
+	st->newfd = ft_strdup(newfd);
+}
+
 int			is_redirection(char *cmd, char *tmp, t_struct *st)
 {
 	int		i;
 
 	i = 0;
 	tmp = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
-	st->newfd = ft_strtrim(tmp, " ");
+	// ft_getnewfd(tmp, st);
+	//st->newfd = ft_strtrim(tmp, " ");printf("newfd = %s\n", st->newfd);
+	ft_getredirofnewfd(st->newfd, st);
 	free(tmp);
 	tmp = ft_strdup(st->newfd);
 	if (st->redirection == LEFTRED)
