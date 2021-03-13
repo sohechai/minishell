@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execbuiltin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 12:25:24 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 14:32:20 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 18:04:42 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
