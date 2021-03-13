@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 17:43:17 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/12 12:47:37 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 16:57:08 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int			ft_builtinpwd(t_struct *st)
 	}
 	else
 		ft_printf("getcwd()");
+	ft_delete(&env);
 	ft_comebacktostdout(st);
 	return (g_exitstatus = EXIT_SUCCESS);
 }

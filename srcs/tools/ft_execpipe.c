@@ -6,7 +6,7 @@
 /*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 14:33:59 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/12 12:49:51 by sohechai         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 17:34:56 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 void		ft_checkredir(t_struct *st)
 {
 	char *tmp;
+	char *tmp2;
 
+	ft_getnewfd(st->command[st->index], st);
 	ft_redirection(st->command[st->index], st);
 	if (st->redirection != 0)
 	{
-		tmp = st->command[st->index];
-		st->command[st->index] = ft_substr(tmp, 0,
-				ft_strlenuntilredir(tmp));
+		st->pipecmd = 1;
+		tmp = ft_strdup(st->command[st->index]);
+		ft_delete(&st->command[st->index]);
+		tmp2 = ft_subredir(tmp, st);
+		st->command[st->index] = ft_strdup(tmp2);
+		ft_delete(&tmp2);
 		free(tmp);
 	}
 	st->parsecmd = ft_strtokk(st->command[st->index], " \n\t");

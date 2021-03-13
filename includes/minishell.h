@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:00:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 14:37:14 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 17:15:16 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_struct
 	int				oldstdout;
 	int				stop;
 	int				fdinput;
+	int				pipecmd;
 	pid_t			pid;
 	char			**envp;
 	char			**tab_arg;
@@ -87,7 +88,7 @@ t_struct			*ft_initstruct(void);
 */
 
 void				ft_savelastcmd(int n, t_struct *st);
-char				*ft_subredir(char *src);
+char				*ft_subredir(char *src, t_struct *st);
 void				ft_getnewfd(char *src, t_struct *st);
 int					ft_subredirr(char *redir);
 int					ft_countredir(char *str);

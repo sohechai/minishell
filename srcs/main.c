@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 15:28:31 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 17:24:07 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ int			parseloop(t_struct *st)
 void		ft_parsecmdwithredir(int n, t_struct *st)
 {
 	char *tmp;
+	char *tmp2;
 
 	if (st->stop == 0)
 	{
 		tmp = ft_strdup(st->tab_arg[n]);
-		free(st->tab_arg[n]);
-		st->tab_arg[n] = ft_subredir(tmp);
+		ft_delete(&st->tab_arg[n]);
+		tmp2 = ft_subredir(tmp, st);
+		st->tab_arg[n] = ft_strdup(tmp2);
+		ft_delete(&tmp2);
 		free(tmp);
 		ft_simplecmd(st, n);
 	}

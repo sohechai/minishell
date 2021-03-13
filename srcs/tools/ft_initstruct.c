@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initstruct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
+/*   By: sohechai <sohechai@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:45:23 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 14:33:24 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 17:14:34 by sohechai         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void			ft_initstructnext(t_struct *st)
 {
 	st->i = 0;
 	st->index = 0;
+	st->pipecmd = 0;
 	g_exitstatus = 0;
 	st->redirection = 0;
 	st->oldstdout = 0;
