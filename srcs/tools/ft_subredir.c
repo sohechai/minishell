@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 13:08:29 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 14:33:51 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 15:49:56 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ int			ft_subredirr(char *redir)
 	return (i);
 }
 
+char		*ft_subwithoutspace(char *src)
+{
+	int		i;
+	char	*dest;
+
+	i = 0;
+	while(src[i])
+	{
+		if (src[i] == '>' || src[i] == '<')
+			break ;
+		i++;
+	}
+	dest = ft_substr(src, 0, i);
+	return (dest);
+}
+
 char		*ft_subredir(char *src)
 {
 	int		i;
@@ -34,6 +50,8 @@ char		*ft_subredir(char *src)
 	char	*dest;
 
 	i = 0;
+	if (!ft_strchr(src, ' '))
+		return (ft_subwithoutspace(src));
 	cmd = ft_strtokk(src, " ");
 	dest = ft_strdup("");
 	while (cmd[i])
@@ -42,7 +60,7 @@ char		*ft_subredir(char *src)
 		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
 		{
 			if (ft_subredirr(cmd[i]) == 0 && cmd[i + 1] != NULL)
-				i +=2;
+				i += 2;
 			else
 				i++;
 		}
@@ -52,6 +70,7 @@ char		*ft_subredir(char *src)
 			i++;
 		}
 	}
+	ft_freetab(cmd);
 	dest = ft_strtrim(dest, " ");
 	return (dest);
 }

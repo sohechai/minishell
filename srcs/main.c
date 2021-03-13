@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:29:15 by sohechai          #+#    #+#             */
-/*   Updated: 2021/03/13 14:38:38 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 15:28:31 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		ft_parsecmdwithredir(int n, t_struct *st)
 		tmp = ft_strdup(st->tab_arg[n]);
 		free(st->tab_arg[n]);
 		st->tab_arg[n] = ft_subredir(tmp);
+		printf("st->tab = %s\n", st->tab_arg[n]);
 		free(tmp);
 		ft_simplecmd(st, n);
 	}

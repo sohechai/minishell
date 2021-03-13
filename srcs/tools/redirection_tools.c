@@ -6,7 +6,7 @@
 /*   By: sofiahechaichi <sofiahechaichi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:02:08 by sofiahechai       #+#    #+#             */
-/*   Updated: 2021/03/13 14:55:23 by sofiahechai      ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 15:49:22 by sofiahechai      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	which_redir(t_struct *st, char *tmp, int i)
 	i = ft_openmultiplefiles(i, st);
 	if (i > 0)
 	{
-		//i = ft_countredir(st->newfd);
 		st->newfd = dup_and_free(st->newfd, st->files[i - 1]);
 		if (st->newfd && ft_lenoffile(st->newfd) != -1)
 			if (ft_checkpath(st->newfd, st) == 0)
@@ -109,34 +108,45 @@ void		ft_getredirofnewfd(char *files, t_struct *st)
 
 void		ft_getnewfd(char *src, t_struct *st)
 {
-	int		i;
-	char	**cmd;
-	char	*newfd;
+	int		len;
+	int		length;
+	int		start;
 
-	i = 0;
-	cmd = ft_strtokk(src, " ");
-	newfd = ft_strdup("");
-	while (cmd[i])
+	len = 0;
+	length = strlen(src);
+	start = 0;
+	while (src[len])
 	{
-		cmd[i] = ft_strjoin(cmd[i], " ");
-		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
+		if (src[len] == '>' || src[len] == '<')
 		{
-			newfd = ft_strjoin(newfd, cmd[i]);
-			if (ft_subredirr(cmd[i]) == 0 && cmd[i + 1] != NULL)
+			start = len;
+			break ;
+		}
+		len++;
+	}
+	len = ft_strlen(src);
+	while (len > 0)
+	{
+		if (src[len] == ' ')
+		{
+			len--;
+			if (src[len] == '>' || src[len] == '<')
 			{
-				newfd = ft_strjoin(newfd, cmd[i + 1]);
-				i +=2;
+				len = length;
+				break ;
 			}
 			else
 			{
-				i++;
-				//newfd = ft_strjoin(newfd, cmd[i]);
+				len--;
+				break ;
 			}
 		}
-		else
-			i++;
+		len--;
 	}
-	st->newfd = ft_strdup(newfd);
+	if (len == 0)
+		len = length;
+	ft_delete(&st->newfd);
+	st->newfd = ft_substr(src, start, len);
 }
 
 int			is_redirection(char *cmd, char *tmp, t_struct *st)
@@ -145,8 +155,6 @@ int			is_redirection(char *cmd, char *tmp, t_struct *st)
 
 	i = 0;
 	tmp = ft_strdup(cmd + ft_indexuntilfile(cmd, st));
-	// ft_getnewfd(tmp, st);
-	//st->newfd = ft_strtrim(tmp, " ");printf("newfd = %s\n", st->newfd);
 	ft_getredirofnewfd(st->newfd, st);
 	free(tmp);
 	tmp = ft_strdup(st->newfd);
